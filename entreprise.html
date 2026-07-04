@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  
+
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/styles.css?v=2">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+
+  <style>
+    .soft-shadow { box-shadow: 0 20px 40px -10px rgba(11, 60, 93, 0.06); }
+    .glass-card { background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
+
+    /* Hero background with geometric decoration */
+    .hero-bg {
+      background: linear-gradient(135deg, #00263f 0%, #0b3c5d 50%, #001a2c 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,167,111,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -120px; left: -60px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,203,242,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Why card hover */
+    .why-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 32px 60px -12px rgba(11, 60, 93, 0.14);
+    }
+
+    /* Process line */
+    .process-step { position: relative; }
+    .process-connector {
+      position: absolute;
+      top: 28px;
+      left: calc(50% + 32px);
+      width: calc(100% - 64px);
+      height: 2px;
+      background: linear-gradient(to right, #c9a76f, #e8d5a3);
+    }
+
+    /* CTA banner */
+    .cta-banner {
+      background: linear-gradient(135deg, #c9a76f 0%, #b8935a 60%, #a07840 100%);
+    }
+
+    /* Badge pill */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201,167,111,0.18);
+      border: 1px solid rgba(201,167,111,0.4);
+      color: #c9a76f;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Navbar active link */
+    a[data-nav-page="entreprise.html"] {
+      color: #00263f !important;
+      font-weight: 700;
+      border-bottom: 2px solid #c9a76f;
+      padding-bottom: 2px;
+    }
+
+    /* Smooth animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .fade-up-d1 { animation-delay: 0.1s; }
+    .fade-up-d2 { animation-delay: 0.2s; }
+    .fade-up-d3 { animation-delay: 0.3s; }
+    .fade-up-d4 { animation-delay: 0.4s; }
+    .fade-up-d5 { animation-delay: 0.5s; }
+
+    /* Mobile menu */
+    #mobile-menu { transition: max-height 0.35s ease, opacity 0.35s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased">
+
+  <!-- SPLASH SCREEN LOADER -->
+  <style>
+    #global-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background-color: #00263f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #global-loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .loader-pulse {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-pulse::before, .loader-pulse::after {
+      content: '';
+      position: absolute;
+      border: 3px solid #c9a76f;
+      border-radius: 50%;
+      animation: pulseRipple 2s linear infinite;
+    }
+    .loader-pulse::after {
+      animation-delay: 1s;
+    }
+    .loader-cross {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      background: #c9a76f;
+      clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%);
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    @keyframes pulseRipple {
+      0% { width: 40px; height: 40px; opacity: 1; }
+      100% { width: 120px; height: 120px; opacity: 0; }
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.15); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+      60% { transform: scale(1); }
+    }
+  </style>
+  <div id="global-loader">
+    <div class="loader-pulse">
+      <div class="loader-cross"></div>
+    </div>
+    <div style="margin-top: 30px; color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 2px;">
+      Medijobs Pro
+    </div>
+  </div>
+  <script>
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+        setTimeout(() => { loader.classList.add('hide'); }, 400);
+      }
+    });
+  </script>
+  <!-- END SPLASH SCREEN -->
+
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
+    <nav class="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-lg py-md w-full">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-sm">
+        <a href="index.html" class="font-h2 text-h2 font-bold tracking-tight text-primary" style="font-family:'Manrope',sans-serif;">Medijobs Pro</a>
+      </div>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-xl">
+        <a data-nav-page="index.html"      href="index.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.home">Accueil</a>
+        <a data-nav-page="about.html"      href="about.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.about">À propos</a>
+        <a data-nav-page="candidates.html" href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.candidates">Candidats</a>
+        <a data-nav-page="entreprise.html" href="entreprise.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.business">Entreprise</a>
+        <a data-nav-page="contact.html"    href="contact.html"    class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.contact">Contactez-nous</a>
+      </div>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-md">
+        <!-- Language dropdown (Desktop only) -->
+        <div class="relative hidden md:block">
+          <button id="lang-toggle-btn" class="flex items-center gap-1 font-label-bold text-label-bold text-on-surface-variant border border-outline-variant/50 px-sm py-1 rounded-lg hover:border-secondary transition-all text-sm">
+            <span class="material-symbols-outlined text-[16px]">language</span>
+            <span id="current-lang-label">🇫🇷 FR</span>
+            <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          </button>
+          <div id="lang-menu" class="absolute right-0 mt-2 w-40 bg-white border border-outline-variant/30 rounded-xl shadow-lg overflow-hidden hidden z-50">
+            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="fr" onclick="setLang('fr')">🇫🇷 Français</button>
+            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="de" onclick="setLang('de')">🇩🇪 Deutsch</button>
+            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2 opacity-60" data-lang="ar" onclick="setLang('ar')">🇹🇳 عربي <span class="text-xs text-secondary ml-1">bientôt</span></button>
+          </div>
+        </div>
+        <a href="candidates.html#form" class="bg-secondary text-white px-lg py-sm rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all" data-i18n="nav.apply">Postuler</a>
+
+        <!-- Mobile hamburger -->
+        <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" aria-label="Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-surface/95 backdrop-blur-md border-t border-outline-variant/20 px-4 py-lg flex flex-col gap-md">
+      <a href="index.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.home">Accueil</a>
+      <a href="about.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.about">À propos</a>
+      <a href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.candidates">Candidats</a>
+      <a href="entreprise.html" class="font-label-bold text-label-bold text-primary font-bold py-xs"                      data-i18n="nav.business">Entreprise</a>
+      <a href="contact.html"    class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.contact">Contactez-nous</a>
+
+      <!-- Collapsible Mobile Language Selector -->
+      <div class="py-sm border-t border-outline-variant/20">
+        <button id="mobile-lang-toggle-btn" class="w-full flex items-center justify-between font-label-bold text-on-surface-variant py-sm px-md rounded-lg hover:bg-surface-container transition-all">
+          <span class="flex items-center gap-sm">
+            <span class="material-symbols-outlined text-[18px]">language</span>
+            <span id="mobile-current-lang-label">🇫🇷 FR</span>
+          </span>
+          <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </button>
+        <div id="mobile-lang-menu" class="hidden flex-col gap-sm pl-8 mt-sm">
+          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('fr')">🇫🇷 Français</button>
+          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('en')">🇬🇧 English</button>
+          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary opacity-60" onclick="setLang('ar')">🇹🇳 عربي <span class="text-xs text-secondary ml-1">bientôt</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    
+    
+    
+  </script>
+
+  <main>
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero-bg pt-28 pb-16 px-4 overflow-hidden">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-xl items-center relative z-10">
+
+        <!-- Left: Text Content -->
+        <div class="lg:col-span-7 text-center lg:text-left">
+
+          <!-- Badge -->
+          <div class="fade-up mb-lg flex justify-center lg:justify-start">
+            <span class="badge-pill">
+              <span class="material-symbols-outlined text-[15px]">business_center</span>
+              <span data-i18n="business_page.badge">Solutions Entreprises</span>
+            </span>
+          </div>
+
+          <!-- H1 -->
+          <h1 class="fade-up fade-up-d1 text-white mb-lg" style="font-family:'Manrope',sans-serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:800; line-height:1.1; letter-spacing:-0.02em;" data-i18n="business_page.title">
+            Recrutez les meilleurs<br/>
+            <span style="background: linear-gradient(90deg,#c9a76f,#f0d4a0); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">professionnels de santé</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="fade-up fade-up-d2 text-white/70 text-body-lg max-w-xl mx-auto lg:mx-0 mb-xl" data-i18n="business_page.subtitle">
+            Medijobs Pro accompagne les établissements de santé dans leur recrutement de talents médicaux qualifiés, rapidement et en toute confiance.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="fade-up fade-up-d3 flex flex-col sm:flex-row gap-md justify-center lg:justify-start">
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-secondary text-white px-xl py-md rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all shadow-lg" style="font-size:15px;">
+              <span class="material-symbols-outlined text-[18px]">mail</span>
+              <span data-i18n="business_page.cta_btn">Nous contacter</span>
+            </a>
+            <a href="#why-us" class="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 px-xl py-md rounded-xl font-label-bold text-label-bold hover:bg-white/20 transition-all" style="font-size:15px;">
+              <span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+              <span data-i18n="business_page.hero_discover">Découvrir nos services</span>
+            </a>
+          </div>
+
+          <!-- Stat row -->
+          <div class="fade-up fade-up-d4 mt-xl grid grid-cols-3 gap-md max-w-lg mx-auto lg:mx-0">
+            <div class="text-center">
+              <div class="text-secondary font-bold" style="font-family:'Manrope',sans-serif; font-size:2rem;">500+</div>
+              <div class="text-white/60 text-caption" data-i18n="business_page.stat1">Professionnels placés</div>
+            </div>
+            <div class="text-center border-x border-white/10">
+              <div class="text-secondary font-bold" style="font-family:'Manrope',sans-serif; font-size:2rem;">98%</div>
+              <div class="text-white/60 text-caption" data-i18n="business_page.stat2">Taux de satisfaction</div>
+            </div>
+            <div class="text-center">
+              <div class="text-secondary font-bold" style="font-family:'Manrope',sans-serif; font-size:2rem;">15j</div>
+              <div class="text-white/60 text-caption" data-i18n="business_page.stat3">Délai moyen</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Hero Image -->
+        <div class="lg:col-span-5 fade-up fade-up-d2 flex justify-center lg:justify-end mt-xl lg:mt-0">
+          <div class="relative w-full max-w-sm lg:max-w-full">
+            <!-- Decorative frame -->
+            <div class="absolute -top-3 -right-3 w-full h-full rounded-[28px] border-2 border-secondary/30 z-0"></div>
+            <div class="absolute -bottom-3 -left-3 w-24 h-24 rounded-[20px] bg-secondary/20 z-0 blur-sm"></div>
+            <!-- Image -->
+            <div class="relative z-10 rounded-[24px] overflow-hidden soft-shadow">
+              <img
+                src="media/employer_hero.png"
+                alt="Recrutement médical professionnel"
+                class="w-full h-[340px] lg:h-[420px] object-cover"
+              />
+              <!-- Overlay label -->
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/80 to-transparent p-lg">
+                <div class="flex items-center gap-sm">
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings:'FILL' 1">verified_user</span>
+                  <span class="text-white font-label-bold text-sm">Candidats certifiés & vérifiés</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ WHY US ═══════════════════════ -->
+    <section id="why-us" class="py-section px-4 bg-background">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Section header -->
+        <div class="text-center mb-xxl">
+          <span class="inline-block text-secondary font-label-bold text-caption uppercase tracking-widest mb-sm" data-i18n="business_page.why_label">Pourquoi nous</span>
+          <h2 class="font-h1 text-h1 text-primary mb-md" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.why_heading">Ce qui nous distingue</h2>
+          <p class="text-on-surface-variant max-w-xl mx-auto" data-i18n="business_page.why_sub">Une expertise médicale, un réseau de confiance, et une approche humaine du recrutement.</p>
+        </div>
+
+        <!-- 4-card grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-lg">
+
+          <!-- Card 1 -->
+          <div class="why-card soft-shadow bg-white rounded-2xl p-lg flex flex-col gap-md">
+            <div class="w-12 h-12 rounded-xl bg-primary/8 flex items-center justify-center" style="background:rgba(0,38,63,0.08);">
+              <span class="material-symbols-outlined text-primary text-[26px]" style="font-variation-settings:'FILL' 1;">verified_user</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.why1_title">Candidats vérifiés</h3>
+            <p class="text-on-surface-variant text-body-md flex-1" data-i18n="business_page.why1_text">Chaque candidat est soigneusement vérifié : diplômes, expériences et références contrôlés pour garantir votre tranquillité d'esprit.</p>
+            <div class="h-0.5 w-10 bg-secondary rounded-full"></div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="why-card soft-shadow bg-white rounded-2xl p-lg flex flex-col gap-md">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,38,63,0.08);">
+              <span class="material-symbols-outlined text-primary text-[26px]" style="font-variation-settings:'FILL' 1;">admin_panel_settings</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.why2_title">Conformité réglementaire</h3>
+            <p class="text-on-surface-variant text-body-md flex-1" data-i18n="business_page.why2_text">Nous gérons l'ensemble des démarches administratives et réglementaires pour assurer une intégration sans accroc.</p>
+            <div class="h-0.5 w-10 bg-secondary rounded-full"></div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="why-card soft-shadow bg-white rounded-2xl p-lg flex flex-col gap-md">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,38,63,0.08);">
+              <span class="material-symbols-outlined text-primary text-[26px]" style="font-variation-settings:'FILL' 1;">speed</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.why3_title">Rapidité d'exécution</h3>
+            <p class="text-on-surface-variant text-body-md flex-1" data-i18n="business_page.why3_text">Grâce à notre réseau actif, nous proposons des profils qualifiés en moins de 15 jours ouvrables en moyenne.</p>
+            <div class="h-0.5 w-10 bg-secondary rounded-full"></div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="why-card soft-shadow bg-white rounded-2xl p-lg flex flex-col gap-md">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(0,38,63,0.08);">
+              <span class="material-symbols-outlined text-primary text-[26px]" style="font-variation-settings:'FILL' 1;">support_agent</span>
+            </div>
+            <h3 class="font-h3 text-h3 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.why4_title">Accompagnement dédié</h3>
+            <p class="text-on-surface-variant text-body-md flex-1" data-i18n="business_page.why4_text">Un chargé de compte dédié vous accompagne tout au long du processus, de la définition du besoin à l'intégration.</p>
+            <div class="h-0.5 w-10 bg-secondary rounded-full"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ QUALITY & COMPLIANCE ═══════════════════════ -->
+    <section class="py-section px-4 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-xxl items-center">
+
+          <!-- Image side -->
+          <div class="relative order-2 lg:order-1">
+            <!-- Decorative frame -->
+            <div class="absolute -top-4 -left-4 w-full h-full rounded-[28px] border-2 border-secondary/20 z-0"></div>
+            <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-secondary/10 rounded-[20px] z-0 blur-sm"></div>
+            <div class="relative z-10 rounded-[24px] overflow-hidden soft-shadow">
+              <img
+                src="media/clinical_team.png"
+                alt="Équipe clinique professionnelle"
+                class="w-full h-[420px] object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6">
+                <div class="glass-card px-lg py-sm rounded-2xl inline-flex items-center gap-sm">
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+                  <span class="font-label-bold text-primary text-sm">Standards all German clinics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text side -->
+          <div class="order-1 lg:order-2">
+            <span class="inline-block text-secondary font-label-bold text-caption uppercase tracking-widest mb-sm">Qualité &amp; Conformité</span>
+            <h2 class="font-h1 text-h1 text-primary mb-lg" style="font-family:'Manrope',sans-serif;">Des candidats prêts pour les exigences allemandes</h2>
+            <p class="text-on-surface-variant text-body-lg mb-xl">Chaque professionnel de santé que nous présentons a été rigoureusement évalué pour répondre aux normes strictes des établissements de santé allemands.</p>
+
+            <div class="space-y-lg">
+
+              <!-- Item 1 -->
+              <div class="flex items-start gap-md">
+                <div class="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-secondary text-[22px]" style="font-variation-settings:'FILL' 1">translate</span>
+                </div>
+                <div>
+                  <h3 class="font-h3 text-h3 text-primary mb-xs" style="font-family:'Manrope',sans-serif;">Maîtrise linguistique</h3>
+                  <p class="text-on-surface-variant text-body-md">Tous nos candidats atteignent le niveau B2/C1 en allemand avant leur départ, garantissant une communication fluide avec les patients et les équipes.</p>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="flex items-start gap-md">
+                <div class="w-11 h-11 rounded-xl bg-primary/8 flex items-center justify-center shrink-0" style="background:rgba(0,38,63,0.08);">
+                  <span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+                </div>
+                <div>
+                  <h3 class="font-h3 text-h3 text-primary mb-xs" style="font-family:'Manrope',sans-serif;">Diplômes reconnus</h3>
+                  <p class="text-on-surface-variant text-body-md">Nous gérons l’équivalence complète des diplômes médicaux et para-médicaux en accord avec les autorités sanitaires allemandes (Approbation).</p>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="flex items-start gap-md">
+                <div class="w-11 h-11 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-secondary text-[22px]" style="font-variation-settings:'FILL' 1">rocket_launch</span>
+                </div>
+                <div>
+                  <h3 class="font-h3 text-h3 text-primary mb-xs" style="font-family:'Manrope',sans-serif;">Onboarding accéléré</h3>
+                  <p class="text-on-surface-variant text-body-md">Un accompagnement complet : logement, paperasse administrative, premiers jours en établissement. Vos nouvelles recrues arrivent prêtes à travailler.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mt-xl">
+              <a href="contact.html" class="inline-flex items-center gap-2 bg-primary text-white px-xl py-md rounded-xl font-label-bold hover:scale-105 active:scale-95 transition-all shadow-lg" style="font-size:15px;">
+                <span class="material-symbols-outlined text-[18px]">handshake</span>
+                Discuter de vos besoins
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ PROCESS ═══════════════════════ -->
+    <section class="py-section px-4 bg-surface-container-low">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Section header -->
+        <div class="text-center mb-xxl">
+          <span class="inline-block text-secondary font-label-bold text-caption uppercase tracking-widest mb-sm" data-i18n="business_page.process_label">Notre méthode</span>
+          <h2 class="font-h1 text-h1 text-primary mb-md" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.process_heading">Le processus en 3 étapes</h2>
+          <p class="text-on-surface-variant max-w-xl mx-auto" data-i18n="business_page.process_sub">Un parcours clair, efficace et transparent pour trouver le profil idéal.</p>
+        </div>
+
+        <!-- Steps — horizontal with connector -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-xl relative">
+
+          <!-- Step 1 -->
+          <div class="process-step flex flex-col items-center text-center">
+            <!-- Connector line (only on md+) -->
+            <div class="hidden md:block process-connector"></div>
+
+            <!-- Icon circle -->
+            <div class="relative z-10 w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg mb-lg">
+              <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1;">search</span>
+            </div>
+
+            <!-- Step number badge -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 md:hidden">
+              <span class="bg-secondary text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">1</span>
+            </div>
+
+            <div class="bg-white rounded-2xl p-lg w-full soft-shadow">
+              <div class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-secondary text-white text-xs font-bold mb-md">1</div>
+              <h3 class="font-h3 text-h3 text-primary mb-sm" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.process_step1">Analyse du besoin</h3>
+              <p class="text-on-surface-variant text-body-md" data-i18n="business_page.process_step1_text">Nous cernons précisément vos besoins : poste, compétences, culture d'entreprise et délais pour définir le profil idéal.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="process-step flex flex-col items-center text-center">
+            <div class="hidden md:block process-connector"></div>
+            <div class="relative z-10 w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-lg mb-lg">
+              <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1;">group</span>
+            </div>
+            <div class="bg-white rounded-2xl p-lg w-full soft-shadow">
+              <div class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-secondary text-white text-xs font-bold mb-md">2</div>
+              <h3 class="font-h3 text-h3 text-primary mb-sm" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.process_step2">Sélection des profils</h3>
+              <p class="text-on-surface-variant text-body-md" data-i18n="business_page.process_step2_text">Notre équipe présélectionne les candidats les mieux adaptés parmi notre vivier de professionnels de santé vérifiés.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="process-step flex flex-col items-center text-center">
+            <div class="relative z-10 w-16 h-16 rounded-full bg-secondary flex items-center justify-center shadow-lg mb-lg">
+              <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1;">handshake</span>
+            </div>
+            <div class="bg-white rounded-2xl p-lg w-full soft-shadow">
+              <div class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary text-white text-xs font-bold mb-md">3</div>
+              <h3 class="font-h3 text-h3 text-primary mb-sm" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.process_step3">Intégration & suivi</h3>
+              <p class="text-on-surface-variant text-body-md" data-i18n="business_page.process_step3_text">Nous facilitons l'intégration et assurons un suivi post-placement pour garantir une collaboration durable et réussie.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ TESTIMONIALS (bonus) ═══════════════════════ -->
+    <section class="py-section px-4 bg-background">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-xxl">
+          <span class="inline-block text-secondary font-label-bold text-caption uppercase tracking-widest mb-sm" data-i18n="business_page.testimonials_label">Témoignages</span>
+          <h2 class="font-h1 text-h1 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="business_page.testimonials_heading">Ce que disent nos clients</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+
+          <div class="glass-card rounded-2xl p-lg">
+            <div class="flex gap-xs mb-md">
+              <span class="text-secondary text-[18px]">★★★★★</span>
+            </div>
+            <p class="text-on-surface-variant mb-lg italic" data-i18n="business_page.testimonial1_text">"Medijobs Pro nous a permis de recruter un médecin généraliste en moins de 3 semaines. Un service exceptionnel et des candidats de qualité."</p>
+            <div class="flex items-center gap-md">
+              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">DR</div>
+              <div>
+                <div class="font-label-bold text-on-surface" data-i18n="business_page.testimonial1_name">Dr. Renaud</div>
+                <div class="text-caption text-on-surface-variant" data-i18n="business_page.testimonial1_role">Directeur médical, Clinique Lyon</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-lg">
+            <div class="flex gap-xs mb-md">
+              <span class="text-secondary text-[18px]">★★★★★</span>
+            </div>
+            <p class="text-on-surface-variant mb-lg italic" data-i18n="business_page.testimonial2_text">"Très réactifs et professionnels. Nous avons trouvé trois infirmières spécialisées en temps record. Je recommande vivement."</p>
+            <div class="flex items-center gap-md">
+              <div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-bold">SM</div>
+              <div>
+                <div class="font-label-bold text-on-surface" data-i18n="business_page.testimonial2_name">Sophie M.</div>
+                <div class="text-caption text-on-surface-variant" data-i18n="business_page.testimonial2_role">RH, Hôpital Privé Marseille</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl p-lg">
+            <div class="flex gap-xs mb-md">
+              <span class="text-secondary text-[18px]">★★★★★</span>
+            </div>
+            <p class="text-on-surface-variant mb-lg italic" data-i18n="business_page.testimonial3_text">"Un accompagnement sur-mesure, une vraie compréhension de nos besoins. Le meilleur partenaire recrutement que nous ayons eu."</p>
+            <div class="flex items-center gap-md">
+              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">PL</div>
+              <div>
+                <div class="font-label-bold text-on-surface" data-i18n="business_page.testimonial3_name">P. Lambert</div>
+                <div class="text-caption text-on-surface-variant" data-i18n="business_page.testimonial3_role">Directeur général, Centre Médical Paris</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════ CTA BANNER ═══════════════════════ -->
+    <section class="py-section px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="cta-banner rounded-3xl px-xl py-xxl flex flex-col md:flex-row items-center justify-between gap-xl relative overflow-hidden">
+
+          <!-- Decorative circle -->
+          <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 pointer-events-none"></div>
+          <div class="absolute -bottom-10 -left-10 w-48 h-48 rounded-full bg-white/8 pointer-events-none"></div>
+
+          <div class="relative z-10 text-center md:text-left max-w-xl">
+            <h2 class="font-h1 text-white mb-md" style="font-family:'Manrope',sans-serif; font-size:clamp(1.5rem,3vw,2.2rem); font-weight:800;" data-i18n="business_page.cta_title">
+              Prêt à renforcer votre équipe médicale ?
+            </h2>
+            <p class="text-white/80 text-body-lg" data-i18n="business_page.cta_subtitle">
+              Contactez-nous dès aujourd'hui et recevez une sélection de profils qualifiés sous 48h.
+            </p>
+          </div>
+
+          <div class="relative z-10 flex flex-col sm:flex-row gap-md shrink-0">
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-primary px-xl py-md rounded-xl font-label-bold hover:scale-105 active:scale-95 transition-all shadow-lg" style="font-size:15px;">
+              <span class="material-symbols-outlined text-[18px]">send</span>
+              <span data-i18n="business_page.cta_btn">Nous contacter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="w-full rounded-t-3xl bg-surface-container-low border-t border-outline-variant/30">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
+      <div class="max-w-sm">
+        <div class="font-h3 text-h3 font-bold text-primary mb-md" style="font-family:'Manrope',sans-serif;">Medijobs Pro</div>
+        <p class="text-on-surface-variant font-body-md mb-lg" data-i18n="footer.tagline">Votre passerelle vers une carrière médicale d'excellence.</p>
+        <div class="flex gap-sm">
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[18px]">link</span>
+          </a>
+          <a href="#" aria-label="Email" class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[18px]">mail</span>
+          </a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-xl">
+        <div class="flex flex-col gap-sm">
+          <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.links_title">Liens Rapides</h4>
+          <a href="index.html"      class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.home">Accueil</a>
+          <a href="about.html"      class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.about">À propos</a>
+          <a href="candidates.html" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.candidates">Candidats</a>
+          <a href="contact.html"    class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.contact">Contact</a>
+        </div>
+        <div class="flex flex-col gap-sm">
+          <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.legal_title">Légal</h4>
+          <a href="#" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="footer.link_privacy">Mentions Légales</a>
+          <a href="#" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="footer.link_terms">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center border-t border-outline-variant/20 pt-lg">
+      <p class="font-body-md text-on-surface-variant" data-i18n="footer.copyright">© 2025 Medijobs Pro. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+  <script>
+    
+
+    
+
+    // Intersection observer for scroll animations
+    const observerOpts = { threshold: 0.15 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOpts);
+
+    document.querySelectorAll('.why-card, .process-step > div').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+  <script src="js/i18n.js?v=2"></script>
+  <script src="js/lang.js?v=2"></script>
+
+</body>
+</html>
