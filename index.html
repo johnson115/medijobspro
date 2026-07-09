@@ -1,649 +1,941 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="light" lang="fr">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Medijobs Pro â€” Recrutement Médical en Allemagne</title>
+<title>Medijobs Pro – Recrutement Médical en Allemagne</title>
 <meta name="description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne. Infirmiers, techniciens, accompagnement complet."/>
-<meta property="og:title" content="Medijobs Pro â€” Recrutement Médical en Allemagne" />
-<meta property="og:description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne. Infirmiers, techniciens, accompagnement complet." />
+<meta property="og:title" content="Medijobs Pro – Recrutement Médical en Allemagne" />
+<meta property="og:description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://medi-jobspro.com/media/employer_hero.png" />
 <meta property="og:site_name" content="Medijobs Pro" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Medijobs Pro â€” Recrutement Médical en Allemagne" />
-<meta name="twitter:description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne. Infirmiers, techniciens, accompagnement complet." />
-
-
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="css/styles.css?v=2">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .soft-shadow {
-            box-shadow: 0 20px 40px -10px rgba(11, 60, 93, 0.06);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .read-more-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #c9a76f;
-            transition: gap 0.2s ease;
-        }
-        .read-more-link:hover { gap: 10px; }
-        .scrollbar-none::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-none {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+/* ============================================
+   GLOBAL RESETS & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background: #F9F9FC;
+  color: #1A1C1E;
+}
+h1, h2, h3, h4, h5, h6,
+.font-display, .font-h1, .font-h2, .font-h3,
+[class*="font-h"], [class*="font-display"] {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  letter-spacing: -0.025em;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+.soft-shadow { box-shadow: 0 20px 40px -10px rgba(11,60,93,0.10); }
+.glass-card {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.read-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #c9a76f;
+  transition: gap 0.2s ease;
+  letter-spacing: 0.01em;
+}
+.read-more-link:hover { gap: 12px; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ============================================
+   LOADER
+   ============================================ */
+#global-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #00263f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), visibility 0.6s;
+}
+#global-loader.hide { opacity: 0; visibility: hidden; }
+.loader-pulse {
+  position: relative;
+  width: 80px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+}
+.loader-pulse::before, .loader-pulse::after {
+  content: '';
+  position: absolute;
+  border: 3px solid #c9a76f;
+  border-radius: 50%;
+  animation: pulseRipple 2s linear infinite;
+}
+.loader-pulse::after { animation-delay: 1s; }
+.loader-cross {
+  width: 30px; height: 30px;
+  position: relative;
+  background: #c9a76f;
+  clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+@keyframes pulseRipple {
+  0% { width: 40px; height: 40px; opacity: 1; }
+  100% { width: 120px; height: 120px; opacity: 0; }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  60% { transform: scale(1); }
+}
+
+/* ============================================
+   SECTION LABEL (Svertex pill)
+   ============================================ */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A76F;
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #C9A76F;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero-section {
+  background: #00263F;
+  position: relative;
+  overflow: hidden;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+}
+.hero-bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-bg-glow-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,167,111,0.10) 0%, transparent 70%);
+  top: -150px; right: -100px;
+}
+.hero-bg-glow-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,167,111,0.06) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 9999px;
+  padding: 6px 16px;
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #C9A76F;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+.hero-image-frame {
+  position: relative;
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 2px solid rgba(201,167,111,0.35);
+}
+.hero-image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, rgba(0,38,63,0.5) 100%);
+}
+.hero-float-card {
+  position: absolute;
+  bottom: -12px;
+  left: -20px;
+  z-index: 10;
+}
+.hero-corner-accent {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(201,167,111,0.25);
+  filter: blur(24px);
+}
+
+/* ============================================
+   STATS STRIP
+   ============================================ */
+.stats-strip {
+  background: #0b3c5d;
+  padding: 28px 0;
+  border-top: 1px solid rgba(201,167,111,0.15);
+  border-bottom: 1px solid rgba(201,167,111,0.1);
+}
+.stat-number {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #C9A76F;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  margin-top: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.stat-sep {
+  width: 1px; height: 44px;
+  background: rgba(201,167,111,0.2);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   NUMBERED BENEFIT CARDS (Svertex dark style)
+   ============================================ */
+.benefit-num-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 28px 24px;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}
+.benefit-num-card:hover {
+  background: rgba(201,167,111,0.08);
+  border-color: rgba(201,167,111,0.3);
+  transform: translateY(-4px);
+}
+.benefit-arrow-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(201,167,111,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.benefit-arrow-btn .material-symbols-outlined {
+  color: #C9A76F;
+  font-size: 16px;
+}
+
+/* ============================================
+   PROCESS STEPS (modern horizontal)
+   ============================================ */
+.process-step-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.process-step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #00263F;
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.process-step-num:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 8px rgba(201,167,111,0.15);
+}
+.process-step-num.gold {
+  background: #C9A76F;
+}
+.process-icon-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid rgba(201,167,111,0.5);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 24px rgba(0,38,63,0.1);
+  transition: transform 0.3s ease;
+}
+.process-step-wrap:hover .process-icon-circle { transform: scale(1.06); }
+.process-connector {
+  position: absolute;
+  top: 36px;
+  left: calc(50% + 36px);
+  right: calc(-50% + 36px);
+  height: 2px;
+  background: linear-gradient(to right, #C9A76F, rgba(0,38,63,0.15));
+  z-index: 1;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about-image-wrap {
+  position: relative;
+  border-radius: 2.5rem;
+  overflow: hidden;
+}
+.about-accent-blob {
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* ============================================
+   TESTIMONIAL CARDS
+   ============================================ */
+.testimonial-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 32px;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.testimonial-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(201,167,111,0.3);
+  transform: translateY(-4px);
+}
+
+/* ============================================
+   CTA SECTION — SVERTEX STYLE
+   Light background + large VISIBLE gold bubbles
+   ============================================ */
+.cta-outer {
+  background: #FBF7F0;
+  position: relative;
+  overflow: hidden;
+}
+/* Large visible gold circles — like Svertex's teal circles */
+.cta-circle-1 {
+  position: absolute;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: #C9A76F;
+  opacity: 0.28;
+  top: -120px; right: -80px;
+  pointer-events: none;
+}
+.cta-circle-2 {
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: #C9A76F;
+  opacity: 0.16;
+  top: 20px; right: 220px;
+  pointer-events: none;
+}
+.cta-circle-3 {
+  position: absolute;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,167,111,0.4);
+  bottom: 30px; left: -40px;
+  pointer-events: none;
+}
+.cta-circle-4 {
+  position: absolute;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(201,167,111,0.18);
+  bottom: 60px; left: 60px;
+  pointer-events: none;
+}
+.cta-info-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px;
+  box-shadow: 0 24px 64px -16px rgba(0,38,63,0.14);
+  border: 1px solid rgba(201,167,111,0.2);
+}
+.cta-big-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 64px;
+  font-weight: 800;
+  color: #C9A76F;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 4px;
+}
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #00263F;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(0,38,63,0.25);
+  text-decoration: none;
+}
+.cta-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,38,63,0.3); }
+.cta-btn-primary:active { transform: scale(0.97); }
+.cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #00263F;
+  border: 2px solid #00263F;
+  padding: 13px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.cta-btn-secondary:hover { background: #00263F; color: #fff; }
+.trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #42474E;
+}
+.trust-chip .material-symbols-outlined { color: #C9A76F; font-size: 16px; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer-link {
+  color: #42474E;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 14px;
+}
+.footer-link:hover { color: #C9A76F; }
+
+/* ============================================
+   CAROUSEL CARDS
+   ============================================ */
+.gallery-card {
+  background: #fff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(194,199,206,0.2);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.gallery-card:hover { transform: translateY(-8px); }
+</style>
 </head>
 <body class="bg-background text-on-surface font-body-md overflow-x-hidden">
 
-  <!-- SPLASH SCREEN LOADER -->
-  <style>
-    #global-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background-color: #00263f;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #global-loader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .loader-pulse {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .loader-pulse::before, .loader-pulse::after {
-      content: '';
-      position: absolute;
-      border: 3px solid #c9a76f;
-      border-radius: 50%;
-      animation: pulseRipple 2s linear infinite;
-    }
-    .loader-pulse::after {
-      animation-delay: 1s;
-    }
-    .loader-cross {
-      width: 30px;
-      height: 30px;
-      position: relative;
-      background: #c9a76f;
-      clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%);
-      animation: heartbeat 1.5s ease-in-out infinite;
-    }
-    @keyframes pulseRipple {
-      0% { width: 40px; height: 40px; opacity: 1; }
-      100% { width: 120px; height: 120px; opacity: 0; }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      15% { transform: scale(1.15); }
-      30% { transform: scale(1); }
-      45% { transform: scale(1.15); }
-      60% { transform: scale(1); }
-    }
-  </style>
-  <div id="global-loader">
-    <div class="loader-pulse">
-      <div class="loader-cross"></div>
+<!-- SPLASH SCREEN LOADER -->
+<div id="global-loader">
+  <div class="loader-pulse">
+    <div class="loader-cross"></div>
+  </div>
+  <div style="margin-top:30px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:2px;">Medijobs Pro</div>
+</div>
+<script>
+  window.addEventListener('load', function() {
+    const loader = document.getElementById('global-loader');
+    if (loader) setTimeout(() => loader.classList.add('hide'), 400);
+  });
+</script>
+
+<!-- ============ NAVBAR ============ -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-sm" style="border-bottom:1px solid rgba(194,199,206,0.2);">
+  <nav class="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-lg py-md w-full">
+    <div class="flex items-center gap-sm">
+      <span class="font-h2 text-h2 font-bold tracking-tight text-primary" style="font-family:'Plus Jakarta Sans',sans-serif;">Medijobs Pro</span>
     </div>
-    <div style="margin-top: 30px; color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 2px;">
-      Medijobs Pro
+    <div class="hidden md:flex items-center gap-xl">
+      <a data-nav-page="index.html" href="index.html" class="font-label-bold text-label-bold text-secondary border-b-2 border-secondary pb-1 transition-colors text-sm font-semibold" data-i18n="nav.home">Accueil</a>
+      <a data-nav-page="about.html" href="about.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.about">À propos</a>
+      <a data-nav-page="candidates.html" href="candidates.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.candidates">Candidats</a>
+      <a data-nav-page="entreprise.html" href="entreprise.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.business">Entreprise</a>
+      <a data-nav-page="contact.html" href="contact.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.contact">Contactez-nous</a>
+    </div>
+    <div class="flex items-center gap-md">
+      <!-- Language Toggle -->
+      <div class="relative hidden md:block">
+        <button id="lang-toggle-btn" class="flex items-center gap-1 font-label-bold text-label-bold text-on-surface-variant border border-outline-variant/50 px-sm py-1 rounded-lg hover:border-secondary transition-all text-sm">
+          <span class="material-symbols-outlined text-[16px]">language</span>
+          <span id="current-lang-label">FR</span>
+          <span class="material-symbols-outlined text-[14px]">expand_more</span>
+        </button>
+        <div id="lang-menu" class="absolute right-0 mt-2 w-44 bg-white border border-outline-variant/30 rounded-xl shadow-lg overflow-hidden hidden z-50">
+          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="fr" onclick="setLang('fr')">Français</button>
+          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="en" onclick="setLang('en')">English</button>
+          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="de" onclick="setLang('de')">Deutsch</button>
+          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2 opacity-60" data-lang="ar" onclick="setLang('ar')">العربية <span class="text-xs text-secondary ml-1">bientôt</span></button>
+        </div>
+      </div>
+      <a href="candidates.html#form" class="bg-secondary text-white px-lg py-sm rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all text-center text-sm" data-i18n="nav.apply">Postuler</a>
+      <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-surface-container transition-colors" aria-label="Menu">
+        <span class="material-symbols-outlined text-primary">menu</span>
+      </button>
+    </div>
+  </nav>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden bg-surface/95 backdrop-blur-md border-t border-outline-variant/20 px-4 py-lg flex flex-col gap-md">
+    <a href="index.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.home">Accueil</a>
+    <a href="about.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.about">À propos</a>
+    <a href="candidates.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.candidates">Candidats</a>
+    <a href="entreprise.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.business">Entreprise</a>
+    <a href="contact.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.contact">Contactez-nous</a>
+    <div class="py-sm border-t border-outline-variant/20">
+      <button id="mobile-lang-toggle-btn" class="w-full flex items-center justify-between font-label-bold text-on-surface-variant py-sm px-md rounded-lg hover:bg-surface-container transition-all">
+        <span class="flex items-center gap-sm"><span class="material-symbols-outlined text-[18px]">language</span><span id="mobile-current-lang-label">FR</span></span>
+        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+      </button>
+      <div id="mobile-lang-menu" class="hidden flex-col gap-sm pl-8 mt-sm">
+        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('fr')">Français</button>
+        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('en')">English</button>
+        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('de')">Deutsch</button>
+        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary opacity-60" onclick="setLang('ar')">العربية</button>
+      </div>
     </div>
   </div>
-  <script>
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('global-loader');
-      if (loader) {
-        setTimeout(() => { loader.classList.add('hide'); }, 400);
-      }
-    });
-  </script>
-  <!-- END SPLASH SCREEN -->
-
-
-<!-- TopAppBar -->
-<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
-<nav class="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-lg py-md w-full">
-<div class="flex items-center gap-sm">
-  <span class="font-h2 text-h2 font-bold tracking-tight text-primary">Medijobs Pro</span>
-</div>
-<div class="hidden md:flex items-center gap-xl">
-  <a data-nav-page="index.html" href="index.html" class="font-label-bold text-label-bold text-secondary border-b-2 border-secondary pb-1 transition-colors" data-i18n="nav.home">Accueil</a>
-  <a data-nav-page="about.html" href="about.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.about">Ã€ propos</a>
-  <a data-nav-page="candidates.html" href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.candidates">Candidats</a>
-  <a data-nav-page="entreprise.html" href="entreprise.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.business">Entreprise</a>
-  <a data-nav-page="contact.html" href="contact.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.contact">Contactez-nous</a>
-</div>
-<div class="flex items-center gap-md">
-  <!-- Language Toggle (Desktop only) -->
-  <div class="relative hidden md:block">
-    <button id="lang-toggle-btn" class="flex items-center gap-1 font-label-bold text-label-bold text-on-surface-variant border border-outline-variant/50 px-sm py-1 rounded-lg hover:border-secondary transition-all text-sm">
-      <span class="material-symbols-outlined text-[16px]">language</span>
-      <span id="current-lang-label">FR</span>
-      <span class="material-symbols-outlined text-[14px]">expand_more</span>
-    </button>
-    <div id="lang-menu" class="absolute right-0 mt-2 w-44 bg-white border border-outline-variant/30 rounded-xl shadow-lg overflow-hidden hidden z-50">
-      <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="fr" onclick="setLang('fr')"> Francais</button>
-      <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="en" onclick="setLang('en')"> English</button>
-      <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="de" onclick="setLang('de')"> Deutsch</button>
-      <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2 opacity-60" data-lang="ar" onclick="setLang('ar')">العريية <span class="text-xs text-secondary ml-1">bientôt</span></button>
-    </div>
-  </div>
-  <a href="candidates.html#form" class="bg-secondary text-on-secondary px-lg py-sm rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all text-center" data-i18n="nav.apply">Postuler</a>
-  <!-- Mobile hamburger -->
-  <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-surface-container transition-colors" aria-label="Menu">
-    <span class="material-symbols-outlined text-primary">menu</span>
-  </button>
-</div>
-</nav>
-
-<!-- Mobile menu -->
-<div id="mobile-menu" class="md:hidden hidden bg-surface/95 backdrop-blur-md border-t border-outline-variant/20 px-4 py-lg flex flex-col gap-md">
-  <a href="index.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.home">Accueil</a>
-  <a href="about.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.about">A propos</a>
-  <a href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.candidates">Candidats</a>
-  <a href="entreprise.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.business">Entreprise</a>
-  <a href="contact.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.contact">Contactez-nous</a>
-  
-  <!-- Collapsible Mobile Language Selector -->
-  <div class="py-sm border-t border-outline-variant/20">
-    <button id="mobile-lang-toggle-btn" class="w-full flex items-center justify-between font-label-bold text-on-surface-variant py-sm px-md rounded-lg hover:bg-surface-container transition-all">
-      <span class="flex items-center gap-sm">
-        <span class="material-symbols-outlined text-[18px]">language</span>
-        <span id="mobile-current-lang-label">FR</span>
-      </span>
-      <span class="material-symbols-outlined text-[18px]">expand_more</span>
-    </button>
-    <div id="mobile-lang-menu" class="hidden flex-col gap-sm pl-8 mt-sm">
-      <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('fr')">Français</button>
-      <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('en')">English</button>
-      <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('de')">Deutsch</button>
-      <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary opacity-60" onclick="setLang('ar')">العربية <span class="text-xs text-secondary ml-1">bientôt</span></button>
-    </div>
-  </div>
-</div>
 </header>
 
-<!-- Hero Section -->
-<section class="relative pt-32 pb-xl md:pb-xxl px-4 md:px-lg overflow-hidden">
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
-<div class="z-10 text-center md:text-left flex flex-col items-center md:items-start">
-<span class="inline-block bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-bold text-caption mb-md uppercase tracking-wider" data-i18n="hero.badge">Opportunités en Allemagne</span>
-<h1 class="font-display text-[36px] md:text-display text-primary mb-lg max-w-xl leading-tight" data-i18n="hero.title">Travaillez comme infirmier en Allemagne avec un accompagnement complet</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-lg" data-i18n="hero.subtitle">
-                    Débloquez votre potentiel professionnel. Nous vous offrons des postes stables, bien rémunérés et une intégration sereine dans le systeme de santé allemand.
-                </p>
-<div class="flex flex-wrap justify-center md:justify-start gap-md">
-<a href="candidates.html#form" class="bg-primary text-on-primary px-xl md:px-xxl py-md rounded-xl font-label-bold text-body-md hover:scale-105 transition-all shadow-lg" data-i18n="hero.cta1">Postuler maintenant</a>
-<a href="candidates.html#process" class="border-2 border-secondary text-secondary px-xl md:px-xxl py-md rounded-xl font-label-bold text-body-md hover:bg-secondary/5 transition-all" data-i18n="hero.cta2">Découvrir le processus</a>
-</div>
-</div>
-<div class="relative">
-<div class="relative rounded-[2rem] overflow-hidden soft-shadow aspect-square">
-<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9lFSHe4eUbL7RZMa1FLRsGuY28rVHBmkEUvqyasZa2qih0d1YBLQhE2q2qQeVD7Oz1PW0HU_fwMZ6l7I3xTVlO1DmmosbsR2_Br_Eh3jhZq5sjnfkTR-ccFSW6ns7_PrMF6_GU8zD1ri4pBunJtKKa0FLQIaOfGfLAS_eaj36ulBj3BTrDDOpXSlyDGxH2zxbfFi82JfhciJvQdiQIV1FrDtP5-B_9c0Vuzk9EgM3sEIm4GSUAp4_v2mHjrg7akJ3vEnAEJjUJSZF" alt="Infirmier professionnel en Allemagne"/>
-</div>
-<!-- Floating Stats -->
-<div class="absolute -bottom-8 -left-8 glass-card p-lg rounded-2xl soft-shadow hidden md:block">
-<div class="flex items-center gap-md">
-<div class="bg-secondary-container p-sm rounded-lg text-on-secondary-container">
-<span class="material-symbols-outlined">groups</span>
-</div>
-<div>
-<div class="font-h2 text-h2 text-primary">+500</div>
-<div class="text-caption font-label-bold text-on-surface-variant" data-i18n="hero.stat1">Candidats placés</div>
-</div>
-</div>
-</div>
-<div class="absolute -top-8 -right-8 glass-card p-lg rounded-2xl soft-shadow hidden md:block">
-<div class="flex items-center gap-md">
-<div class="bg-tertiary-fixed p-sm rounded-lg text-on-tertiary-fixed">
-<span class="material-symbols-outlined">verified_user</span>
-</div>
-<div>
-<div class="font-h3 text-h3 text-primary">+50</div>
-<div class="text-caption font-label-bold text-on-surface-variant" data-i18n="hero.stat2">Partenaires</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
+<!-- ============ HERO — Dark navy, Svertex-inspired ============ -->
+<section class="hero-section pt-20">
+  <div class="hero-bg-glow hero-bg-glow-1"></div>
+  <div class="hero-bg-glow hero-bg-glow-2"></div>
 
-<!-- Stats Bar (Mobile) -->
-<section class="py-lg bg-surface-container-low md:hidden">
-<div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-xl text-center">
-<div>
-<div class="font-h2 text-h2 text-primary">+500</div>
-<div class="text-label-bold text-on-surface-variant" data-i18n="hero.stat1">Candidats</div>
-</div>
-<div>
-<div class="font-h2 text-h2 text-primary">+50</div>
-<div class="text-label-bold text-on-surface-variant" data-i18n="hero.stat2">Partenaires</div>
-</div>
-</div>
-</section>
+  <div class="max-w-7xl mx-auto px-4 md:px-lg w-full py-16 md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 
-<!-- Benefits Section -->
-<section class="py-xl md:py-section px-4 md:px-lg bg-white">
-<div class="max-w-7xl mx-auto text-center mb-xl md:mb-xxl">
-<h2 class="font-h1 text-3xl md:text-h1 text-primary mb-md" data-i18n="benefits.title">Pourquoi travailler en Allemagne?</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto" data-i18n="benefits.subtitle">Le systeme de santé allemand offre des conditions de travail et des perspectives d'avenir parmi les meilleures au monde.</p>
-</div>
-<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
-<div class="group p-lg rounded-[20px] bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:translate-y-[-8px] transition-all duration-300">
-<div class="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center mb-lg group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">payments</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="benefits.card1_title">Salaire attractif</h3>
-<p class="text-on-surface-variant" data-i18n="benefits.card1_text">Une rémunération compétitive des le premier jour, avec des avantages sociaux complets.</p>
-</div>
-<div class="group p-lg rounded-[20px] bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:translate-y-[-8px] transition-all duration-300">
-<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center mb-lg group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">medical_services</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="benefits.card2_title">Forte demande</h3>
-<p class="text-on-surface-variant" data-i18n="benefits.card2_text">Le secteur médical allemand recherche activement des talents qualifiés comme vous.</p>
-</div>
-<div class="group p-lg rounded-[20px] bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:translate-y-[-8px] transition-all duration-300">
-<div class="w-12 h-12 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-xl flex items-center justify-center mb-lg group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">trending_up</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="benefits.card3_title">Ã‰volution</h3>
-<p class="text-on-surface-variant" data-i18n="benefits.card3_text">Accédez Ã  des formations continues et des opportunités de spécialisation rapide.</p>
-</div>
-<div class="group p-lg rounded-[20px] bg-surface-container-lowest border border-outline-variant/30 soft-shadow hover:translate-y-[-8px] transition-all duration-300">
-<div class="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center mb-lg group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">description</span>
-</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="benefits.card4_title">Accompagnement</h3>
-<p class="text-on-surface-variant" data-i18n="benefits.card4_text">Zéro stress administratif : nous gérons vos visas, équivalences et logement.</p>
-</div>
-</div>
-<!-- Read More -->
-<div class="max-w-7xl mx-auto text-center mt-xl">
-  <a href="candidates.html" class="read-more-link" data-i18n="benefits.read_more">En savoir plus sur nos services <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-</div>
-</section>
+      <!-- LEFT: Text -->
+      <div class="z-10 order-2 md:order-1">
+        <div class="hero-badge" data-i18n="hero.badge">
+          <span class="hero-badge-dot"></span>
+          Opportunités en Allemagne
+        </div>
+        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(40px,5vw,62px);line-height:1.03;letter-spacing:-0.03em;color:#fff;margin-bottom:24px;" data-i18n="hero.title">
+          Travaillez comme<br/>infirmier en Allemagne<br/>
+          <span style="color:#C9A76F;">avec confiance.</span>
+        </h1>
+        <p style="color:rgba(255,255,255,0.65);font-size:18px;line-height:1.65;margin-bottom:36px;max-width:480px;" data-i18n="hero.subtitle">
+          Débloquez votre potentiel professionnel. Nous vous offrons des postes stables, bien rémunérés et une intégration sereine dans le système de santé allemand.
+        </p>
+        <div class="flex flex-wrap gap-md mb-12">
+          <a href="candidates.html#form" style="display:inline-flex;align-items:center;gap:8px;background:#C9A76F;color:#fff;padding:14px 32px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;transition:all 0.2s;box-shadow:0 8px 24px rgba(201,167,111,0.35);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''" data-i18n="hero.cta1">
+            Postuler maintenant
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          </a>
+          <a href="candidates.html#process" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);padding:14px 28px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background=''" data-i18n="hero.cta2">
+            Découvrir le processus
+          </a>
+        </div>
 
-<!-- Process Timeline -->
-<section class="py-xl md:py-section px-4 md:px-lg bg-surface-container-low">
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-xl md:mb-xxl">
-<h2 class="font-h1 text-3xl md:text-h1 text-primary mb-md" data-i18n="process.title">Comment ca fonctionne?</h2>
-<p class="text-on-surface-variant font-body-lg" data-i18n="process.subtitle">Votre parcours vers l'Allemagne en 4 étapes simples.</p>
-</div>
-<div class="relative grid grid-cols-1 md:grid-cols-4 gap-xl">
-<div class="hidden md:block absolute top-12 left-0 w-full h-[2px] bg-outline-variant/30 -z-0"></div>
-<div class="relative z-10 flex flex-col items-center text-center">
-<div class="w-24 h-24 rounded-full bg-white border-4 border-secondary flex items-center justify-center mb-lg soft-shadow">
-<span class="material-symbols-outlined text-secondary text-[32px]">assignment</span>
-</div>
-<div class="bg-secondary text-on-secondary w-8 h-8 rounded-full flex items-center justify-center font-label-bold mb-md">1</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="process.step1_title">Formulaire</h3>
-<p class="text-on-surface-variant" data-i18n="process.step1_text">Remplissez votre dossier en ligne en quelques minutes.</p>
-</div>
-<div class="relative z-10 flex flex-col items-center text-center">
-<div class="w-24 h-24 rounded-full bg-white border-4 border-outline-variant/30 flex items-center justify-center mb-lg soft-shadow">
-<span class="material-symbols-outlined text-primary text-[32px]">analytics</span>
-</div>
-<div class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center font-label-bold mb-md">2</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="process.step2_title">Analyse</h3>
-<p class="text-on-surface-variant" data-i18n="process.step2_text">Nos experts étudient votre profil et vos diplÃ´mes.</p>
-</div>
-<div class="relative z-10 flex flex-col items-center text-center">
-<div class="w-24 h-24 rounded-full bg-white border-4 border-outline-variant/30 flex items-center justify-center mb-lg soft-shadow">
-<span class="material-symbols-outlined text-primary text-[32px]">school</span>
-</div>
-<div class="bg-primary text-on-primary w-8 h-8 rounded-full flex items-center justify-center font-label-bold mb-md">3</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="process.step3_title">Préparation</h3>
-<p class="text-on-surface-variant" data-i18n="process.step3_text">Apprentissage de la langue et entretiens avec les hôpitaux.</p>
-</div>
-<div class="relative z-10 flex flex-col items-center text-center">
-<div class="w-24 h-24 rounded-full bg-white border-4 border-secondary flex items-center justify-center mb-lg soft-shadow">
-<span class="material-symbols-outlined text-secondary text-[32px]">flight_takeoff</span>
-</div>
-<div class="bg-secondary text-on-secondary w-8 h-8 rounded-full flex items-center justify-center font-label-bold mb-md">4</div>
-<h3 class="font-h3 text-h3 text-primary mb-sm" data-i18n="process.step4_title">Départ</h3>
-<p class="text-on-surface-variant" data-i18n="process.step4_text">Votre nouvelle vie commence avec un accueil Ã  l'aéroport.</p>
-</div>
-</div>
-<!-- Read More -->
-<div class="text-center mt-xl">
-  <a href="candidates.html#process" class="read-more-link" data-i18n="process.read_more">Voir le processus complet <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-</div>
-</div>
-</section>
-
-<!-- About Section -->
-<section class="py-xl md:py-section px-4 md:px-lg overflow-hidden">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-xl md:gap-xxl">
-<div class="w-full md:w-1/2 relative">
-<div class="relative w-4/5 h-[500px] rounded-[2.5rem] overflow-hidden soft-shadow z-10">
-<img class="w-full h-full object-cover" src="./media/employer_hero.png" alt="Ã‰quipe Medijobs Pro"/>
-</div>
-<div class="absolute -bottom-10 right-0 w-3/5 h-64 bg-secondary-container rounded-[2rem] -z-0 opacity-50"></div>
-</div>
-<div class="w-full md:w-1/2">
-<h2 class="font-h1 text-3xl md:text-h1 text-primary mb-lg" data-i18n="about.title">Une agence spécialisée dans le recrutement médical</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl" data-i18n="about.text">
-                    Medijobs Pro n'est pas seulement une agence de placement. Nous sommes vos partenaires de confiance, fondés par des professionnels qui comprennent les défis de la mobilité internationale dans le domaine de la santé.
-                </p>
-<div class="space-y-md mb-xl">
-<div class="flex items-start gap-md">
-<div class="text-secondary"><span class="material-symbols-outlined">check_circle</span></div>
-<p class="font-label-bold text-on-surface" data-i18n="about.check1">Transparence totale sur les contrats et salaires</p>
-</div>
-<div class="flex items-start gap-md">
-<div class="text-secondary"><span class="material-symbols-outlined">check_circle</span></div>
-<p class="font-label-bold text-on-surface" data-i18n="about.check2">Partenariats avec des cliniques universitaires renommées</p>
-</div>
-<div class="flex items-start gap-md">
-<div class="text-secondary"><span class="material-symbols-outlined">check_circle</span></div>
-<p class="font-label-bold text-on-surface" data-i18n="about.check3">Accompagnement familial pour une expatriation réussie</p>
-</div>
-</div>
-<!-- Read More -->
-<a href="about.html" class="read-more-link" data-i18n="about.read_more">En savoir plus sur nous <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
-</div>
-</div>
-</section>
-
-<!-- Video Introduction Section -->
-<section class="py-xl md:py-section px-4 md:px-lg bg-surface-container-lowest">
-<div class="max-w-7xl mx-auto flex flex-col items-center">
-<div class="text-center mb-xl md:mb-xxl">
-<span class="inline-block bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-bold text-caption mb-md uppercase tracking-wider" data-i18n="video.badge">Le Mot du Fondateur</span>
-<h2 class="font-h1 text-3xl md:text-h1 text-primary mb-md" data-i18n="video.title">Decouvrez notre vision</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto" data-i18n="video.subtitle">
-                Apprenez-en plus sur notre engagement Ã  transformer le recrutement médical et Ã  accompagner chaque candidat vers l'excellence en Allemagne.
-            </p>
-</div>
-<!-- Clickable Video Container -->
-<div id="video-container" class="relative w-full max-w-5xl rounded-[2.5rem] overflow-hidden soft-shadow group cursor-pointer aspect-video bg-surface-container-high border border-outline-variant/30">
-  <!-- Interactive Video Play Overlay -->
-  <div id="video-overlay" class="absolute inset-0 z-10 transition-all duration-500">
-    <img alt="Video Thumbnail â€” Fondateur Medijobs Pro" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiq_G79v_mDrDkzq0HOWRH7tcPvpkaccLVt_n-_g71GOmnU7urlETyinivxskFevii9jC_D1KInyIpr0Zmq5OUlgbnytOnzgyfWqnSRQluVSFsyli4l9h5eIfQvGS-HE-X2JIddtBikQxNcnmTMlHh6q_Q4_58I-fKXDF8nfDiph71j_A5vvzFrZc4y8yQPeYMse8OveMtnedN7LBss1egP2N0faitwKfbV7TKCueNfL8d-lmrQTvbD0_WAG9ro200gzdMiF3NRHx5"/>
-    <div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-300"></div>
-    <div class="absolute inset-0 flex items-center justify-center">
-      <div class="absolute w-24 h-24 bg-white/30 rounded-full animate-ping"></div>
-      <div class="relative w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center soft-shadow group-hover:scale-110 transition-transform duration-300">
-        <span class="material-symbols-outlined text-secondary text-5xl ml-2">play_arrow</span>
+        <!-- Trust indicators -->
+        <div class="flex flex-wrap gap-lg">
+          <div class="flex items-center gap-sm">
+            <div class="flex -space-x-2">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(201,167,111,0.3);border:2px solid rgba(255,255,255,0.3);"></div>
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(201,167,111,0.5);border:2px solid rgba(255,255,255,0.3);"></div>
+              <div style="width:28px;height:28px;border-radius:50%;background:#C9A76F;border:2px solid rgba(255,255,255,0.3);"></div>
+            </div>
+            <span style="color:rgba(255,255,255,0.6);font-size:13px;" data-i18n="hero.stat1">+500 candidats placés</span>
+          </div>
+          <div class="flex items-center gap-xs" style="color:rgba(255,255,255,0.6);font-size:13px;">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#C9A76F;">verified</span>
+            <span data-i18n="hero.stat2">+50 partenaires certifiés</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="absolute bottom-8 left-8 glass-card px-lg py-sm rounded-2xl flex items-center gap-md">
-      <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/50">
-        <img alt="Fondateur" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5"/>
-      </div>
-      <div class="text-left">
-        <div class="font-label-bold text-primary" data-i18n="video.founder_name">Amen Allah</div>
-        <div class="text-caption text-on-surface-variant" data-i18n="video.founder_role">Fondateur, Medijobs Pro</div>
+
+      <!-- RIGHT: Image with gold frame -->
+      <div class="relative order-1 md:order-2 hidden md:block">
+        <div class="hero-corner-accent"></div>
+        <div class="hero-image-frame soft-shadow">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9lFSHe4eUbL7RZMa1FLRsGuY28rVHBmkEUvqyasZa2qih0d1YBLQhE2q2qQeVD7Oz1PW0HU_fwMZ6l7I3xTVlO1DmmosbsR2_Br_Eh3jhZq5sjnfkTR-ccFSW6ns7_PrMF6_GU8zD1ri4pBunJtKKa0FLQIaOfGfLAS_eaj36ulBj3BTrDDOpXSlyDGxH2zxbfFi82JfhciJvQdiQIV1FrDtP5-B_9c0Vuzk9EgM3sEIm4GSUAp4_v2mHjrg7akJ3vEnAEJjUJSZF"
+               alt="Infirmier professionnel en Allemagne"
+               style="width:100%;height:480px;object-fit:cover;object-position:top;display:block;"/>
+        </div>
+        <!-- Floating card — "Profils vérifiés" -->
+        <div class="hero-float-card glass-card" style="padding:14px 18px;border-radius:16px;min-width:200px;box-shadow:0 12px 40px rgba(0,38,63,0.2);">
+          <div class="flex items-center gap-md">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(201,167,111,0.2);display:flex;align-items:center;justify-content:center;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:18px;">verified_user</span>
+            </div>
+            <div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#00263F;">Profils vérifiés</div>
+              <div style="font-size:11px;color:#42474E;">Qualifiés & prêts à partir</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats float card top right -->
+        <div class="glass-card" style="position:absolute;top:-12px;right:-12px;padding:14px 18px;border-radius:16px;box-shadow:0 12px 40px rgba(0,38,63,0.2);">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:#00263F;line-height:1;">+50</div>
+          <div style="font-size:11px;color:#42474E;margin-top:2px;">Partenaires</div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- Real HTML5 Video -->
-  <video id="founder-video" class="w-full h-full object-cover hidden" src="media/Healthcare_Recruitment_Tunisia_Germany.mp4" controls></video>
-</div>
-</div>
 </section>
 
-<!-- Testimonials -->
-<section class="py-xl md:py-section px-4 md:px-lg bg-primary-container text-on-primary">
-<div class="max-w-7xl mx-auto">
-<div class="text-center mb-xl md:mb-xxl">
-<h2 class="font-h1 text-3xl md:text-h1 text-white mb-md" data-i18n="testimonials.title">Ils nous ont fait confiance</h2>
-<p class="text-on-primary-container font-body-lg" data-i18n="testimonials.subtitle">Decouvrez les témoignages de nos infirmiers déjÃ  installés en Allemagne.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
-<div class="bg-white/5 backdrop-blur-md p-xl rounded-[24px] border border-white/10">
-<div class="flex gap-1 text-secondary mb-md">
-<span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span>
-</div>
-<p class="text-white/90 italic mb-xl" data-i18n="testimonials.t1_text">"L'accompagnement pour mon dossier administratif était incroyable. Aujourd'hui, je travaille Ã  Berlin et ma vie a totalement changé."</p>
-<div class="flex items-center gap-md">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface">
-<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5" alt="Yassine B."/>
-</div>
-<div>
-<div class="font-label-bold text-white" data-i18n="testimonials.t1_name">Yassine B.</div>
-<div class="text-caption text-on-primary-container" data-i18n="testimonials.t1_role">Infirmier en Réanimation</div>
-</div>
-</div>
-</div>
-<div class="bg-white/5 backdrop-blur-md p-xl rounded-[24px] border border-white/10">
-<div class="flex gap-1 text-secondary mb-md">
-<span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span>
-</div>
-<p class="text-white/90 italic mb-xl" data-i18n="testimonials.t2_text">"Medijobs Pro m'a aidé Ã  apprendre l'allemand rapidement. Leur équipe est humaine et toujours Ã  l'écoute."</p>
-<div class="flex items-center gap-md">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface">
-<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQ86IShKu-wgI22KOfLKQqVAbXZHS7o8Yrg4C6dJpWuStffvxxDTHsPt_bQmfYgeuV3FIPcrrXKTiZuBHE5bn0Y-v5ruyLjjLQhk3QWH44llL-CGdFON_osNcx1eHod7XsCUbGv8uUibY18jo1rhfA-tkJuxv8dQcP9pspRDTk1RMnOzPHeGqYWJdNN2hkzcwHEt9MwINiE3dbFRz3PJNHFTjKX3MfPpBVAmOwuuLBZPSGXiFROWzgEoIRT2nzTlNhE5op5o1aAHy" alt="Sarah K."/>
-</div>
-<div>
-<div class="font-label-bold text-white" data-i18n="testimonials.t2_name">Sarah K.</div>
-<div class="text-caption text-on-primary-container" data-i18n="testimonials.t2_role">Infirmiere Bloc Opératoire</div>
-</div>
-</div>
-</div>
-<div class="bg-white/5 backdrop-blur-md p-xl rounded-[24px] border border-white/10">
-<div class="flex gap-1 text-secondary mb-md">
-<span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span><span class="material-symbols-outlined">star</span>
-</div>
-<p class="text-white/90 italic mb-xl" data-i18n="testimonials.t3_text">"GrÃ¢ce Ã  eux, j'ai trouvé un poste avec un salaire bien au-delÃ  de mes attentes. L'intégration s'est faite en douceur."</p>
-<div class="flex items-center gap-md">
-<div class="w-12 h-12 rounded-full overflow-hidden bg-surface">
-<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5vVxeJ5qZhF9Os_vOnd2ZtSQnBlT5ID6O2rZZVkWfbNXTPUqc3N5bhK0FTWrEV0n0KporxFoUz-Da6bjPF4KzAC6NuTbNiKLND8PXejS5DYO9tG3U9KvqMsiQehxFw0LSmxZLTLh_QHI3e5D8x2ZTxISwdodCG5AVhODwlVqblSSVVMkvTZMRliTCzoeJEW0cqoBHHSRFhCCljh_kixuvc-zms73k-x_s1AZSLyPkKpaWNtZwAvOYmPnVZj_bh7puAtt9OBiL_aQ" alt="Marc D."/>
-</div>
-<div>
-<div class="font-label-bold text-white" data-i18n="testimonials.t3_name">Marc D.</div>
-<div class="text-caption text-on-primary-container" data-i18n="testimonials.t3_role">Infirmier Gériatrie</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-
-
-<section class="py-xl md:py-section px-4 md:px-lg bg-surface-container-low overflow-hidden relative">
-  <!-- Decorative background elements -->
-  <div class="absolute inset-0 pointer-events-none overflow-hidden">
-    <div class="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-secondary/5 blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-primary-fixed/5 rounded-full blur-3xl translate-y-[-20%] translate-x-[20%]"></div>
+<!-- ============ STATS STRIP ============ -->
+<section class="stats-strip">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg flex flex-wrap justify-center md:justify-around items-center gap-8 md:gap-0">
+    <div class="text-center">
+      <div class="stat-number">+500</div>
+      <div class="stat-label" data-i18n="hero.stat1">Candidats placés</div>
+    </div>
+    <div class="stat-sep hidden md:block"></div>
+    <div class="text-center">
+      <div class="stat-number">+50</div>
+      <div class="stat-label" data-i18n="hero.stat2">Partenaires hospitaliers</div>
+    </div>
+    <div class="stat-sep hidden md:block"></div>
+    <div class="text-center">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Pays couverts</div>
+    </div>
+    <div class="stat-sep hidden md:block"></div>
+    <div class="text-center">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Taux de satisfaction</div>
+    </div>
   </div>
+</section>
 
-  <div class="max-w-7xl mx-auto text-center mb-xl md:mb-xxl relative z-10">
-    <span class="inline-block bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-bold text-caption mb-md uppercase tracking-wider" data-i18n="trust.badge">Preuve par l'image</span>
-    <h2 class="font-h1 text-3xl md:text-h1 text-primary mb-md" data-i18n="trust.title">Ils sont deja en Allemagne</h2>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto" data-i18n="trust.subtitle">Decouvrez les moments de départ et d'arrive de nos candidats qualifies qui ont franchi le pas avec succes.</p>
+<!-- ============ BENEFITS — Dark section, Svertex numbered cards ============ -->
+<section style="background:#00263F;padding:80px 0;overflow:hidden;">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+      <!-- LEFT: Big text -->
+      <div>
+        <div class="section-label" data-i18n="benefits.label">Pourquoi l'Allemagne</div>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4vw,46px);line-height:1.1;color:#fff;margin-bottom:20px;letter-spacing:-0.025em;" data-i18n="benefits.title">
+          Quand les postes restent vacants,<br/>
+          <span style="color:#C9A76F;">les patients souffrent.</span>
+        </h2>
+        <p style="color:rgba(255,255,255,0.6);font-size:17px;line-height:1.65;margin-bottom:32px;max-width:420px;" data-i18n="benefits.subtitle">
+          Le système de santé allemand offre des conditions de travail et des perspectives d'avenir parmi les meilleures au monde.
+        </p>
+        <a href="candidates.html" class="read-more-link" data-i18n="benefits.read_more">En savoir plus sur nos services <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+
+      <!-- RIGHT: 2x2 numbered cards — Svertex style -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="benefit-num-card">
+          <div class="flex justify-between items-start mb-6">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">01</span>
+            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
+          </div>
+          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card1_title">Salaire attractif</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card1_text">Rémunération compétitive dès le premier jour, avec avantages complets.</p>
+        </div>
+        <div class="benefit-num-card">
+          <div class="flex justify-between items-start mb-6">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">02</span>
+            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
+          </div>
+          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card2_title">Forte demande</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card2_text">Le secteur médical allemand recherche activement des talents qualifiés.</p>
+        </div>
+        <div class="benefit-num-card">
+          <div class="flex justify-between items-start mb-6">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">03</span>
+            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
+          </div>
+          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card3_title">Évolution rapide</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card3_text">Formations continues et spécialisations accessibles dès votre arrivée.</p>
+        </div>
+        <div class="benefit-num-card">
+          <div class="flex justify-between items-start mb-6">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">04</span>
+            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
+          </div>
+          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card4_title">Accompagnement</h3>
+          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card4_text">Zéro stress : visas, équivalences et logement gérés pour vous.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS — Light bg, modern horizontal steps ============ -->
+<section style="background:#F9F9FC;padding:80px 0;">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="text-center mb-16">
+      <div class="section-label" data-i18n="process.label">Notre processus</div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="process.title">Comment ça fonctionne?</h2>
+      <p style="color:#42474E;font-size:17px;max-width:520px;margin:0 auto;line-height:1.6;" data-i18n="process.subtitle">Votre parcours vers l'Allemagne en 4 étapes simples.</p>
+    </div>
+
+    <div class="relative grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Connector line desktop -->
+      <div class="hidden md:block" style="position:absolute;top:28px;left:calc(12.5%);right:calc(12.5%);height:2px;background:linear-gradient(to right, #C9A76F, rgba(0,38,63,0.15));z-index:0;"></div>
+
+      <!-- Step 1 -->
+      <div class="process-step-wrap relative z-10">
+        <div class="process-icon-circle">
+          <span class="material-symbols-outlined text-secondary" style="font-size:28px;">assignment</span>
+        </div>
+        <div class="process-step-num gold mb-3">1</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step1_title">Formulaire</h3>
+        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step1_text">Remplissez votre dossier en ligne en quelques minutes.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="process-step-wrap relative z-10">
+        <div class="process-icon-circle">
+          <span class="material-symbols-outlined text-primary" style="font-size:28px;">analytics</span>
+        </div>
+        <div class="process-step-num mb-3">2</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step2_title">Analyse</h3>
+        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step2_text">Nos experts étudient votre profil et vos diplômes.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="process-step-wrap relative z-10">
+        <div class="process-icon-circle">
+          <span class="material-symbols-outlined text-primary" style="font-size:28px;">school</span>
+        </div>
+        <div class="process-step-num mb-3">3</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step3_title">Préparation</h3>
+        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step3_text">Apprentissage de la langue et entretiens avec les hôpitaux.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="process-step-wrap relative z-10">
+        <div class="process-icon-circle" style="border-color:rgba(201,167,111,0.7);">
+          <span class="material-symbols-outlined text-secondary" style="font-size:28px;">flight_takeoff</span>
+        </div>
+        <div class="process-step-num gold mb-3">4</div>
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step4_title">Départ</h3>
+        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step4_text">Votre nouvelle vie commence avec un accueil à l'aéroport.</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="candidates.html#process" class="read-more-link" data-i18n="process.read_more">Voir le processus complet <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section style="background:#fff;padding:80px 0;overflow:hidden;">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+      <!-- Image -->
+      <div class="w-full md:w-1/2 relative">
+        <div style="position:relative;width:80%;height:480px;border-radius:2.5rem;overflow:hidden;box-shadow:0 24px 64px rgba(0,38,63,0.1);">
+          <img style="width:100%;height:100%;object-fit:cover;" src="./media/employer_hero.png" alt="Équipe Medijobs Pro"/>
+        </div>
+        <div style="position:absolute;bottom:-24px;right:0;width:60%;height:200px;background:rgba(238,214,180,0.45);border-radius:2rem;z-index:-1;"></div>
+      </div>
+      <!-- Text -->
+      <div class="w-full md:w-1/2">
+        <div class="section-label" data-i18n="about.label">À propos</div>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,38px);color:#00263F;margin-bottom:16px;letter-spacing:-0.025em;" data-i18n="about.title">Une agence spécialisée dans le recrutement médical</h2>
+        <p style="color:#42474E;font-size:17px;line-height:1.65;margin-bottom:28px;" data-i18n="about.text">
+          Medijobs Pro n'est pas seulement une agence de placement. Nous sommes vos partenaires de confiance, fondés par des professionnels qui comprennent les défis de la mobilité internationale dans le domaine de la santé.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
+            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check1">Transparence totale sur les contrats et salaires</span>
+          </div>
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
+            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check2">Partenariats avec des cliniques universitaires renommées</span>
+          </div>
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
+            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check3">Accompagnement familial pour une expatriation réussie</span>
+          </div>
+        </div>
+        <a href="about.html" class="read-more-link" data-i18n="about.read_more">En savoir plus sur nous <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIDEO ============ -->
+<section style="background:#F3F3F6;padding:80px 0;">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg flex flex-col items-center">
+    <div class="text-center mb-12">
+      <span class="section-badge inline-block bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-bold text-caption mb-md uppercase tracking-wider" data-i18n="video.badge">Le Mot du Fondateur</span>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,38px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="video.title">Découvrez notre vision</h2>
+      <p style="color:#42474E;font-size:17px;max-width:540px;margin:0 auto;line-height:1.6;" data-i18n="video.subtitle">Apprenez-en plus sur notre engagement à transformer le recrutement médical et à accompagner chaque candidat vers l'excellence en Allemagne.</p>
+    </div>
+    <div id="video-container" class="relative w-full max-w-5xl group cursor-pointer" style="border-radius:2.5rem;overflow:hidden;box-shadow:0 24px 64px rgba(0,38,63,0.12);border:1px solid rgba(194,199,206,0.3);aspect-ratio:16/9;background:#E8E8EB;">
+      <div id="video-overlay" class="absolute inset-0 z-10 transition-all duration-500">
+        <img alt="Video Thumbnail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiq_G79v_mDrDkzq0HOWRH7tcPvpkaccLVt_n-_g71GOmnU7urlETyinivxskFevii9jC_D1KInyIpr0Zmq5OUlgbnytOnzgyfWqnSRQluVSFsyli4l9h5eIfQvGS-HE-X2JIddtBikQxNcnmTMlHh6q_Q4_58I-fKXDF8nfDiph71j_A5vvzFrZc4y8yQPeYMse8OveMtnedN7LBss1egP2N0faitwKfbV7TKCueNfL8d-lmrQTvbD0_WAG9ro200gzdMiF3NRHx5"/>
+        <div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-300"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="absolute w-24 h-24 bg-white/30 rounded-full animate-ping"></div>
+          <div class="relative w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center soft-shadow group-hover:scale-110 transition-transform duration-300">
+            <span class="material-symbols-outlined text-secondary text-5xl ml-2">play_arrow</span>
+          </div>
+        </div>
+        <div class="absolute bottom-8 left-8 glass-card px-lg py-sm rounded-2xl flex items-center gap-md">
+          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/50">
+            <img alt="Fondateur" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5"/>
+          </div>
+          <div>
+            <div class="font-label-bold text-primary" data-i18n="video.founder_name">Amen Allah</div>
+            <div class="text-caption text-on-surface-variant" data-i18n="video.founder_role">Fondateur, Medijobs Pro</div>
+          </div>
+        </div>
+      </div>
+      <video id="founder-video" class="w-full h-full object-cover hidden" src="media/Healthcare_Recruitment_Tunisia_Germany.mp4" controls></video>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS — Dark navy ============ -->
+<section style="background:#00263F;padding:80px 0;overflow:hidden;position:relative;">
+  <!-- Depth glows -->
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,0.07);top:-120px;left:-100px;filter:blur(70px);pointer-events:none;"></div>
+  <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(201,167,111,0.05);bottom:-80px;right:-60px;filter:blur(70px);pointer-events:none;"></div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
+    <div class="text-center mb-16">
+      <div class="section-label" style="color:#C9A76F;" data-i18n="testimonials.label">Témoignages</div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#fff;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="testimonials.title">Ils nous ont fait confiance</h2>
+      <p style="color:rgba(255,255,255,0.55);font-size:17px;" data-i18n="testimonials.subtitle">Découvrez les témoignages de nos infirmiers déjà installés en Allemagne.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="testimonial-card">
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
+          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t1_text">"L'accompagnement pour mon dossier administratif était incroyable. Aujourd'hui, je travaille à Berlin et ma vie a totalement changé."</p>
+        <div class="flex items-center gap-md">
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
+            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5" alt="Yassine B."/>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t1_name">Yassine B.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t1_role">Infirmier en Réanimation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
+          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t2_text">"Medijobs Pro m'a aidé à apprendre l'allemand rapidement. Leur équipe est humaine et toujours à l'écoute."</p>
+        <div class="flex items-center gap-md">
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
+            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQ86IShKu-wgI22KOfLKQqVAbXZHS7o8Yrg4C6dJpWuStffvxxDTHsPt_bQmfYgeuV3FIPcrrXKTiZuBHE5bn0Y-v5ruyLjjLQhk3QWH44llL-CGdFON_osNcx1eHod7XsCUbGv8uUibY18jo1rhfA-tkJuxv8dQcP9pspRDTk1RMnOzPHeGqYWJdNN2hkzcwHEt9MwINiE3dbFRz3PJNHFTjKX3MfPpBVAmOwuuLBZPSGXiFROWzgEoIRT2nzTlNhE5op5o1aAHy" alt="Sarah K."/>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t2_name">Sarah K.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t2_role">Infirmière Bloc Opératoire</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
+          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
+        </div>
+        <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t3_text">"Grâce à eux, j'ai trouvé un poste avec un salaire bien au-delà de mes attentes. L'intégration s'est faite en douceur."</p>
+        <div class="flex items-center gap-md">
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
+            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5vVxeJ5qZhF9Os_vOnd2ZtSQnBlT5ID6O2rZZVkWfbNXTPUqc3N5bhK0FTWrEV0n0KporxFoUz-Da6bjPF4KzAC6NuTbNiKLND8PXejS5DYO9tG3U9KvqMsiQehxFw0LSmxZLTLh_QHI3e5D8x2ZTxISwdodCG5AVhODwlVqblSSVVMkvTZMRliTCzoeJEW0cqoBHHSRFhCCljh_kixuvc-zms73k-x_s1AZSLyPkKpaWNtZwAvOYmPnVZj_bh7puAtt9OBiL_aQ" alt="Marc D."/>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t3_name">Marc D.</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t3_role">Infirmier Gériatrie</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY — Horizontal scroll carousel ============ -->
+<section style="background:#F3F3F6;padding:80px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;top:50%;left:0;width:280px;height:280px;border-radius:50%;background:rgba(201,167,111,0.06);filter:blur(60px);transform:translateY(-50%) translateX(-50%);pointer-events:none;"></div>
+  <div style="position:absolute;top:0;right:0;width:360px;height:360px;background:rgba(0,38,63,0.04);border-radius:50%;filter:blur(60px);transform:translateY(-20%) translateX(20%);pointer-events:none;"></div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-lg text-center mb-12 relative z-10">
+    <div class="section-label" data-i18n="trust.label">Preuve par l'image</div>
+    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="trust.title">Ils sont déjà en Allemagne</h2>
+    <p style="color:#42474E;font-size:17px;max-width:540px;margin:0 auto;line-height:1.6;" data-i18n="trust.subtitle">Découvrez les moments de départ et d'arrivée de nos candidats qui ont franchi le pas avec succès.</p>
   </div>
 
   <div class="max-w-7xl mx-auto relative px-4" id="carousel-wrapper">
-    <!-- Navigation Buttons -->
-    <button id="carousel-prev" class="absolute left-0 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Previous slide">
+    <button id="carousel-prev" class="absolute left-0 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Previous slide">
       <span class="material-symbols-outlined text-[24px]">chevron_left</span>
     </button>
-    <button id="carousel-next" class="absolute right-0 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Next slide">
+    <button id="carousel-next" class="absolute right-0 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Next slide">
       <span class="material-symbols-outlined text-[24px]">chevron_right</span>
     </button>
-
-    <!-- Carousel Container -->
     <div id="carousel-track" class="flex gap-lg overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none py-4 px-1 select-none">
-      
-      <!-- Card 1 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/1.jpg" alt="Candidate Departure 1"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card1">Depart pour Munich</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
-                <span data-i18n="trust.departure">Depart</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/3.jpg" alt="Candidate Departure 2"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card2">Nouveau depart</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
-                <span data-i18n="trust.departure">Depart</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/4.jpg" alt="Candidate Arrival 1"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card3">Arrivée Ã  Francfort</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                <span data-i18n="trust.arrived">Arrivé</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/5.jpg" alt="Candidate Departure 3"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card4">PrÃªt pour l'aventure</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
-                <span data-i18n="trust.departure">Départ</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/6.jpg" alt="Candidate Arrival 2"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card5">Intégration réussie</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                <span data-i18n="trust.arrived">Arrivé</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/8.jpg" alt="Candidate Departure 4"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card6">En route pour Hambourg</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
-                <span data-i18n="trust.departure">Départ</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 7 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/10.jpg" alt="Candidate Departure 5"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card7">Décollage imminent</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
-                <span data-i18n="trust.departure">Départ</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 8 -->
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group">
-        <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/20 soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]">
-          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/11.jpg" alt="Candidate Arrival 3"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
-          <div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20">
-            <div class="flex flex-col gap-xs">
-              <span class="text-white font-label-bold text-sm" data-i18n="trust.card8">Nouvelle vie en Allemagne</span>
-              <div class="flex items-center gap-xs text-secondary text-xs">
-                <span class="material-symbols-outlined text-[14px]">check_circle</span>
-                <span data-i18n="trust.arrived">Arrivé</span>
-              </div>
-            </div>
-            <span class="bg-secondary text-on-secondary px-sm py-1 rounded-lg text-caption font-label-bold">2025</span>
-          </div>
-        </div>
-      </div>
-
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/1.jpg" alt="Candidate Departure 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card1">Départ pour Frankfurt</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/3.jpg" alt="Candidate Departure 2"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card2">Nouveau départ</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/4.jpg" alt="Candidate Arrival 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card3">Arrivée à Francfort</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/5.jpg" alt="Candidate Departure 3"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card4">Prêt pour l'aventure</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/6.jpg" alt="Candidate Arrival 2"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card5">Intégration réussie</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/departure.jpeg" alt="Candidate Departure 4"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card6">En route pour Hambourg</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/10.jpg" alt="Candidate Departure 5"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card7">Décollage imminent</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/11.jpg" alt="Candidate Arrival 3"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card8">Nouvelle vie en Allemagne</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
     </div>
-
-    <!-- Dots Indicators -->
     <div class="flex justify-center gap-sm mt-lg">
       <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="0" aria-label="Go to slide 1"></button>
       <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="1" aria-label="Go to slide 2"></button>
@@ -657,167 +949,158 @@
   </div>
 </section>
 
-<!-- Final CTA Banner -->
-<section class="py-xl md:py-xxl px-4 md:px-lg relative">
-<div class="max-w-7xl mx-auto bg-secondary rounded-[2rem] overflow-hidden relative">
-<div class="relative z-10 px-4 md:px-lg py-xl md:py-section flex flex-col items-center text-center text-on-secondary">
-<h2 class="font-display text-3xl md:text-h1 text-white mb-lg" data-i18n="cta.title">PrÃªt Ã  commencer votre nouvelle carriere?</h2>
-<p class="font-body-lg text-body-lg text-white/80 mb-xl max-w-2xl" data-i18n="cta.subtitle">Rejoignez des centaines de professionnels de santé qui ont déjÃ  franchi le pas vers un avenir meilleur en Allemagne.</p>
-<a class="bg-white text-secondary px-xl md:px-xxl py-md rounded-xl font-label-bold text-body-md hover:scale-105 transition-all shadow-xl" href="candidates.html#form" data-i18n="cta.btn">Je commence maintenant</a>
-</div>
-</div>
+<!-- ============ CTA — SVERTEX STYLE: Light cream bg + LARGE VISIBLE GOLD CIRCLES ============ -->
+<section class="cta-outer" style="padding:80px 0;">
+  <!-- Large visible gold bubble circles — like Svertex's teal circles -->
+  <div class="cta-circle-1"></div>
+  <div class="cta-circle-2"></div>
+  <div class="cta-circle-3"></div>
+  <div class="cta-circle-4"></div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+
+      <!-- LEFT: Text + buttons -->
+      <div>
+        <div class="section-label" data-i18n="cta.label">Commencez aujourd'hui</div>
+        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4vw,50px);color:#00263F;margin-bottom:16px;line-height:1.08;letter-spacing:-0.03em;" data-i18n="cta.title">
+          Prêt à commencer<br/>votre nouvelle<br/><span style="color:#C9A76F;">carrière?</span>
+        </h2>
+        <p style="color:#42474E;font-size:17px;line-height:1.65;margin-bottom:36px;max-width:460px;" data-i18n="cta.subtitle">
+          Rejoignez des centaines de professionnels de santé qui ont déjà franchi le pas vers un avenir meilleur en Allemagne.
+        </p>
+        <div class="flex flex-wrap gap-md mb-8">
+          <a href="candidates.html#form" class="cta-btn-primary" data-i18n="cta.btn">
+            Je commence maintenant
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+          </a>
+          <a href="contact.html" class="cta-btn-secondary">
+            Nous contacter
+          </a>
+        </div>
+        <!-- Trust chips -->
+        <div class="flex flex-wrap gap-lg">
+          <span class="trust-chip">
+            <span class="material-symbols-outlined">check_circle</span>
+            Gratuit & sans engagement
+          </span>
+          <span class="trust-chip">
+            <span class="material-symbols-outlined">check_circle</span>
+            Réponse rapide
+          </span>
+          <span class="trust-chip">
+            <span class="material-symbols-outlined">check_circle</span>
+            Personnel dédié
+          </span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Info card — like Svertex's "15 min" card -->
+      <div class="relative">
+        <div class="cta-info-card">
+          <div class="cta-big-num">+500</div>
+          <div style="font-size:16px;color:#42474E;margin-bottom:24px;line-height:1.4;">
+            Candidats placés avec succès.<br/>
+            <span style="font-size:13px;color:#72777E;">Rapide. Transparent. Personnel.</span>
+          </div>
+          <div style="border-top:1px solid rgba(194,199,206,0.3);padding-top:24px;display:flex;flex-direction:column;gap:14px;">
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">mail</span>
+              <span>contact@medijobspro.com</span>
+            </div>
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">phone</span>
+              <span>+33 1 23 45 67 89</span>
+            </div>
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">location_on</span>
+              <span>France · Tunisie · Allemagne</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<!-- Footer -->
-<footer class="w-full rounded-t-3xl bg-surface-container-low border-t border-outline-variant/30">
-<div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
-<div class="max-w-sm">
-<div class="font-h3 text-h3 font-bold text-primary mb-md">Medijobs Pro</div>
-<p class="text-on-surface-variant font-body-md mb-lg" data-i18n="footer.tagline">
-                    Votre passerelle vers une carriere médicale d'excellence en Allemagne. Accompagnement complet, du premier clic au premier jour de travail.
-                </p>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-2 gap-xl md:gap-xxl">
-<div class="flex flex-col gap-sm">
-<h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.links_title">Liens Rapides</h4>
-<a class="text-on-surface-variant hover:text-secondary transition-colors" href="candidates.html" data-i18n="footer.link_process">Processus</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors" href="about.html" data-i18n="nav.about">Ã€ propos</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors" href="contact.html" data-i18n="footer.link_contact">Contact</a>
-</div>
-<div class="flex flex-col gap-sm">
-<h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.legal_title">Légal</h4>
-<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#" data-i18n="footer.link_privacy">Mentions Légales</a>
-<a class="text-on-surface-variant hover:text-secondary transition-colors" href="#" data-i18n="footer.link_terms">Confidentialité</a>
-</div>
-</div>
-</div>
-<div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center border-t border-outline-variant/20 pt-lg">
-<p class="font-body-md text-on-surface-variant" data-i18n="footer.copyright">Â© 2025 Medijobs Pro. Partenaire de confiance pour le recrutement médical en Allemagne.</p>
-</div>
+<!-- ============ FOOTER ============ -->
+<footer style="background:#F3F3F6;border-top:1px solid rgba(194,199,206,0.3);">
+  <div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
+    <div class="max-w-sm">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;color:#00263F;margin-bottom:12px;">Medijobs Pro</div>
+      <p class="text-on-surface-variant font-body-md mb-lg" data-i18n="footer.tagline">
+        Votre passerelle vers une carrière médicale d'excellence en Allemagne. Accompagnement complet, du premier clic au premier jour de travail.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-xl md:gap-xxl">
+      <div class="flex flex-col gap-sm">
+        <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.links_title">Liens Rapides</h4>
+        <a class="footer-link" href="candidates.html" data-i18n="footer.link_process">Processus</a>
+        <a class="footer-link" href="about.html" data-i18n="nav.about">À propos</a>
+        <a class="footer-link" href="contact.html" data-i18n="footer.link_contact">Contact</a>
+      </div>
+      <div class="flex flex-col gap-sm">
+        <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.legal_title">Légal</h4>
+        <a class="footer-link" href="#" data-i18n="footer.link_privacy">Mentions Légales</a>
+        <a class="footer-link" href="#" data-i18n="footer.link_terms">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center" style="border-top:1px solid rgba(194,199,206,0.2);padding-top:20px;">
+    <p class="font-body-md text-on-surface-variant" data-i18n="footer.copyright">© 2025 Medijobs Pro. Partenaire de confiance pour le recrutement médical en Allemagne.</p>
+  </div>
 </footer>
 
+<!-- ============ SCRIPTS ============ -->
 <script>
+  // Carousel
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('carousel-track');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
     const dots = document.querySelectorAll('.carousel-dot');
     const wrapper = document.getElementById('carousel-wrapper');
-    const items = track.querySelectorAll('.group');
-
+    const items = track ? track.querySelectorAll('.group') : [];
     if (!track || !prevBtn || !nextBtn || !dots.length || !items.length) return;
-
-    let itemWidth = items[0].offsetWidth + 24; // Card width + gap (gap-lg is 24px)
+    let itemWidth = items[0].offsetWidth + 24;
     let autoplayTimer = null;
-
     function updateActiveDot() {
-      const scrollLeft = track.scrollLeft;
-      const index = Math.round(scrollLeft / itemWidth);
+      const index = Math.round(track.scrollLeft / itemWidth);
       dots.forEach((dot, idx) => {
-        if (idx === index) {
-          dot.classList.add('bg-secondary', 'w-6');
-          dot.classList.remove('bg-outline-variant/40');
-        } else {
-          dot.classList.remove('bg-secondary', 'w-6');
-          dot.classList.add('bg-outline-variant/40');
-        }
+        if (idx === index) { dot.classList.add('bg-secondary','w-6'); dot.classList.remove('bg-outline-variant/40'); }
+        else { dot.classList.remove('bg-secondary','w-6'); dot.classList.add('bg-outline-variant/40'); }
       });
     }
-
-    function scrollToItem(index) {
-      track.scrollTo({
-        left: index * itemWidth,
-        behavior: 'smooth'
-      });
-    }
-
+    function scrollToItem(i) { track.scrollTo({ left: i * itemWidth, behavior: 'smooth' }); }
     function nextSlide() {
-      const scrollLeft = track.scrollLeft;
-      const maxScroll = track.scrollWidth - track.clientWidth;
-      if (scrollLeft >= maxScroll - 10) {
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: itemWidth, behavior: 'smooth' });
-      }
+      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 10) track.scrollTo({ left: 0, behavior: 'smooth' });
+      else track.scrollBy({ left: itemWidth, behavior: 'smooth' });
     }
-
     function prevSlide() {
-      const scrollLeft = track.scrollLeft;
-      if (scrollLeft <= 10) {
-        track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
-      } else {
-        track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
-      }
+      if (track.scrollLeft <= 10) track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+      else track.scrollBy({ left: -itemWidth, behavior: 'smooth' });
     }
-
-    // Bind events
-    nextBtn.addEventListener('click', () => {
-      nextSlide();
-      resetAutoplay();
-    });
-
-    prevBtn.addEventListener('click', () => {
-      prevSlide();
-      resetAutoplay();
-    });
-
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', () => {
-        scrollToItem(idx);
-        resetAutoplay();
-      });
-    });
-
-    track.addEventListener('scroll', () => {
-      itemWidth = items[0].offsetWidth + 24;
-      updateActiveDot();
-    });
-
-    function startAutoplay() {
-      autoplayTimer = setInterval(nextSlide, 4000);
-    }
-
-    // Intersection Observer to prevent autoplay when section is out of viewport
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          startAutoplay();
-        } else {
-          stopAutoplay();
-        }
-      });
+    nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+    prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+    dots.forEach((dot, idx) => dot.addEventListener('click', () => { scrollToItem(idx); resetAutoplay(); }));
+    track.addEventListener('scroll', () => { itemWidth = items[0].offsetWidth + 24; updateActiveDot(); });
+    function startAutoplay() { autoplayTimer = setInterval(nextSlide, 4000); }
+    function stopAutoplay() { clearInterval(autoplayTimer); }
+    function resetAutoplay() { stopAutoplay(); startAutoplay(); }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) startAutoplay(); else stopAutoplay(); });
     }, { threshold: 0.1 });
     observer.observe(wrapper);
-
-    function stopAutoplay() {
-      clearInterval(autoplayTimer);
-    }
-
-    function resetAutoplay() {
-      stopAutoplay();
-      startAutoplay();
-    }
-
-    // Hover/touch to pause
     wrapper.addEventListener('mouseenter', stopAutoplay);
     wrapper.addEventListener('mouseleave', startAutoplay);
     wrapper.addEventListener('touchstart', stopAutoplay, { passive: true });
     wrapper.addEventListener('touchend', startAutoplay, { passive: true });
-
-    // Init
+    window.addEventListener('resize', () => { itemWidth = items[0].offsetWidth + 24; });
     updateActiveDot();
-
-    // Adjust width on resize
-    window.addEventListener('resize', () => {
-      itemWidth = items[0].offsetWidth + 24;
-    });
   });
-</script>
 
-<script>
-  
-
-  // Video play overlay
+  // Video
   const videoContainer = document.getElementById('video-container');
   const videoOverlay = document.getElementById('video-overlay');
   const founderVideo = document.getElementById('founder-video');
@@ -831,26 +1114,28 @@
     });
   }
 
-  // Testimonial Video play handler (home page)
-  const testimonialPlayBtnHome = document.getElementById('testimonial-play-btn-home');
-  const testimonialThumbOverlayHome = document.getElementById('testimonial-thumb-overlay-home');
-  const testimonialVideoHome = document.getElementById('testimonial-video-home');
-  const testimonialWrapHome = document.getElementById('testimonial-video-wrap-home');
-  if (testimonialPlayBtnHome && testimonialVideoHome) {
-    function playTestimonialHome() {
-      if (!testimonialThumbOverlayHome.classList.contains('hidden')) {
-        testimonialThumbOverlayHome.style.opacity = '0';
-        testimonialThumbOverlayHome.style.pointerEvents = 'none';
-        setTimeout(() => testimonialThumbOverlayHome.classList.add('hidden'), 500);
-        testimonialVideoHome.controls = true;
-        testimonialVideoHome.play();
-      }
-    }
-    testimonialPlayBtnHome.addEventListener('click', playTestimonialHome);
-    if (testimonialWrapHome) testimonialWrapHome.addEventListener('click', playTestimonialHome);
+  // Mobile menu
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  }
+
+  // Lang toggles
+  const langBtn = document.getElementById('lang-toggle-btn');
+  const langMenu = document.getElementById('lang-menu');
+  if (langBtn && langMenu) {
+    langBtn.addEventListener('click', (e) => { e.stopPropagation(); langMenu.classList.toggle('hidden'); });
+    document.addEventListener('click', () => langMenu.classList.add('hidden'));
+  }
+  const mobileLangBtn = document.getElementById('mobile-lang-toggle-btn');
+  const mobileLangMenu = document.getElementById('mobile-lang-menu');
+  if (mobileLangBtn && mobileLangMenu) {
+    mobileLangBtn.addEventListener('click', () => mobileLangMenu.classList.toggle('hidden'));
   }
 </script>
 
 <script src="js/i18n.js?v=2"></script>
 <script src="js/lang.js?v=2"></script>
-</body></html>
+</body>
+</html>
