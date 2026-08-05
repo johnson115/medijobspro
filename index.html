@@ -2,19 +2,34 @@
 <html class="light" lang="fr">
 <head>
 <meta charset="utf-8"/>
+<!-- Theme init: runs before render to avoid flash -->
+<script>
+  (function(){
+    var t = localStorage.getItem('mjp-theme') || 'light';
+    var h = document.documentElement;
+    if(t === 'dark'){
+      h.classList.add('theme-dark','dark');
+      h.classList.remove('light');
+    } else {
+      h.classList.add('light');
+      h.classList.remove('theme-dark','dark');
+    }
+  })();
+</script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Medijobs Pro – Recrutement Médical en Allemagne</title>
-<meta name="description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne. Infirmiers, techniciens, accompagnement complet."/>
+<meta name="description" content="Spécialiste N°1 du recrutement d'infirmiers en Allemagne. Candidats, intégrez les meilleurs hôpitaux avec suivi gratuit. Hôpitaux, recrutez nos talents !"/>
 <meta property="og:title" content="Medijobs Pro – Recrutement Médical en Allemagne" />
-<meta property="og:description" content="Agence spécialisée dans le recrutement et l'accompagnement des professionnels de santé vers l'Allemagne." />
+<meta property="og:description" content="Vous cherchez un emploi d'infirmier en Allemagne ? Medijobs Pro vous place au sein des meilleurs hôpitaux avec un accompagnement 100% gratuit de A à Z. Rejoignez-nous !" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://medi-jobspro.com/media/employer_hero.png" />
 <meta property="og:site_name" content="Medijobs Pro" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#00263F" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/styles.css?v=2">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css?v=3">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
 <style>
@@ -27,28 +42,45 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  background: #F9F9FC;
+  background: #00263F;
   color: #1A1C1E;
 }
 h1, h2, h3, h4, h5, h6,
 .font-display, .font-h1, .font-h2, .font-h3,
 [class*="font-h"], [class*="font-display"] {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 /* ============================================
+   SERIF ITALIC ACCENT — Svertex signature
+   ============================================ */
+.accent {
+  font-family: 'Instrument Serif', 'Plus Jakarta Sans', serif !important;
+  font-style: italic;
+  font-weight: 400;
+  color: #d7be94;
+  letter-spacing: 0;
+}
+
+/* ============================================
    UTILITIES
    ============================================ */
-.soft-shadow { box-shadow: 0 20px 40px -10px rgba(11,60,93,0.10); }
+.soft-shadow { box-shadow: 0 20px 40px -10px rgba(11,60,93,0.18); }
 .glass-card {
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.glass-card-light {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.6);
 }
 .read-more-link {
   display: inline-flex;
@@ -112,18 +144,198 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================
-   SECTION LABEL (Svertex pill)
+   FLOATING GLASS PILL NAVBAR — Svertex signature
+   ============================================ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 18px 16px 0 16px;
+  transition: padding 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.site-header.scrolled { padding-top: 10px; }
+.nav-pill {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 14px 12px 22px;
+  border-radius: 9999px;
+  background: rgba(0, 38, 63, 0.88);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 10px 40px -12px rgba(0,0,0,0.45);
+  transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.site-header.scrolled .nav-pill {
+  background: rgba(0, 38, 63, 0.95);
+  box-shadow: 0 12px 34px -10px rgba(0,0,0,0.55);
+  border-color: rgba(201,167,111,0.22);
+}
+.nav-logo {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.nav-logo .logo-mark {
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  background: #C9A76F;
+  color: #00263F;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.nav-links { display: none; align-items: center; gap: 30px; }
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-link:hover { color: #fff; }
+.nav-link.active { color: #fff; }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 2px;
+  border-radius: 2px;
+  background: #C9A76F;
+}
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.nav-ghost-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.28); }
+.nav-icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.85);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.nav-icon-btn:hover { background: rgba(255,255,255,0.12); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 8px 0 22px;
+  border-radius: 9999px;
+  background: #C9A76F;
+  color: #00263F;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 8px 22px rgba(201,167,111,0.35);
+}
+.nav-cta:hover { transform: translateY(-1px); background: #d8b982; box-shadow: 0 12px 28px rgba(201,167,111,0.45); }
+.nav-cta .arrow {
+  width: 28px; height: 28px;
+  border-radius: 9999px;
+  background: #00263F;
+  color: #C9A76F;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.nav-lang-menu {
+  position: absolute; right: 0; margin-top: 10px;
+  width: 176px;
+  background: #fff;
+  border: 1px solid rgba(194,199,206,0.3);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px -10px rgba(0,38,63,0.25);
+  overflow: hidden;
+  z-index: 60;
+}
+.nav-lang-menu button {
+  width: 100%; text-align: left;
+  padding: 11px 18px;
+  font-size: 14px; font-weight: 600;
+  color: #1A1C1E; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: background 0.15s ease;
+}
+.nav-lang-menu button:hover { background: #F3F3F6; }
+@media (min-width: 1024px) {
+  .nav-links { display: flex; }
+  #mobile-menu-btn { display: none !important; }
+  .mobile-panel { display: none !important; }
+}
+@media (max-width: 1023px) {
+  .nav-lang-wrap, #theme-toggle { display: none !important; }
+  .nav-cta { padding: 0 18px; height: 42px; }
+}
+
+/* Mobile menu panel */
+.mobile-panel {
+  max-width: 1180px;
+  margin: 12px auto 0 auto;
+  border-radius: 24px;
+  background: rgba(0,38,63,0.96);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 18px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+}
+.mobile-panel.open {
+  display: flex;
+}
+.mobile-panel a {
+  color: rgba(255,255,255,0.82);
+  text-decoration: none;
+  font-size: 15px; font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background 0.15s ease;
+}
+.mobile-panel a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+/* ============================================
+   SECTION LABEL (Svertex eyebrow)
    ============================================ */
 .section-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #C9A76F;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .section-label::before {
   content: '';
@@ -134,206 +346,239 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION — Glassmorphism / Svertex dark
    ============================================ */
 .hero-section {
-  background: #00263F;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
-  min-height: 92vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
 }
-.hero-bg-glow {
+.hero-blob {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  filter: blur(90px);
 }
-.hero-bg-glow-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(201,167,111,0.10) 0%, transparent 70%);
-  top: -150px; right: -100px;
+.hero-blob-1 { width: 700px; height: 700px; background: rgba(201,167,111,0.08); top: -260px; right: -220px; }
+.hero-blob-2 { width: 500px; height: 500px; background: rgba(0,38,63,0.04); bottom: -200px; left: -180px; }
+.hero-blob-3 { width: 320px; height: 320px; background: rgba(201,167,111,0.05); bottom: 80px; right: 200px; }
+.hero-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(46px, 7vw, 88px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  color: #00263F;
+  margin-bottom: 26px;
+  text-wrap: balance;
 }
-.hero-bg-glow-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(201,167,111,0.06) 0%, transparent 70%);
-  bottom: -100px; left: -100px;
-}
+.hero-title .accent { font-size: 1.04em; line-height: 1; display: inline-block; }
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(0,38,63,0.12);
+  background: rgba(0,38,63,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 9999px;
-  padding: 6px 16px;
-  color: rgba(255,255,255,0.7);
+  padding: 8px 18px;
+  color: rgba(0,38,63,0.8);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+  margin-bottom: 30px;
 }
-.hero-badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #C9A76F;
-  animation: pulse 2s ease-in-out infinite;
+.hero-subtitle {
+  color: rgba(0,38,63,0.7);
 }
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.2); }
+.hero-stat-desc {
+  color: rgba(0,38,63,0.65);
 }
+.hero-section, .hero-title, .hero-badge, .btn-hero-ghost, .hero-subtitle, .hero-stat-desc {
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #C9A76F; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
 .hero-image-frame {
   position: relative;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   overflow: hidden;
-  border: 2px solid rgba(201,167,111,0.35);
+  border: 1.5px solid rgba(201,167,111,0.4);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4);
 }
 .hero-image-frame::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, rgba(0,38,63,0.5) 100%);
+  background: linear-gradient(to bottom, transparent 55%, rgba(0,38,63,0.55) 100%);
 }
 .hero-float-card {
   position: absolute;
-  bottom: -12px;
-  left: -20px;
   z-index: 10;
+  display: none;
 }
-.hero-corner-accent {
-  position: absolute;
-  top: -16px;
-  right: -16px;
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  background: rgba(201,167,111,0.25);
-  filter: blur(24px);
+@media (min-width: 768px) {
+  .hero-float-card {
+    display: block;
+  }
 }
+.hero-img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+@media (min-width: 768px) {
+  .hero-img {
+    height: 520px;
+  }
+}
+@media (max-width: 767px) {
+  .hero-text-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-text-col p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #C9A76F; color: #00263F;
+  padding: 15px 12px 15px 28px; border-radius: 9999px;
+  font-weight: 700; font-size: 15px; text-decoration: none;
+  transition: all 0.2s; box-shadow: 0 10px 28px rgba(201,167,111,0.4);
+  font-family: 'Inter', sans-serif;
+}
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(201,167,111,0.5); }
+.btn-hero-primary .arrow {
+  width: 30px; height: 30px; border-radius: 9999px;
+  background: #00263F; color: #C9A76F;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1.5px solid rgba(0,38,63,0.18);
+  background: rgba(0,38,63,0.04);
+  backdrop-filter: blur(10px);
+  color: #00263F;
+  padding: 15px 28px; border-radius: 9999px;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  transition: all 0.2s; font-family: 'Inter', sans-serif;
+}
+.btn-hero-ghost:hover { background: rgba(0,38,63,0.08); }
 
 /* ============================================
    STATS STRIP
    ============================================ */
 .stats-strip {
-  background: #0b3c5d;
-  padding: 28px 0;
-  border-top: 1px solid rgba(201,167,111,0.15);
-  border-bottom: 1px solid rgba(201,167,111,0.1);
+  background: rgba(11,60,93,0.95);
+  padding: 30px 0;
+  border-top: 1px solid rgba(201,167,111,0.2);
+  border-bottom: 1px solid rgba(201,167,111,0.12);
 }
 .stat-number {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: #C9A76F;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  font-size: 2.1rem; font-weight: 800;
+  color: #C9A76F; line-height: 1; letter-spacing: -0.03em;
 }
 .stat-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.55);
-  margin-top: 6px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,0.55); margin-top: 6px;
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
-.stat-sep {
-  width: 1px; height: 44px;
-  background: rgba(201,167,111,0.2);
-  flex-shrink: 0;
+.stat-sep { width: 1px; height: 44px; background: rgba(201,167,111,0.2); flex-shrink: 0; }
+
+/* ============================================
+   SECTION HEADING
+   ============================================ */
+.section-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5.5vw, 60px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.035em !important;
+  text-wrap: balance;
 }
 
 /* ============================================
-   NUMBERED BENEFIT CARDS (Svertex dark style)
+   BENEFITS — numbered cards
    ============================================ */
 .benefit-num-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #fff;
+  border: 1px solid rgba(0,38,63,0.08);
   border-radius: 20px;
   padding: 28px 24px;
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   cursor: default;
+  box-shadow: 0 4px 20px rgba(0,38,63,0.05);
 }
 .benefit-num-card:hover {
-  background: rgba(201,167,111,0.08);
-  border-color: rgba(201,167,111,0.3);
-  transform: translateY(-4px);
+  border-color: rgba(201,167,111,0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,38,63,0.1);
 }
 .benefit-arrow-btn {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: rgba(201,167,111,0.2);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(201,167,111,0.12);
+  border: 1px solid rgba(201,167,111,0.25);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.benefit-arrow-btn .material-symbols-outlined {
-  color: #C9A76F;
-  font-size: 16px;
-}
+.benefit-arrow-btn .material-symbols-outlined { color: #C9A76F; font-size: 16px; }
 
 /* ============================================
-   PROCESS STEPS (modern horizontal)
+   PROCESS — Svertex numbered 01–04 card grid
    ============================================ */
-.process-step-wrap {
+.step-card {
   position: relative;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 40px 36px 36px 36px;
+  min-height: 260px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.process-step-num {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: #00263F;
-  color: #fff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 16px;
-  position: relative;
-  z-index: 2;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.process-step-num:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 8px rgba(201,167,111,0.15);
-}
-.process-step-num.gold {
-  background: #C9A76F;
-}
-.process-icon-circle {
-  width: 72px; height: 72px;
-  border-radius: 50%;
-  background: #fff;
-  border: 3px solid rgba(201,167,111,0.5);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
-  box-shadow: 0 8px 24px rgba(0,38,63,0.1);
-  transition: transform 0.3s ease;
-}
-.process-step-wrap:hover .process-icon-circle { transform: scale(1.06); }
-.process-connector {
-  position: absolute;
-  top: 36px;
-  left: calc(50% + 36px);
-  right: calc(-50% + 36px);
-  height: 2px;
-  background: linear-gradient(to right, #C9A76F, rgba(0,38,63,0.15));
-  z-index: 1;
-}
-
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
-.about-image-wrap {
-  position: relative;
-  border-radius: 2.5rem;
+  transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
   overflow: hidden;
 }
-.about-accent-blob {
-  position: absolute;
-  border-radius: 50%;
-  z-index: -1;
+.step-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(201,167,111,0.35);
+  background: rgba(255,255,255,0.06);
 }
+.step-card-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.step-num {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 64px;
+  line-height: 0.8;
+  color: #C9A76F;
+  flex-shrink: 0;
+}
+.step-divider {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+}
+.step-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 21px; color: #fff;
+  margin-bottom: 12px; margin-top: auto;
+}
+.step-text { color: rgba(255,255,255,0.55); font-size: 14.5px; line-height: 1.6; }
 
 /* ============================================
    TESTIMONIAL CARDS
@@ -352,139 +597,389 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* ============================================
-   CTA SECTION — SVERTEX STYLE
-   Light background + large VISIBLE gold bubbles
+   CTA SECTION
    ============================================ */
 .cta-outer {
-  background: #FBF7F0;
+  background: #C9A76F;
   position: relative;
   overflow: hidden;
+  border-radius: 2.5rem;
+  margin: 0 16px;
 }
-/* Large visible gold circles — like Svertex's teal circles */
 .cta-circle-1 {
-  position: absolute;
-  width: 380px; height: 380px;
-  border-radius: 50%;
-  background: #C9A76F;
-  opacity: 0.28;
-  top: -120px; right: -80px;
-  pointer-events: none;
-}
-.cta-circle-2 {
-  position: absolute;
-  width: 240px; height: 240px;
-  border-radius: 50%;
-  background: #C9A76F;
-  opacity: 0.16;
-  top: 20px; right: 220px;
-  pointer-events: none;
-}
-.cta-circle-3 {
-  position: absolute;
-  width: 140px; height: 140px;
-  border-radius: 50%;
-  border: 2px solid rgba(201,167,111,0.4);
-  bottom: 30px; left: -40px;
-  pointer-events: none;
-}
-.cta-circle-4 {
-  position: absolute;
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  background: rgba(201,167,111,0.18);
-  bottom: 60px; left: 60px;
-  pointer-events: none;
+  position: absolute; width: 380px; height: 380px; border-radius: 50%;
+  border: 3.5px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.12);
+  top: -120px; right: -80px; pointer-events: none;
 }
 .cta-info-card {
-  background: #fff;
-  border-radius: 24px;
-  padding: 36px;
-  box-shadow: 0 24px 64px -16px rgba(0,38,63,0.14);
-  border: 1px solid rgba(201,167,111,0.2);
+  background: #fff; border-radius: 24px; padding: 36px;
+  box-shadow: 0 24px 64px -16px rgba(0,38,63,0.18);
+  border: 1px solid rgba(0,38,63,0.12);
 }
 .cta-big-num {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 64px;
-  font-weight: 800;
-  color: #C9A76F;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  margin-bottom: 4px;
+  font-size: 64px; font-weight: 800; color: #00263F;
+  line-height: 1; letter-spacing: -0.04em; margin-bottom: 4px;
 }
 .cta-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #00263F;
-  color: #fff;
-  padding: 14px 32px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #00263F; color: #fff;
+  padding: 14px 28px; border-radius: 9999px;
+  font-weight: 700; font-size: 15px; font-family: 'Inter', sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 24px rgba(0,38,63,0.25);
-  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,38,63,0.3); text-decoration: none;
 }
-.cta-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,38,63,0.3); }
-.cta-btn-primary:active { transform: scale(0.97); }
+.cta-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,38,63,0.4); }
 .cta-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: #00263F;
-  border: 2px solid #00263F;
-  padding: 13px 28px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 15px;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.2s ease;
-  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #00263F; border: 2px solid #00263F;
+  padding: 13px 26px; border-radius: 9999px;
+  font-weight: 700; font-size: 15px; font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease; text-decoration: none;
 }
 .cta-btn-secondary:hover { background: #00263F; color: #fff; }
-.trust-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  color: #42474E;
-}
-.trust-chip .material-symbols-outlined { color: #C9A76F; font-size: 16px; }
+.trust-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; color: #00263F; font-weight: 600; }
+.trust-chip .material-symbols-outlined { color: #00263F; font-size: 16px; }
 
 /* ============================================
    FOOTER
    ============================================ */
-.footer-link {
-  color: #42474E;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  font-size: 14px;
-}
+.footer-link { color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s ease; font-size: 14px; }
 .footer-link:hover { color: #C9A76F; }
 
 /* ============================================
-   CAROUSEL CARDS
+   GALLERY CARDS
    ============================================ */
 .gallery-card {
-  background: #fff;
-  border-radius: 24px;
-  overflow: hidden;
+  background: #fff; border-radius: 24px; overflow: hidden;
   border: 1px solid rgba(194,199,206,0.2);
-  transition: transform 0.3s ease;
-  position: relative;
+  transition: transform 0.3s ease; position: relative;
 }
 .gallery-card:hover { transform: translateY(-8px); }
+
+/* FAQ */
+.faq-item { background:#fff; border:1px solid rgba(194,199,206,0.3); border-radius:16px; overflow:hidden; transition:all 0.3s; }
+
+/* ============================================
+   LIGHT-SECTION BASE COLOURS (overridden in dark)
+   ============================================ */
+.benefits-section  { background:#ffffff; transition:background 0.35s ease; }
+.about-section     { background:#ffffff; transition:background 0.35s ease; }
+.faq-section       { background:#F3F3F6; transition:background 0.35s ease; }
+
+/* ============================================
+   DARK MODE OVERRIDES  (.theme-dark on <html>)
+   ============================================ */
+
+/* — Light sections turn dark — */
+.theme-dark .hero-section      { background: #00263F !important; }
+.theme-dark .hero-blob-1       { background: rgba(201,167,111,0.22) !important; }
+.theme-dark .hero-blob-2       { background: rgba(11,60,93,0.6) !important; }
+.theme-dark .hero-blob-3       { background: rgba(201,167,111,0.10) !important; }
+.theme-dark .hero-title        { color: #ffffff !important; }
+.theme-dark .hero-badge        { border: 1px solid rgba(255,255,255,0.2) !important; background: rgba(255,255,255,0.07) !important; color: rgba(255,255,255,0.85) !important; }
+.theme-dark .btn-hero-ghost    { border: 1.5px solid rgba(255,255,255,0.22) !important; background: rgba(255,255,255,0.06) !important; color: rgba(255,255,255,0.9) !important; }
+.theme-dark .btn-hero-ghost:hover { background: rgba(255,255,255,0.12) !important; }
+.theme-dark .hero-subtitle     { color: rgba(255,255,255,0.62) !important; }
+.theme-dark .hero-stat-desc    { color: rgba(255,255,255,0.6) !important; }
+.theme-dark .benefits-section,
+.theme-dark .about-section     { background:#001b2d !important; }
+.theme-dark .faq-section       { background:#0b2230 !important; border-top-color:rgba(255,255,255,0.08) !important; }
+
+/* — Section headings — */
+.theme-dark .benefits-section .section-heading,
+.theme-dark .about-section    .section-heading,
+.theme-dark .faq-section      .section-heading { color:#ffffff !important; }
+
+/* — Body paragraphs / descriptions — */
+.theme-dark .benefits-section > div p,
+.theme-dark .about-section    > div p,
+.theme-dark .faq-section      > div p { color:rgba(255,255,255,0.62) !important; }
+
+/* — About checklist spans — */
+.theme-dark .about-section span[style*="color:#1A1C1E"],
+.theme-dark .about-section span[style*="color:#1a1c1e"] { color:#ffffff !important; }
+
+/* — Benefit numbered cards — */
+.theme-dark .benefit-num-card {
+  background:rgba(255,255,255,0.03) !important;
+  border-color:rgba(255,255,255,0.08) !important;
+}
+.theme-dark .benefit-num-card:hover {
+  background:rgba(255,255,255,0.06) !important;
+  border-color:rgba(201,167,111,0.35) !important;
+}
+.theme-dark .benefit-num-card h3,
+.theme-dark .benefit-num-card h3[style] { color:#ffffff !important; }
+.theme-dark .benefit-num-card p,
+.theme-dark .benefit-num-card p[style]  { color:rgba(255,255,255,0.55) !important; }
+
+/* — FAQ items — */
+.theme-dark .faq-item {
+  background:rgba(255,255,255,0.03) !important;
+  border-color:rgba(255,255,255,0.08) !important;
+}
+.theme-dark .faq-item.active { border-color:rgba(201,167,111,0.5) !important; }
+.theme-dark .faq-item .faq-toggle span[data-i18n],
+.theme-dark .faq-item .faq-toggle span[data-i18n][style] { color:#ffffff !important; }
+.theme-dark .faq-item .faq-content p,
+.theme-dark .faq-item .faq-content p[style] { color:rgba(255,255,255,0.62) !important; }
+
+/* — FAQ help box — */
+.theme-dark .faq-help-box {
+  background:rgba(201,167,111,0.06) !important;
+  border-color:rgba(201,167,111,0.18) !important;
+}
+.theme-dark .faq-help-box .faq-help-title { color:#ffffff !important; }
+
+/* — CTA info card — */
+.theme-dark .cta-info-card {
+  background:rgba(0,20,40,0.85) !important;
+  border-color:rgba(255,255,255,0.12) !important;
+}
+.theme-dark .cta-info-card .cta-big-num { color:#C9A76F !important; }
+.theme-dark .cta-info-card > div > div[style*="color:#42474E"],
+.theme-dark .cta-info-card > div > div span { color:rgba(255,255,255,0.55) !important; }
+.theme-dark .cta-info-card div[style*="border-top"] > div { color:#ffffff !important; }
+
+/* — Language dropdown (desktop) — */
+.theme-dark .nav-lang-menu {
+  background:#0b2230 !important;
+  border-color:rgba(255,255,255,0.12) !important;
+}
+.theme-dark .nav-lang-menu button { color:#ffffff !important; }
+.theme-dark .nav-lang-menu button:hover { background:rgba(255,255,255,0.08) !important; }
+
+/* Smooth transitions on key elements */
+.benefit-num-card, .faq-item, .cta-info-card, .owner-section, .owner-section h2, .owner-section h3, .owner-section h4, .owner-section p {
+  transition:background 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+/* ============================================
+   OWNER SECTION STYLES
+   ============================================ */
+.owner-img-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+}
+.owner-img-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.owner-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.owner-img-container:hover img {
+  transform: scale(1.06);
+}
+.owner-img-deco-1 {
+  position: absolute;
+  top: -12px; right: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top: 3px solid #C9A76F;
+  border-right: 3px solid #C9A76F;
+  z-index: 1;
+  transform: rotate(-15deg);
+  animation: spin-slow 22s linear infinite;
+}
+.owner-img-deco-2 {
+  position: absolute;
+  top: -12px; right: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border-radius: 50%;
+  border: 3px dashed rgba(0,38,63,0.15);
+  z-index: 1;
+  clip-path: polygon(0 0, 0 100%, 70% 100%, 70% 0);
+  pointer-events: none;
+}
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* — Theme dark overrides for Owner Section — */
+.theme-dark .owner-section {
+  background: #001b2d !important;
+}
+.theme-dark .owner-section .section-heading,
+.theme-dark .owner-section h3,
+.theme-dark .owner-section h4 {
+  color: #ffffff !important;
+}
+.theme-dark .owner-section p {
+  color: rgba(255,255,255,0.62) !important;
+}
+.theme-dark .owner-img-wrapper {
+  border-color: #001b2d !important;
+}
+.theme-dark .owner-img-deco-2 {
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+@media (max-width: 1023px) {
+  .site-header {
+    padding: 12px 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+  .site-header.scrolled {
+    padding: 8px 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .nav-cta {
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+  }
+  .nav-logo {
+    font-size: 15px !important;
+  }
+  .nav-pill {
+    padding: 8px 8px 8px 16px !important;
+  }
+}
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+.about-check-card {
+  background: rgba(201,167,111,0.05);
+  border: 1px solid rgba(201,167,111,0.15);
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.about-check-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201,167,111,0.3) !important;
+  background: rgba(201,167,111,0.08) !important;
+}
+.theme-dark .about-check-card {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+.theme-dark .about-check-card:hover {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(201,167,111,0.3) !important;
+}
+.theme-dark .about-check-card span[style*="color:#1a1c1e"] {
+  color: #ffffff !important;
+}
+
+/* Certificate Section Styles */
+.certificate-section {
+  background: #ffffff;
+  padding: 100px 0;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid rgba(194, 199, 206, 0.2);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+.theme-dark .certificate-section {
+  background: #001b2d !important;
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .certificate-section .section-heading {
+  color: #ffffff !important;
+}
+.theme-dark .certificate-section p {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+.theme-dark .certificate-section .cert-check-text {
+  color: #ffffff !important;
+}
+
+.cert-img-container {
+  position: relative;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+}
+.cert-img-deco-border {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
+  border: 2px dashed rgba(201, 167, 111, 0.25);
+  border-radius: 32px;
+  pointer-events: none;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+  z-index: 1;
+}
+.cert-img-container:hover .cert-img-deco-border {
+  transform: rotate(1deg) scale(1.02);
+  border-color: rgba(201, 167, 111, 0.45);
+}
+.cert-img-frame {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 38, 63, 0.06);
+  border: 1px solid rgba(201, 167, 111, 0.15);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.cert-img-frame img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+}
+.cert-img-container:hover .cert-img-frame {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 70px rgba(201, 167, 111, 0.16);
+  border-color: rgba(201, 167, 111, 0.38);
+}
+.cert-img-container:hover .cert-img-frame img {
+  transform: scale(1.02);
+}
+.theme-dark .cert-img-frame {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28) !important;
+}
+.theme-dark .cert-img-container:hover .cert-img-frame {
+  border-color: rgba(201, 167, 111, 0.35) !important;
+  box-shadow: 0 30px 70px rgba(201, 167, 111, 0.18) !important;
+}
 </style>
 </head>
-<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<body class="bg-background text-on-surface overflow-x-hidden">
 
 <!-- SPLASH SCREEN LOADER -->
 <div id="global-loader">
-  <div class="loader-pulse">
-    <div class="loader-cross"></div>
-  </div>
+  <div class="loader-pulse"><div class="loader-cross"></div></div>
   <div style="margin-top:30px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:2px;">Medijobs Pro</div>
 </div>
 <script>
@@ -494,134 +989,139 @@ h1, h2, h3, h4, h5, h6,
   });
 </script>
 
-<!-- ============ NAVBAR ============ -->
-<header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-sm" style="border-bottom:1px solid rgba(194,199,206,0.2);">
-  <nav class="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-lg py-md w-full">
-    <div class="flex items-center gap-sm">
-      <span class="font-h2 text-h2 font-bold tracking-tight text-primary" style="font-family:'Plus Jakarta Sans',sans-serif;">Medijobs Pro</span>
+<!-- ============ FLOATING GLASS NAVBAR ============ -->
+<header class="site-header" id="site-header">
+  <nav class="nav-pill" aria-label="Primary">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-mark material-symbols-outlined" style="font-size:16px;">medical_services</span>
+      Medijobs Pro
+    </a>
+
+    <div class="nav-links">
+      <a data-nav-page="index.html" href="index.html" class="nav-link active" data-i18n="nav.home">Accueil</a>
+      <a data-nav-page="about.html" href="about.html" class="nav-link" data-i18n="nav.about">À propos</a>
+      <a data-nav-page="candidates.html" href="candidates.html" class="nav-link" data-i18n="nav.candidates">Candidats</a>
+      <a data-nav-page="entreprise.html" href="entreprise.html" class="nav-link" data-i18n="nav.business">Entreprise</a>
+      <a data-nav-page="contact.html" href="contact.html" class="nav-link" data-i18n="nav.contact">Contactez-nous</a>
     </div>
-    <div class="hidden md:flex items-center gap-xl">
-      <a data-nav-page="index.html" href="index.html" class="font-label-bold text-label-bold text-secondary border-b-2 border-secondary pb-1 transition-colors text-sm font-semibold" data-i18n="nav.home">Accueil</a>
-      <a data-nav-page="about.html" href="about.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.about">À propos</a>
-      <a data-nav-page="candidates.html" href="candidates.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.candidates">Candidats</a>
-      <a data-nav-page="entreprise.html" href="entreprise.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.business">Entreprise</a>
-      <a data-nav-page="contact.html" href="contact.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.contact">Contactez-nous</a>
-    </div>
-    <div class="flex items-center gap-md">
-      <!-- Language Toggle -->
-      <div class="relative hidden md:block">
-        <button id="lang-toggle-btn" class="flex items-center gap-1 font-label-bold text-label-bold text-on-surface-variant border border-outline-variant/50 px-sm py-1 rounded-lg hover:border-secondary transition-all text-sm">
-          <span class="material-symbols-outlined text-[16px]">language</span>
+
+    <div class="nav-right">
+      <!-- Language toggle -->
+      <div class="nav-lang-wrap" style="position:relative;" >
+        <button id="lang-toggle-btn" class="nav-ghost-btn" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-outlined" style="font-size:16px;">language</span>
           <span id="current-lang-label">FR</span>
-          <span class="material-symbols-outlined text-[14px]">expand_more</span>
+          <span class="material-symbols-outlined" style="font-size:14px;">expand_more</span>
         </button>
-        <div id="lang-menu" class="absolute right-0 mt-2 w-44 bg-white border border-outline-variant/30 rounded-xl shadow-lg overflow-hidden hidden z-50">
-          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="fr" onclick="setLang('fr')">Français</button>
-          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="en" onclick="setLang('en')">English</button>
-          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="de" onclick="setLang('de')">Deutsch</button>
-          <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2 opacity-60" data-lang="ar" onclick="setLang('ar')">العربية <span class="text-xs text-secondary ml-1">bientôt</span></button>
+        <div id="lang-menu" class="nav-lang-menu hidden">
+          <button class="lang-option-btn" data-lang="fr" onclick="setLang('fr')">🇫🇷 Français</button>
+          <button class="lang-option-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+          <button class="lang-option-btn" data-lang="de" onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button class="lang-option-btn" data-lang="ar" onclick="setLang('ar')" style="opacity:0.6;">🇹🇳 العربية</button>
         </div>
       </div>
-      <a href="candidates.html#form" class="bg-secondary text-white px-lg py-sm rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all text-center text-sm" data-i18n="nav.apply">Postuler</a>
-      <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-surface-container transition-colors" aria-label="Menu">
-        <span class="material-symbols-outlined text-primary">menu</span>
+
+      <!-- Theme toggle (visual, Svertex-style) -->
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+        <span class="material-symbols-outlined" style="font-size:18px;" id="theme-icon">light_mode</span>
+      </button>
+
+      <!-- Primary CTA with arrow badge -->
+      <a href="https://medijobspro.simplybook.it/v2/#book" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav.apply">
+        Postuler
+        <span class="arrow material-symbols-outlined">arrow_outward</span>
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="nav-icon-btn" aria-label="Menu">
+        <span class="material-symbols-outlined" style="font-size:20px;">menu</span>
       </button>
     </div>
   </nav>
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="md:hidden hidden bg-surface/95 backdrop-blur-md border-t border-outline-variant/20 px-4 py-lg flex flex-col gap-md">
-    <a href="index.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.home">Accueil</a>
-    <a href="about.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.about">À propos</a>
-    <a href="candidates.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.candidates">Candidats</a>
-    <a href="entreprise.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.business">Entreprise</a>
-    <a href="contact.html" class="text-sm font-semibold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.contact">Contactez-nous</a>
-    <div class="py-sm border-t border-outline-variant/20">
-      <button id="mobile-lang-toggle-btn" class="w-full flex items-center justify-between font-label-bold text-on-surface-variant py-sm px-md rounded-lg hover:bg-surface-container transition-all">
-        <span class="flex items-center gap-sm"><span class="material-symbols-outlined text-[18px]">language</span><span id="mobile-current-lang-label">FR</span></span>
-        <span class="material-symbols-outlined text-[18px]">expand_more</span>
-      </button>
-      <div id="mobile-lang-menu" class="hidden flex-col gap-sm pl-8 mt-sm">
-        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('fr')">Français</button>
-        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('en')">English</button>
-        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('de')">Deutsch</button>
-        <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary opacity-60" onclick="setLang('ar')">العربية</button>
-      </div>
+
+  <!-- Mobile panel -->
+  <div id="mobile-menu" class="mobile-panel hidden">
+    <a href="index.html" data-i18n="nav.home">Accueil</a>
+    <a href="about.html" data-i18n="nav.about">À propos</a>
+    <a href="candidates.html" data-i18n="nav.candidates">Candidats</a>
+    <a href="entreprise.html" data-i18n="nav.business">Entreprise</a>
+    <a href="contact.html" data-i18n="nav.contact">Contactez-nous</a>
+    <div style="display:flex;gap:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.12);margin-top:6px;">
+      <button class="nav-ghost-btn" onclick="setLang('fr')">FR</button>
+      <button class="nav-ghost-btn" onclick="setLang('en')">EN</button>
+      <button class="nav-ghost-btn" onclick="setLang('de')">DE</button>
     </div>
   </div>
 </header>
 
-<!-- ============ HERO — Dark navy, Svertex-inspired ============ -->
-<section class="hero-section pt-20">
-  <div class="hero-bg-glow hero-bg-glow-1"></div>
-  <div class="hero-bg-glow hero-bg-glow-2"></div>
+<!-- ============ HERO ============ -->
+<section class="hero-section">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-blob hero-blob-3"></div>
 
-  <div class="max-w-7xl mx-auto px-4 md:px-lg w-full py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg w-full py-24 md:py-28">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
 
-      <!-- LEFT: Text -->
-      <div class="z-10 order-2 md:order-1">
+      <!-- LEFT -->
+      <div class="z-10 order-1 md:order-1 hero-text-col">
         <div class="hero-badge" data-i18n="hero.badge">
           <span class="hero-badge-dot"></span>
           Opportunités en Allemagne
         </div>
-        <h1 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(40px,5vw,62px);line-height:1.03;letter-spacing:-0.03em;color:#fff;margin-bottom:24px;" data-i18n="hero.title">
-          Travaillez comme<br/>infirmier en Allemagne<br/>
-          <span style="color:#C9A76F;">avec confiance.</span>
+        <h1 class="hero-title" data-i18n="hero.title" data-i18n-rich>
+          Travaillez comme infirmier en Allemagne, <span class="accent">en toute confiance.</span>
         </h1>
-        <p style="color:rgba(255,255,255,0.65);font-size:18px;line-height:1.65;margin-bottom:36px;max-width:480px;" data-i18n="hero.subtitle">
+        <p class="hero-subtitle" style="font-size:18px;line-height:1.65;margin-bottom:36px;max-width:480px;" data-i18n="hero.subtitle">
           Débloquez votre potentiel professionnel. Nous vous offrons des postes stables, bien rémunérés et une intégration sereine dans le système de santé allemand.
         </p>
-        <div class="flex flex-wrap gap-md mb-12">
-          <a href="candidates.html#form" style="display:inline-flex;align-items:center;gap:8px;background:#C9A76F;color:#fff;padding:14px 32px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;transition:all 0.2s;box-shadow:0 8px 24px rgba(201,167,111,0.35);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''" data-i18n="hero.cta1">
-            Postuler maintenant
-            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+        <div class="flex flex-wrap gap-md mb-12 justify-center md:justify-start">
+          <a href="https://medijobspro.simplybook.it/v2/#book" target="_blank" rel="noopener" class="btn-hero-primary" data-i18n="hero.cta1">
+            Réserver un appel gratuit
+            <span class="arrow material-symbols-outlined">arrow_outward</span>
           </a>
-          <a href="candidates.html#process" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);padding:14px 28px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background=''" data-i18n="hero.cta2">
+          <a href="candidates.html#process" class="btn-hero-ghost" data-i18n="hero.cta2">
             Découvrir le processus
           </a>
         </div>
 
-        <!-- Trust indicators -->
-        <div class="flex flex-wrap gap-lg">
+        <div class="flex flex-wrap gap-lg justify-center md:justify-start">
           <div class="flex items-center gap-sm">
             <div class="flex -space-x-2">
-              <div style="width:28px;height:28px;border-radius:50%;background:rgba(201,167,111,0.3);border:2px solid rgba(255,255,255,0.3);"></div>
-              <div style="width:28px;height:28px;border-radius:50%;background:rgba(201,167,111,0.5);border:2px solid rgba(255,255,255,0.3);"></div>
-              <div style="width:28px;height:28px;border-radius:50%;background:#C9A76F;border:2px solid rgba(255,255,255,0.3);"></div>
+              <div style="width:28px;height:28px;border-radius:50%;background:#C9A76F;border:2px solid rgba(255,255,255,0.2);"></div>
             </div>
-            <span style="color:rgba(255,255,255,0.6);font-size:13px;" data-i18n="hero.stat1">+500 candidats placés</span>
+            <span class="hero-stat-desc" style="font-size:13px;">+500 candidats placés</span>
           </div>
-          <div class="flex items-center gap-xs" style="color:rgba(255,255,255,0.6);font-size:13px;">
+          <div class="hero-stat-desc flex items-center gap-xs" style="font-size:13px;">
             <span class="material-symbols-outlined" style="font-size:16px;color:#C9A76F;">verified</span>
-            <span data-i18n="hero.stat2">+50 partenaires certifiés</span>
+            <span>+50 partenaires certifiés</span>
           </div>
         </div>
       </div>
 
-      <!-- RIGHT: Image with gold frame -->
-      <div class="relative order-1 md:order-2 hidden md:block">
-        <div class="hero-corner-accent"></div>
-        <div class="hero-image-frame soft-shadow">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9lFSHe4eUbL7RZMa1FLRsGuY28rVHBmkEUvqyasZa2qih0d1YBLQhE2q2qQeVD7Oz1PW0HU_fwMZ6l7I3xTVlO1DmmosbsR2_Br_Eh3jhZq5sjnfkTR-ccFSW6ns7_PrMF6_GU8zD1ri4pBunJtKKa0FLQIaOfGfLAS_eaj36ulBj3BTrDDOpXSlyDGxH2zxbfFi82JfhciJvQdiQIV1FrDtP5-B_9c0Vuzk9EgM3sEIm4GSUAp4_v2mHjrg7akJ3vEnAEJjUJSZF"
+      <!-- RIGHT -->
+      <div class="relative order-2 md:order-2 block">
+        <div class="hero-image-frame">
+          <img src="./media/herosection.png"
                alt="Infirmier professionnel en Allemagne"
-               style="width:100%;height:480px;object-fit:cover;object-position:top;display:block;"/>
+               class="hero-img"/>
         </div>
-        <!-- Floating card — "Profils vérifiés" -->
-        <div class="hero-float-card glass-card" style="padding:14px 18px;border-radius:16px;min-width:200px;box-shadow:0 12px 40px rgba(0,38,63,0.2);">
+        <!-- Floating glass card top-right — "Geprüfte Profile" style -->
+        <div class="hero-float-card glass-card" style="top:-18px;left:-24px;padding:14px 18px;border-radius:18px;min-width:210px;box-shadow:0 12px 40px rgba(0,0,0,0.3);">
           <div class="flex items-center gap-md">
-            <div style="width:36px;height:36px;border-radius:50%;background:rgba(201,167,111,0.2);display:flex;align-items:center;justify-content:center;">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,167,111,0.25);display:flex;align-items:center;justify-content:center;">
               <span class="material-symbols-outlined" style="color:#C9A76F;font-size:18px;">verified_user</span>
             </div>
             <div>
-              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#00263F;">Profils vérifiés</div>
-              <div style="font-size:11px;color:#42474E;">Qualifiés & prêts à partir</div>
+              <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;color:#fff;">Profils vérifiés</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.55);">Qualifiés &amp; prêts à partir</div>
             </div>
           </div>
         </div>
-        <!-- Stats float card top right -->
-        <div class="glass-card" style="position:absolute;top:-12px;right:-12px;padding:14px 18px;border-radius:16px;box-shadow:0 12px 40px rgba(0,38,63,0.2);">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:22px;color:#00263F;line-height:1;">+50</div>
-          <div style="font-size:11px;color:#42474E;margin-top:2px;">Partenaires</div>
+        <!-- Stats glass card bottom-right -->
+        <div class="hero-float-card glass-card" style="bottom:-18px;right:-18px;padding:16px 20px;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,0.25);">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:24px;color:#fff;line-height:1;">+50</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px;">Partenaires</div>
         </div>
       </div>
     </div>
@@ -631,429 +1131,470 @@ h1, h2, h3, h4, h5, h6,
 <!-- ============ STATS STRIP ============ -->
 <section class="stats-strip">
   <div class="max-w-7xl mx-auto px-4 md:px-lg flex flex-wrap justify-center md:justify-around items-center gap-8 md:gap-0">
-    <div class="text-center">
-      <div class="stat-number">+500</div>
-      <div class="stat-label" data-i18n="hero.stat1">Candidats placés</div>
-    </div>
+    <div class="text-center"><div class="stat-number">+500</div><div class="stat-label" data-i18n="hero.stat1">Candidats placés</div></div>
     <div class="stat-sep hidden md:block"></div>
-    <div class="text-center">
-      <div class="stat-number">+50</div>
-      <div class="stat-label" data-i18n="hero.stat2">Partenaires hospitaliers</div>
-    </div>
+    <div class="text-center"><div class="stat-number">+50</div><div class="stat-label" data-i18n="hero.stat2">Partenaires hospitaliers</div></div>
     <div class="stat-sep hidden md:block"></div>
-    <div class="text-center">
-      <div class="stat-number">4</div>
-      <div class="stat-label">Pays couverts</div>
-    </div>
+    <div class="text-center"><div class="stat-number">4</div><div class="stat-label">Pays couverts</div></div>
     <div class="stat-sep hidden md:block"></div>
-    <div class="text-center">
-      <div class="stat-number">98%</div>
-      <div class="stat-label">Taux de satisfaction</div>
-    </div>
+    <div class="text-center"><div class="stat-number">98%</div><div class="stat-label">Taux de satisfaction</div></div>
   </div>
 </section>
 
-<!-- ============ BENEFITS — Dark section, Svertex numbered cards ============ -->
-<section style="background:#00263F;padding:80px 0;overflow:hidden;">
-  <div class="max-w-7xl mx-auto px-4 md:px-lg">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+<!-- ============ BENEFITS ============ -->
+<section class="benefits-section" style="padding:96px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(201,167,111,0.06);filter:blur(80px);top:-150px;right:-100px;pointer-events:none;"></div>
+  <div style="position:absolute;width:350px;height:350px;border-radius:50%;background:rgba(0,38,63,0.04);filter:blur(70px);bottom:-100px;left:-80px;pointer-events:none;"></div>
 
-      <!-- LEFT: Big text -->
+  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
       <div>
         <div class="section-label" data-i18n="benefits.label">Pourquoi l'Allemagne</div>
-        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4vw,46px);line-height:1.1;color:#fff;margin-bottom:20px;letter-spacing:-0.025em;" data-i18n="benefits.title">
-          Quand les postes restent vacants,<br/>
-          <span style="color:#C9A76F;">les patients souffrent.</span>
+        <h2 class="section-heading" style="font-size:clamp(32px,4vw,50px);color:#00263F;margin-bottom:20px;" data-i18n="benefits.title" data-i18n-rich>
+          Pourquoi travailler <span class="accent">en Allemagne?</span>
         </h2>
-        <p style="color:rgba(255,255,255,0.6);font-size:17px;line-height:1.65;margin-bottom:32px;max-width:420px;" data-i18n="benefits.subtitle">
+        <p style="color:#42474E;font-size:17px;line-height:1.65;margin-bottom:32px;max-width:420px;" data-i18n="benefits.subtitle">
           Le système de santé allemand offre des conditions de travail et des perspectives d'avenir parmi les meilleures au monde.
         </p>
         <a href="candidates.html" class="read-more-link" data-i18n="benefits.read_more">En savoir plus sur nos services <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
       </div>
 
-      <!-- RIGHT: 2x2 numbered cards — Svertex style -->
       <div class="grid grid-cols-2 gap-4">
         <div class="benefit-num-card">
-          <div class="flex justify-between items-start mb-6">
-            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">01</span>
-            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
-          </div>
-          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card1_title">Salaire attractif</h3>
-          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card1_text">Rémunération compétitive dès le premier jour, avec avantages complets.</p>
+          <div class="flex justify-between items-start mb-6"><span class="accent" style="font-size:38px;">01</span><div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div></div>
+          <h3 style="color:#00263F;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card1_title">Salaire attractif</h3>
+          <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="benefits.card1_text">Rémunération compétitive dès le premier jour, avec avantages complets.</p>
         </div>
         <div class="benefit-num-card">
-          <div class="flex justify-between items-start mb-6">
-            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">02</span>
-            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
-          </div>
-          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card2_title">Forte demande</h3>
-          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card2_text">Le secteur médical allemand recherche activement des talents qualifiés.</p>
+          <div class="flex justify-between items-start mb-6"><span class="accent" style="font-size:38px;">02</span><div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div></div>
+          <h3 style="color:#00263F;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card2_title">Forte demande</h3>
+          <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="benefits.card2_text">Le secteur médical allemand recherche activement des talents qualifiés.</p>
         </div>
         <div class="benefit-num-card">
-          <div class="flex justify-between items-start mb-6">
-            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">03</span>
-            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
-          </div>
-          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card3_title">Évolution rapide</h3>
-          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card3_text">Formations continues et spécialisations accessibles dès votre arrivée.</p>
+          <div class="flex justify-between items-start mb-6"><span class="accent" style="font-size:38px;">03</span><div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div></div>
+          <h3 style="color:#00263F;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card3_title">Évolution rapide</h3>
+          <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="benefits.card3_text">Formations continues et spécialisations accessibles dès votre arrivée.</p>
         </div>
         <div class="benefit-num-card">
-          <div class="flex justify-between items-start mb-6">
-            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:28px;color:rgba(255,255,255,0.2);">04</span>
-            <div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div>
-          </div>
-          <h3 style="color:#fff;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card4_title">Accompagnement</h3>
-          <p style="color:rgba(255,255,255,0.5);font-size:13px;line-height:1.6;" data-i18n="benefits.card4_text">Zéro stress : visas, équivalences et logement gérés pour vous.</p>
+          <div class="flex justify-between items-start mb-6"><span class="accent" style="font-size:38px;">04</span><div class="benefit-arrow-btn"><span class="material-symbols-outlined">north_east</span></div></div>
+          <h3 style="color:#00263F;font-weight:700;font-size:15px;margin-bottom:8px;" data-i18n="benefits.card4_title">Accompagnement</h3>
+          <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="benefits.card4_text">Zéro stress : visas, équivalences et logement gérés pour vous.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ============ PROCESS — Light bg, modern horizontal steps ============ -->
-<section style="background:#F9F9FC;padding:80px 0;">
-  <div class="max-w-7xl mx-auto px-4 md:px-lg">
-    <div class="text-center mb-16">
+<!-- ============ PROCESS — Svertex numbered card grid ============ -->
+<section style="background:#00263F;padding:100px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(201,167,111,0.07);top:-200px;left:-150px;filter:blur(80px);pointer-events:none;"></div>
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,0.05);bottom:-150px;right:-100px;filter:blur(80px);pointer-events:none;"></div>
+
+  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
+    <div class="mb-14 max-w-2xl">
       <div class="section-label" data-i18n="process.label">Notre processus</div>
-      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="process.title">Comment ça fonctionne?</h2>
-      <p style="color:#42474E;font-size:17px;max-width:520px;margin:0 auto;line-height:1.6;" data-i18n="process.subtitle">Votre parcours vers l'Allemagne en 4 étapes simples.</p>
+      <h2 class="section-heading" style="font-size:clamp(32px,4.5vw,58px);color:#fff;margin-bottom:14px;" data-i18n="process.title" data-i18n-rich>
+        Quatre étapes vers <span class="accent">votre réussite.</span>
+      </h2>
+      <p style="color:rgba(255,255,255,0.55);font-size:17px;line-height:1.6;" data-i18n="process.subtitle">Clair. Transparent. Avec des interlocuteurs dédiés.</p>
     </div>
 
-    <div class="relative grid grid-cols-1 md:grid-cols-4 gap-8">
-      <!-- Connector line desktop -->
-      <div class="hidden md:block" style="position:absolute;top:28px;left:calc(12.5%);right:calc(12.5%);height:2px;background:linear-gradient(to right, #C9A76F, rgba(0,38,63,0.15));z-index:0;"></div>
-
-      <!-- Step 1 -->
-      <div class="process-step-wrap relative z-10">
-        <div class="process-icon-circle">
-          <span class="material-symbols-outlined text-secondary" style="font-size:28px;">assignment</span>
-        </div>
-        <div class="process-step-num gold mb-3">1</div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step1_title">Formulaire</h3>
-        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step1_text">Remplissez votre dossier en ligne en quelques minutes.</p>
+    <div class="grid grid-cols-1 mt-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="step-card ">
+        <div class="step-card-top"><span class="step-num">01</span><span class="step-divider"></span></div>
+        <h3 class="step-title" data-i18n="process.step1_title">Formulaire</h3>
+        <p class="step-text" data-i18n="process.step1_text">Remplissez votre dossier en ligne en quelques minutes.</p>
       </div>
-
-      <!-- Step 2 -->
-      <div class="process-step-wrap relative z-10">
-        <div class="process-icon-circle">
-          <span class="material-symbols-outlined text-primary" style="font-size:28px;">analytics</span>
-        </div>
-        <div class="process-step-num mb-3">2</div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step2_title">Analyse</h3>
-        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step2_text">Nos experts étudient votre profil et vos diplômes.</p>
+      <div class="step-card">
+        <div class="step-card-top"><span class="step-num">02</span><span class="step-divider"></span></div>
+        <h3 class="step-title" data-i18n="process.step2_title">Analyse</h3>
+        <p class="step-text" data-i18n="process.step2_text">Nos experts étudient votre profil et vos diplômes.</p>
       </div>
-
-      <!-- Step 3 -->
-      <div class="process-step-wrap relative z-10">
-        <div class="process-icon-circle">
-          <span class="material-symbols-outlined text-primary" style="font-size:28px;">school</span>
-        </div>
-        <div class="process-step-num mb-3">3</div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step3_title">Préparation</h3>
-        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step3_text">Apprentissage de la langue et entretiens avec les hôpitaux.</p>
+      <div class="step-card">
+        <div class="step-card-top"><span class="step-num">03</span><span class="step-divider"></span></div>
+        <h3 class="step-title" data-i18n="process.step3_title">Préparation</h3>
+        <p class="step-text" data-i18n="process.step3_text">Apprentissage de la langue et entretiens avec les hôpitaux.</p>
       </div>
-
-      <!-- Step 4 -->
-      <div class="process-step-wrap relative z-10">
-        <div class="process-icon-circle" style="border-color:rgba(201,167,111,0.7);">
-          <span class="material-symbols-outlined text-secondary" style="font-size:28px;">flight_takeoff</span>
-        </div>
-        <div class="process-step-num gold mb-3">4</div>
-        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;margin-bottom:8px;" data-i18n="process.step4_title">Départ</h3>
-        <p style="color:#42474E;font-size:13px;line-height:1.6;" data-i18n="process.step4_text">Votre nouvelle vie commence avec un accueil à l'aéroport.</p>
+      <div class="step-card">
+        <div class="step-card-top"><span class="step-num">04</span><span class="step-divider"></span></div>
+        <h3 class="step-title" data-i18n="process.step4_title">Départ</h3>
+        <p class="step-text" data-i18n="process.step4_text">Votre nouvelle vie commence avec un accueil à l'aéroport.</p>
       </div>
     </div>
 
-    <div class="text-center mt-12">
-      <a href="candidates.html#process" class="read-more-link" data-i18n="process.read_more">Voir le processus complet <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+    <div class="mt-12">
+      <a href="candidates.html#process" style="display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14px;color:#C9A76F;" data-i18n="process.read_more">Voir le processus complet <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span></a>
     </div>
   </div>
 </section>
 
 <!-- ============ ABOUT ============ -->
-<section style="background:#fff;padding:80px 0;overflow:hidden;">
+<section class="about-section" style="padding:96px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;bottom:-24px;right:0;width:40%;height:400px;background:rgba(201,167,111,0.06);border-radius:50%;filter:blur(60px);z-index:0;"></div>
+  <div class="max-w-4xl mx-auto px-4 md:px-lg text-center flex flex-col items-center">
+    <div class="section-label" data-i18n="about.label">À propos</div>
+    <h2 class="section-heading" style="font-size:clamp(28px,3.5vw,42px);color:#00263F;margin-bottom:20px;text-align:center;" data-i18n="about.title">Une agence spécialisée dans le recrutement médical</h2>
+    <p style="color:#42474E;font-size:17px;line-height:1.7;margin-bottom:36px;max-width:760px;margin-left:auto;margin-right:auto;" data-i18n="about.text">
+      Medijobs Pro n'est pas seulement une agence de placement. Nous sommes vos partenaires de confiance, fondés par des professionnels qui comprennent les défis de la mobility internationale dans le domaine de la santé.
+    </p>
+    <!-- 3-Column check list cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10 w-full text-left" style="margin-left:auto; margin-right:auto;">
+      <div class="about-check-card">
+        <span class="material-symbols-outlined" style="color:#C9A76F;margin-top:2px;flex-shrink:0;">check_circle</span>
+        <span style="font-weight:600;font-size:14.5px;color:#1A1C1E;line-height:1.45;" data-i18n="about.check1">Transparence totale sur les contrats et salaires</span>
+      </div>
+      <div class="about-check-card">
+        <span class="material-symbols-outlined" style="color:#C9A76F;margin-top:2px;flex-shrink:0;">check_circle</span>
+        <span style="font-weight:600;font-size:14.5px;color:#1A1C1E;line-height:1.45;" data-i18n="about.check2">Partenariats avec des cliniques universitaires renommées</span>
+      </div>
+      <div class="about-check-card">
+        <span class="material-symbols-outlined" style="color:#C9A76F;margin-top:2px;flex-shrink:0;">check_circle</span>
+        <span style="font-weight:600;font-size:14.5px;color:#1A1C1E;line-height:1.45;" data-i18n="about.check3">Accompagnement familial pour une expatriation réussie</span>
+      </div>
+    </div>
+    <div>
+      <a href="about.html" class="read-more-link" data-i18n="about.read_more">En savoir plus sur nous <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OWNER SECTION (light bg) ============ -->
+<section class="owner-section" style="background:#F8F9FA;padding:100px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,0.04);filter:blur(80px);bottom:-100px;left:-100px;pointer-events:none;"></div>
+  
   <div class="max-w-7xl mx-auto px-4 md:px-lg">
-    <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-      <!-- Image -->
-      <div class="w-full md:w-1/2 relative">
-        <div style="position:relative;width:80%;height:480px;border-radius:2.5rem;overflow:hidden;box-shadow:0 24px 64px rgba(0,38,63,0.1);">
-          <img style="width:100%;height:100%;object-fit:cover;" src="./media/employer_hero.png" alt="Équipe Medijobs Pro"/>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- LEFT - Circular Owner Image with Custom Dashed/Solid Arc borders (5 cols) -->
+      <div class="lg:col-span-5 flex justify-center fade-up">
+        <div class="owner-img-container">
+          <div class="owner-img-deco-1"></div>
+          <div class="owner-img-deco-2"></div>
+          <div class="owner-img-wrapper">
+            <img src="media/owner.png" alt="Ramzi Ben Saad" loading="lazy" />
+          </div>
         </div>
-        <div style="position:absolute;bottom:-24px;right:0;width:60%;height:200px;background:rgba(238,214,180,0.45);border-radius:2rem;z-index:-1;"></div>
       </div>
-      <!-- Text -->
-      <div class="w-full md:w-1/2">
-        <div class="section-label" data-i18n="about.label">À propos</div>
-        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,38px);color:#00263F;margin-bottom:16px;letter-spacing:-0.025em;" data-i18n="about.title">Une agence spécialisée dans le recrutement médical</h2>
-        <p style="color:#42474E;font-size:17px;line-height:1.65;margin-bottom:28px;" data-i18n="about.text">
-          Medijobs Pro n'est pas seulement une agence de placement. Nous sommes vos partenaires de confiance, fondés par des professionnels qui comprennent les défis de la mobilité internationale dans le domaine de la santé.
+      
+      <!-- RIGHT - Text Description (7 cols) -->
+      <div class="lg:col-span-7 fade-up fade-up-d2">
+        <div class="section-label" style="margin-bottom:16px;" data-i18n="about_page.owner_badge">DIRIGEANT & FONDATEUR</div>
+        <h2 class="section-heading" style="font-size:clamp(28px,4vw,38px);margin-bottom:10px;color:#00263F;" data-i18n="about_page.owner_title" data-i18n-rich>
+          Un engagement <span class="accent">personnel</span> pour votre réussite
+        </h2>
+        <div style="margin-bottom:28px;">
+          <h3 style="font-size:20px;font-weight:700;color:#00263F;margin-bottom:2px;" data-i18n="about_page.owner_name">Ramzi Ben Saad</h3>
+          <p style="color:#C9A76F;font-weight:600;font-size:14px;" data-i18n="about_page.owner_role">Fondateur de Medi Jobs Pro</p>
+        </div>
+        <p style="color:#42474E;font-size:16px;line-height:1.75;margin-bottom:32px;" data-i18n="about_page.owner_desc">
+          Medi Jobs Pro est née de la vision de Ramzi Ben Saad de créer un pont solide et humain entre les professionnels de santé et les meilleurs établissements médicaux en Allemagne. Fort de ses collaborations exclusives et d'une présence active sur le terrain en Allemagne, il s'engage personnellement à offrir un accompagnement transparent, fiable et sur-mesure pour chaque candidat.
         </p>
-        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
-          <div class="flex items-center gap-md">
-            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
-            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check1">Transparence totale sur les contrats et salaires</span>
+        
+        <!-- Highlights (Grid Layout) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div style="display:flex;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(201,167,111,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:18px;">face</span>
+            </div>
+            <div>
+              <h4 style="font-size:15px;font-weight:700;color:#00263F;margin-bottom:6px;" data-i18n="about_page.owner_highlight1_title">Interlocuteur unique</h4>
+              <p style="color:#72777E;font-size:13.5px;line-height:1.6;" data-i18n="about_page.owner_highlight1_desc">Pas d'intermédiaires ni de centres d'appels anonymes. Vous échangez directement avec les décideurs.</p>
+            </div>
           </div>
-          <div class="flex items-center gap-md">
-            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
-            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check2">Partenariats avec des cliniques universitaires renommées</span>
-          </div>
-          <div class="flex items-center gap-md">
-            <span class="material-symbols-outlined" style="color:#C9A76F;">check_circle</span>
-            <span style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="about.check3">Accompagnement familial pour une expatriation réussie</span>
+          <div style="display:flex;gap:12px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(201,167,111,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:18px;">partner_exchange</span>
+            </div>
+            <div>
+              <h4 style="font-size:15px;font-weight:700;color:#00263F;margin-bottom:6px;" data-i18n="about_page.owner_highlight2_title">Expertise du terrain</h4>
+              <p style="color:#72777E;font-size:13.5px;line-height:1.6;" data-i18n="about_page.owner_highlight2_desc">Des relations étroites et directes avec les directions des hôpitaux et cliniques en Allemagne.</p>
+            </div>
           </div>
         </div>
-        <a href="about.html" class="read-more-link" data-i18n="about.read_more">En savoir plus sur nous <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
       </div>
+      
     </div>
   </div>
 </section>
 
-<!-- ============ VIDEO ============ -->
-<section style="background:#F3F3F6;padding:80px 0;">
-  <div class="max-w-7xl mx-auto px-4 md:px-lg flex flex-col items-center">
-    <div class="text-center mb-12">
-      <span class="section-badge inline-block bg-secondary-container text-on-secondary-container px-md py-xs rounded-full font-label-bold text-caption mb-md uppercase tracking-wider" data-i18n="video.badge">Le Mot du Fondateur</span>
-      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,38px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="video.title">Découvrez notre vision</h2>
-      <p style="color:#42474E;font-size:17px;max-width:540px;margin:0 auto;line-height:1.6;" data-i18n="video.subtitle">Apprenez-en plus sur notre engagement à transformer le recrutement médical et à accompagner chaque candidat vers l'excellence en Allemagne.</p>
-    </div>
-    <div id="video-container" class="relative w-full max-w-5xl group cursor-pointer" style="border-radius:2.5rem;overflow:hidden;box-shadow:0 24px 64px rgba(0,38,63,0.12);border:1px solid rgba(194,199,206,0.3);aspect-ratio:16/9;background:#E8E8EB;">
-      <div id="video-overlay" class="absolute inset-0 z-10 transition-all duration-500">
-        <img alt="Video Thumbnail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiq_G79v_mDrDkzq0HOWRH7tcPvpkaccLVt_n-_g71GOmnU7urlETyinivxskFevii9jC_D1KInyIpr0Zmq5OUlgbnytOnzgyfWqnSRQluVSFsyli4l9h5eIfQvGS-HE-X2JIddtBikQxNcnmTMlHh6q_Q4_58I-fKXDF8nfDiph71j_A5vvzFrZc4y8yQPeYMse8OveMtnedN7LBss1egP2N0faitwKfbV7TKCueNfL8d-lmrQTvbD0_WAG9ro200gzdMiF3NRHx5"/>
-        <div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors duration-300"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <div class="absolute w-24 h-24 bg-white/30 rounded-full animate-ping"></div>
-          <div class="relative w-20 h-20 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center soft-shadow group-hover:scale-110 transition-transform duration-300">
-            <span class="material-symbols-outlined text-secondary text-5xl ml-2">play_arrow</span>
+<!-- ============ CERTIFICATE SECTION ============ -->
+<section class="certificate-section">
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,0.04);filter:blur(80px);top:-100px;right:-100px;pointer-events:none;"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      
+      <!-- LEFT - Text Description (7 cols) -->
+      <div class="lg:col-span-7 z-10">
+        <div class="section-label" style="margin-bottom:16px;" data-i18n="cert_section.label">Certification & Qualité</div>
+        <h2 class="section-heading" style="font-size:clamp(28px,3.5vw,42px);margin-bottom:20px;color:#00263F;" data-i18n="cert_section.title" data-i18n-rich>
+          Une agence de recrutement <span class="accent">officiellement certifiée</span>
+        </h2>
+        <p style="color:#42474E;font-size:16px;line-height:1.75;margin-bottom:32px;" data-i18n="cert_section.desc">
+          Medijobs Pro est fière de détenir les certifications de qualité rigoureuses requises pour le recrutement international de professionnels de la santé. Notre conformité stricte garantit des processus éthiques, transparents et sécurisés pour les candidats et les établissements partenaires en Allemagne.
+        </p>
+        
+        <!-- Checks -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;flex-shrink:0;">verified_user</span>
+            <span class="cert-check-text" style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="cert_section.check1">Processus de recrutement éthique certifiés</span>
+          </div>
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;flex-shrink:0;">gavel</span>
+            <span class="cert-check-text" style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="cert_section.check2">Conformité totale avec les réglementations allemandes</span>
+          </div>
+          <div class="flex items-center gap-md">
+            <span class="material-symbols-outlined" style="color:#C9A76F;flex-shrink:0;">description</span>
+            <span class="cert-check-text" style="font-weight:600;font-size:15px;color:#1A1C1E;" data-i18n="cert_section.check3">Garantie de qualité et transparence des contrats</span>
           </div>
         </div>
-        <div class="absolute bottom-8 left-8 glass-card px-lg py-sm rounded-2xl flex items-center gap-md">
-          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/50">
-            <img alt="Fondateur" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5"/>
+      </div>
+      
+      <!-- RIGHT - Premium Card containing Certificate Image (5 cols) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="cert-img-container">
+          <div class="cert-img-deco-border"></div>
+          <div class="cert-img-frame">
+            <img src="media/certifcate.jpeg" alt="Certificat de Conformité Medi Jobs Pro" loading="lazy" />
+            <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,38,63,0.3) 0%, transparent 100%);pointer-events:none;z-index:3;"></div>
+            <div style="position:absolute;bottom:20px;left:20px;z-index:4;">
+              <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);padding:6px 14px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+                <span class="material-symbols-outlined" style="color:#C9A76F;font-size:16px;font-variation-settings:'FILL' 1;">workspace_premium</span>
+                <span style="color:#00263F;font-weight:700;font-size:11px;letter-spacing:0.5px;text-transform:uppercase;" data-i18n="cert_section.badge_label">Certificat de Conformité</span>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="faq-section" style="padding:100px 0;border-top:1px solid rgba(194,199,206,0.2);">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5">
+        <div class="section-label" data-i18n="faq.badge">FAQ</div>
+        <h2 class="section-heading" style="font-size:clamp(30px,4vw,44px);color:#00263F;margin-bottom:20px;" data-i18n="faq.title">Questions Fréquentes</h2>
+        <p style="color:#42474E;font-size:16px;line-height:1.6;margin-bottom:32px;" data-i18n="faq.subtitle">
+          Retrouvez les réponses aux questions les plus fréquentes sur notre processus de recrutement et d'accompagnement en Allemagne.
+        </p>
+        <div class="faq-help-box" style="background:rgba(201,167,111,0.08);border:1px solid rgba(201,167,111,0.2);border-radius:20px;padding:24px;display:flex;align-items:center;gap:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:#C9A76F;display:flex;align-items:center;justify-content:center;color:#fff;"><span class="material-symbols-outlined">help</span></div>
           <div>
-            <div class="font-label-bold text-primary" data-i18n="video.founder_name">Amen Allah</div>
-            <div class="text-caption text-on-surface-variant" data-i18n="video.founder_role">Fondateur, Medijobs Pro</div>
+            <div class="faq-help-title" style="font-weight:700;font-size:15px;color:#00263F;">Encore des questions ?</div>
+            <a href="contact.html" style="font-size:13px;color:#C9A76F;font-weight:600;text-decoration:underline;">Contactez notre équipe de support</a>
           </div>
         </div>
       </div>
-      <video id="founder-video" class="w-full h-full object-cover hidden" src="media/Healthcare_Recruitment_Tunisia_Germany.mp4" controls></video>
+
+      <div class="lg:col-span-7 flex flex-col gap-4">
+        <div class="faq-item">
+          <button class="faq-toggle" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;text-align:left;cursor:pointer;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;" data-i18n="faq.q1">Quelles sont les conditions pour postuler ?</span>
+            <span class="material-symbols-outlined faq-icon" style="transition:transform 0.3s;color:#C9A76F;">expand_more</span>
+          </button>
+          <div class="faq-content" style="max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0 24px;"><p style="color:#42474E;font-size:14px;line-height:1.6;padding-bottom:20px;" data-i18n="faq.a1">Vous devez posséder un diplôme officiel d'infirmier(e) ou de professionnel de santé et être motivé(e) à apprendre l'allemand.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-toggle" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;text-align:left;cursor:pointer;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;" data-i18n="faq.q2">Combien de temps prend le processus ?</span>
+            <span class="material-symbols-outlined faq-icon" style="transition:transform 0.3s;color:#C9A76F;">expand_more</span>
+          </button>
+          <div class="faq-content" style="max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0 24px;"><p style="color:#42474E;font-size:14px;line-height:1.6;padding-bottom:20px;" data-i18n="faq.a2">En moyenne, entre le dépôt de votre dossier et votre premier jour en Allemagne, il s'écoule 6 à 12 mois, principalement dédiés à l'apprentissage de la langue.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-toggle" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;text-align:left;cursor:pointer;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;" data-i18n="faq.q3">L'apprentissage de l'allemand est-il obligatoire ?</span>
+            <span class="material-symbols-outlined faq-icon" style="transition:transform 0.3s;color:#C9A76F;">expand_more</span>
+          </button>
+          <div class="faq-content" style="max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0 24px;"><p style="color:#42474E;font-size:14px;line-height:1.6;padding-bottom:20px;" data-i18n="faq.a3">Oui, pour obtenir l'autorisation d'exercer officielle (Urkunde) et communiquer avec les patients, le niveau B2 est requis. Nous finançons et organisons vos cours.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-toggle" style="width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:none;border:none;text-align:left;cursor:pointer;">
+            <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:16px;color:#00263F;" data-i18n="faq.q4">Quels sont les frais pour le candidat ?</span>
+            <span class="material-symbols-outlined faq-icon" style="transition:transform 0.3s;color:#C9A76F;">expand_more</span>
+          </button>
+          <div class="faq-content" style="max-height:0;overflow:hidden;transition:max-height 0.3s ease-out;padding:0 24px;"><p style="color:#42474E;font-size:14px;line-height:1.6;padding-bottom:20px;" data-i18n="faq.a4">Notre service d'accompagnement est entièrement gratuit pour les candidats. Les frais de cours de langue, de traduction de documents et de visa sont pris en charge.</p></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS — Dark navy ============ -->
-<section style="background:#00263F;padding:80px 0;overflow:hidden;position:relative;">
-  <!-- Depth glows -->
-  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,0.07);top:-120px;left:-100px;filter:blur(70px);pointer-events:none;"></div>
-  <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(201,167,111,0.05);bottom:-80px;right:-60px;filter:blur(70px);pointer-events:none;"></div>
+<!-- ============ TESTIMONIALS ============ -->
+<section style="background:#00263F;padding:96px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(201,167,111,0.09);top:-180px;left:-120px;filter:blur(90px);pointer-events:none;"></div>
+  <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:rgba(201,167,111,0.06);bottom:-120px;right:-80px;filter:blur(90px);pointer-events:none;"></div>
 
   <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
     <div class="text-center mb-16">
-      <div class="section-label" style="color:#C9A76F;" data-i18n="testimonials.label">Témoignages</div>
-      <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#fff;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="testimonials.title">Ils nous ont fait confiance</h2>
+      <div class="section-label" style="justify-content:center;" data-i18n="testimonials.label">Témoignages</div>
+      <h2 class="section-heading" style="font-size:clamp(28px,3.5vw,46px);color:#fff;margin-bottom:12px;" data-i18n="testimonials.title" data-i18n-rich>Ils nous ont <span class="accent">fait confiance.</span></h2>
       <p style="color:rgba(255,255,255,0.55);font-size:17px;" data-i18n="testimonials.subtitle">Découvrez les témoignages de nos infirmiers déjà installés en Allemagne.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
       <div class="testimonial-card">
-        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
-          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
-        </div>
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;"><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span></div>
         <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t1_text">"L'accompagnement pour mon dossier administratif était incroyable. Aujourd'hui, je travaille à Berlin et ma vie a totalement changé."</p>
         <div class="flex items-center gap-md">
-          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
-            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5" alt="Yassine B."/>
-          </div>
-          <div>
-            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t1_name">Yassine B.</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t1_role">Infirmier en Réanimation</div>
-          </div>
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);"><img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCorkSyAecuS9g7ghn3IQL0BIOqaU7rCvkjWzZe7Y7rnRJY1P3xO4jpuNjh2BoBBx399w-3le91e4I0X40wAoI_aptixIYP6UuEg0aU_7seNMqGJFq0-nP4PMw6X6j2Hde0qC6HsHe81HwF7S2sQMWlWiOzeKJFa12Ke0p4iA31w8rji4Nq5EpAsePSqmm2Ce1ZwpMrEDKGv8Ty1GGWJNuQbRyWTLvzYkyhU_6aftmfJalpYATl40c9KJomDpH6jmBhomZ8VMHZteQ5" alt="Yassine B."/></div>
+          <div><div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t1_name">Yassine B.</div><div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t1_role">Infirmier en Réanimation</div></div>
         </div>
       </div>
-
       <div class="testimonial-card">
-        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
-          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
-        </div>
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;"><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span></div>
         <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t2_text">"Medijobs Pro m'a aidé à apprendre l'allemand rapidement. Leur équipe est humaine et toujours à l'écoute."</p>
         <div class="flex items-center gap-md">
-          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
-            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQ86IShKu-wgI22KOfLKQqVAbXZHS7o8Yrg4C6dJpWuStffvxxDTHsPt_bQmfYgeuV3FIPcrrXKTiZuBHE5bn0Y-v5ruyLjjLQhk3QWH44llL-CGdFON_osNcx1eHod7XsCUbGv8uUibY18jo1rhfA-tkJuxv8dQcP9pspRDTk1RMnOzPHeGqYWJdNN2hkzcwHEt9MwINiE3dbFRz3PJNHFTjKX3MfPpBVAmOwuuLBZPSGXiFROWzgEoIRT2nzTlNhE5op5o1aAHy" alt="Sarah K."/>
-          </div>
-          <div>
-            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t2_name">Sarah K.</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t2_role">Infirmière Bloc Opératoire</div>
-          </div>
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);"><img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQ86IShKu-wgI22KOfLKQqVAbXZHS7o8Yrg4C6dJpWuStffvxxDTHsPt_bQmfYgeuV3FIPcrrXKTiZuBHE5bn0Y-v5ruyLjjLQhk3QWH44llL-CGdFON_osNcx1eHod7XsCUbGv8uUibY18jo1rhfA-tkJuxv8dQcP9pspRDTk1RMnOzPHeGqYWJdNN2hkzcwHEt9MwINiE3dbFRz3PJNHFTjKX3MfPpBVAmOwuuLBZPSGXiFROWzgEoIRT2nzTlNhE5op5o1aAHy" alt="Sarah K."/></div>
+          <div><div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t2_name">Sarah K.</div><div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t2_role">Infirmière Bloc Opératoire</div></div>
         </div>
       </div>
-
       <div class="testimonial-card">
-        <div class="flex gap-1 mb-4" style="color:#C9A76F;">
-          <span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span>
-        </div>
+        <div class="flex gap-1 mb-4" style="color:#C9A76F;"><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span><span class="material-symbols-outlined" style="font-size:18px;">star</span></div>
         <p style="color:rgba(255,255,255,0.85);font-style:italic;font-size:15px;line-height:1.7;margin-bottom:24px;" data-i18n="testimonials.t3_text">"Grâce à eux, j'ai trouvé un poste avec un salaire bien au-delà de mes attentes. L'intégration s'est faite en douceur."</p>
         <div class="flex items-center gap-md">
-          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);">
-            <img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5vVxeJ5qZhF9Os_vOnd2ZtSQnBlT5ID6O2rZZVkWfbNXTPUqc3N5bhK0FTWrEV0n0KporxFoUz-Da6bjPF4KzAC6NuTbNiKLND8PXejS5DYO9tG3U9KvqMsiQehxFw0LSmxZLTLh_QHI3e5D8x2ZTxISwdodCG5AVhODwlVqblSSVVMkvTZMRliTCzoeJEW0cqoBHHSRFhCCljh_kixuvc-zms73k-x_s1AZSLyPkKpaWNtZwAvOYmPnVZj_bh7puAtt9OBiL_aQ" alt="Marc D."/>
-          </div>
-          <div>
-            <div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t3_name">Marc D.</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t3_role">Infirmier Gériatrie</div>
-          </div>
+          <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.1);"><img style="width:100%;height:100%;object-fit:cover;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK5vVxeJ5qZhF9Os_vOnd2ZtSQnBlT5ID6O2rZZVkWfbNXTPUqc3N5bhK0FTWrEV0n0KporxFoUz-Da6bjPF4KzAC6NuTbNiKLND8PXejS5DYO9tG3U9KvqMsiQehxFw0LSmxZLTLh_QHI3e5D8x2ZTxISwdodCG5AVhODwlVqblSSVVMkvTZMRliTCzoeJEW0cqoBHHSRFhCCljh_kixuvc-zms73k-x_s1AZSLyPkKpaWNtZwAvOYmPnVZj_bh7puAtt9OBiL_aQ" alt="Marc D."/></div>
+          <div><div style="font-weight:700;font-size:14px;color:#fff;" data-i18n="testimonials.t3_name">Marc D.</div><div style="font-size:12px;color:rgba(255,255,255,0.45);" data-i18n="testimonials.t3_role">Infirmier Gériatrie</div></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ============ GALLERY — Horizontal scroll carousel ============ -->
-<section style="background:#F3F3F6;padding:80px 0;overflow:hidden;position:relative;">
-  <div style="position:absolute;top:50%;left:0;width:280px;height:280px;border-radius:50%;background:rgba(201,167,111,0.06);filter:blur(60px);transform:translateY(-50%) translateX(-50%);pointer-events:none;"></div>
-  <div style="position:absolute;top:0;right:0;width:360px;height:360px;background:rgba(0,38,63,0.04);border-radius:50%;filter:blur(60px);transform:translateY(-20%) translateX(20%);pointer-events:none;"></div>
+<!-- ============ GALLERY ============ -->
+<section style="background:#00263F;padding:80px 0 100px 0;overflow:hidden;position:relative;">
+  <div style="position:absolute;top:50%;left:0;width:280px;height:280px;border-radius:50%;background:rgba(201,167,111,0.07);filter:blur(60px);transform:translateY(-50%) translateX(-50%);pointer-events:none;"></div>
+  <div style="position:absolute;top:0;right:0;width:360px;height:360px;background:rgba(11,60,93,0.5);border-radius:50%;filter:blur(80px);transform:translateY(-20%) translateX(20%);pointer-events:none;"></div>
 
   <div class="max-w-7xl mx-auto px-4 md:px-lg text-center mb-12 relative z-10">
-    <div class="section-label" data-i18n="trust.label">Preuve par l'image</div>
-    <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(28px,3.5vw,40px);color:#00263F;margin-bottom:12px;letter-spacing:-0.025em;" data-i18n="trust.title">Ils sont déjà en Allemagne</h2>
-    <p style="color:#42474E;font-size:17px;max-width:540px;margin:0 auto;line-height:1.6;" data-i18n="trust.subtitle">Découvrez les moments de départ et d'arrivée de nos candidats qui ont franchi le pas avec succès.</p>
+    <div class="section-label" style="justify-content:center;" data-i18n="trust.label">Preuve par l'image</div>
+    <h2 class="section-heading" style="font-size:clamp(28px,3.5vw,46px);color:#fff;margin-bottom:12px;" data-i18n="trust.title">Ils sont déjà en Allemagne</h2>
+    <p style="color:rgba(255,255,255,0.55);font-size:17px;max-width:540px;margin:0 auto;line-height:1.6;" data-i18n="trust.subtitle">Découvrez les moments de départ et d'arrivée de nos candidats qui ont franchi le pas avec succès.</p>
   </div>
 
   <div class="max-w-7xl mx-auto relative px-4" id="carousel-wrapper">
-    <button id="carousel-prev" class="absolute left-0 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Previous slide">
-      <span class="material-symbols-outlined text-[24px]">chevron_left</span>
-    </button>
-    <button id="carousel-next" class="absolute right-0 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white hover:bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all focus:outline-none" aria-label="Next slide">
-      <span class="material-symbols-outlined text-[24px]">chevron_right</span>
-    </button>
+    <button id="carousel-prev" class="absolute left-0 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all" aria-label="Previous slide"><span class="material-symbols-outlined text-[24px]">chevron_left</span></button>
+    <button id="carousel-next" class="absolute right-0 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-outline-variant/30 text-primary flex items-center justify-center soft-shadow hover:scale-110 active:scale-95 transition-all" aria-label="Next slide"><span class="material-symbols-outlined text-[24px]">chevron_right</span></button>
     <div id="carousel-track" class="flex gap-lg overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none py-4 px-1 select-none">
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/1.jpg" alt="Candidate Departure 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card1">Départ pour Frankfurt</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/3.jpg" alt="Candidate Departure 2"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card2">Nouveau départ</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/4.jpg" alt="Candidate Arrival 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card3">Arrivée à Francfort</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/5.jpg" alt="Candidate Departure 3"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card4">Prêt pour l'aventure</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/6.jpg" alt="Candidate Arrival 2"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card5">Intégration réussie</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/departure.jpeg" alt="Candidate Departure 4"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card6">En route pour Hambourg</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/10.jpg" alt="Candidate Departure 5"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card7">Décollage imminent</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
-      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow hover:translate-y-[-8px] transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/11.jpg" alt="Candidate Arrival 3"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white font-label-bold text-sm" data-i18n="trust.card8">Nouvelle vie en Allemagne</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-label-bold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/1.jpg" alt="Candidate Departure 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white text-sm font-semibold" data-i18n="trust.card1">Départ pour Frankfurt</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-semibold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/3.jpg" alt="Candidate Departure 2"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white text-sm font-semibold" data-i18n="trust.card2">Nouveau départ</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">flight_takeoff</span><span data-i18n="trust.departure">Départ</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-semibold">2025</span></div></div></div>
+      <div class="snap-start shrink-0 w-[280px] sm:w-[320px] md:w-[360px] group"><div class="gallery-card soft-shadow transition-all duration-300 relative aspect-[4/5]"><img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="media/4.jpg" alt="Candidate Arrival 1"/><div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div><div class="absolute bottom-4 left-4 right-4 glass-card p-md rounded-2xl flex justify-between items-center border border-white/20"><div class="flex flex-col gap-xs"><span class="text-white text-sm font-semibold" data-i18n="trust.card3">Arrivée à Francfort</span><div class="flex items-center gap-xs text-secondary text-xs"><span class="material-symbols-outlined text-[14px]">check_circle</span><span data-i18n="trust.arrived">Arrivé</span></div></div><span class="bg-secondary text-white px-sm py-1 rounded-lg text-caption font-semibold">2025</span></div></div></div>
     </div>
     <div class="flex justify-center gap-sm mt-lg">
       <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="0" aria-label="Go to slide 1"></button>
       <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="1" aria-label="Go to slide 2"></button>
       <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="2" aria-label="Go to slide 3"></button>
-      <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="3" aria-label="Go to slide 4"></button>
-      <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="4" aria-label="Go to slide 5"></button>
-      <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="5" aria-label="Go to slide 6"></button>
-      <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="6" aria-label="Go to slide 7"></button>
-      <button class="carousel-dot w-3 h-3 rounded-full bg-outline-variant/40 hover:bg-secondary transition-all" data-index="7" aria-label="Go to slide 8"></button>
     </div>
   </div>
 </section>
 
-<!-- ============ CTA — SVERTEX STYLE: Light cream bg + LARGE VISIBLE GOLD CIRCLES ============ -->
-<section class="cta-outer" style="padding:80px 0;">
-  <!-- Large visible gold bubble circles — like Svertex's teal circles -->
+<!-- ============ CTA ============ -->
+<section class="cta-outer" style="margin-top:40px;margin-bottom:40px;background:linear-gradient(180deg,#C9A76F 0%,#B38B4D 100%);">
   <div class="cta-circle-1"></div>
-  <div class="cta-circle-2"></div>
-  <div class="cta-circle-3"></div>
-  <div class="cta-circle-4"></div>
 
-  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10">
+  <div class="max-w-7xl mx-auto px-4 md:px-lg relative z-10 py-16 md:py-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-
-      <!-- LEFT: Text + buttons -->
       <div>
-        <div class="section-label" data-i18n="cta.label">Commencez aujourd'hui</div>
-        <h2 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,4vw,50px);color:#00263F;margin-bottom:16px;line-height:1.08;letter-spacing:-0.03em;" data-i18n="cta.title">
-          Prêt à commencer<br/>votre nouvelle<br/><span style="color:#C9A76F;">carrière?</span>
+        <div class="section-label" style="color:#00263F;" data-i18n="cta.label">Commencez aujourd'hui</div>
+        <h2 class="section-heading" style="font-size:clamp(32px,4vw,54px);color:#ffff;margin-bottom:16px;" data-i18n="cta.title" data-i18n-rich>
+          Prêt à commencer <span class="accent" style="color:#c9ab85;">votre nouvelle carrière?</span>
         </h2>
-        <p style="color:#42474E;font-size:17px;line-height:1.65;margin-bottom:36px;max-width:460px;" data-i18n="cta.subtitle">
+        <p style="color:rgba(0,38,63,0.85);font-size:17px;line-height:1.65;margin-bottom:36px;max-width:460px;" data-i18n="cta.subtitle">
           Rejoignez des centaines de professionnels de santé qui ont déjà franchi le pas vers un avenir meilleur en Allemagne.
         </p>
         <div class="flex flex-wrap gap-md mb-8">
-          <a href="candidates.html#form" class="cta-btn-primary" data-i18n="cta.btn">
-            Je commence maintenant
-            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
-          </a>
-          <a href="contact.html" class="cta-btn-secondary">
-            Nous contacter
-          </a>
+          <a href="https://medijobspro.simplybook.it/v2/#book" target="_blank" rel="noopener" class="cta-btn-primary" data-i18n="cta.btn">Réserver un appel gratuit <span class="material-symbols-outlined" style="font-size:18px;">call</span></a>
+          <a href="contact.html" class="cta-btn-secondary" style="color:#fff;border-color:#00263F;">Nous contacter</a>
         </div>
-        <!-- Trust chips -->
-        <div class="flex flex-wrap gap-lg">
-          <span class="trust-chip">
-            <span class="material-symbols-outlined">check_circle</span>
-            Gratuit & sans engagement
-          </span>
-          <span class="trust-chip">
-            <span class="material-symbols-outlined">check_circle</span>
-            Réponse rapide
-          </span>
-          <span class="trust-chip">
-            <span class="material-symbols-outlined">check_circle</span>
-            Personnel dédié
-          </span>
+        <div class="flex pt-4 flex-wrap gap-lg">
+          <span class="trust-chip"><span class="material-symbols-outlined">check_circle</span> Gratuit &amp; sans engagement</span>
+          <span class="trust-chip"><span class="material-symbols-outlined">check_circle</span> Réponse rapide</span>
+          <span class="trust-chip"><span class="material-symbols-outlined">check_circle</span> Personnel dédié</span>
         </div>
       </div>
 
-      <!-- RIGHT: Info card — like Svertex's "15 min" card -->
       <div class="relative">
         <div class="cta-info-card">
           <div class="cta-big-num">+500</div>
-          <div style="font-size:16px;color:#42474E;margin-bottom:24px;line-height:1.4;">
-            Candidats placés avec succès.<br/>
-            <span style="font-size:13px;color:#72777E;">Rapide. Transparent. Personnel.</span>
-          </div>
+          <div style="font-size:16px;color:#42474E;margin-bottom:24px;line-height:1.4;">Candidats placés avec succès.<br/><span style="font-size:13px;color:#72777E;">Rapide. Transparent. Personnel.</span></div>
           <div style="border-top:1px solid rgba(194,199,206,0.3);padding-top:24px;display:flex;flex-direction:column;gap:14px;">
-            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
-              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">mail</span>
-              <span>contact@medijobspro.com</span>
-            </div>
-            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
-              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">phone</span>
-              <span>+33 1 23 45 67 89</span>
-            </div>
-            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;">
-              <span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">location_on</span>
-              <span>France · Tunisie · Allemagne</span>
-            </div>
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">mail</span><span>contact@medijobspro.com</span></div>
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">phone</span><a href="tel:+4917672196809" style="color:inherit;text-decoration:none;">+49 176 72196809</a></div>
+            <div class="flex items-center gap-md" style="font-size:14px;color:#1A1C1E;"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;">location_on</span><span>France · Tunisie · Allemagne</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer style="background:#F3F3F6;border-top:1px solid rgba(194,199,206,0.3);">
+<footer style="background:#00263F;border-top:1px solid rgba(201,167,111,0.2);">
   <div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
     <div class="max-w-sm">
-      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;color:#00263F;margin-bottom:12px;">Medijobs Pro</div>
-      <p class="text-on-surface-variant font-body-md mb-lg" data-i18n="footer.tagline">
-        Votre passerelle vers une carrière médicale d'excellence en Allemagne. Accompagnement complet, du premier clic au premier jour de travail.
-      </p>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;color:#C9A76F;margin-bottom:12px;">Medijobs Pro</div>
+      <p style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.65;margin-bottom:24px;" data-i18n="footer.tagline">Votre passerelle vers une carrière médicale d'excellence en Allemagne. Accompagnement complet, du premier clic au premier jour de travail.</p>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-2 gap-xl md:gap-xxl">
       <div class="flex flex-col gap-sm">
-        <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.links_title">Liens Rapides</h4>
+        <h4 style="font-weight:700;font-size:13px;color:#C9A76F;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;" data-i18n="footer.links_title">Liens Rapides</h4>
         <a class="footer-link" href="candidates.html" data-i18n="footer.link_process">Processus</a>
         <a class="footer-link" href="about.html" data-i18n="nav.about">À propos</a>
         <a class="footer-link" href="contact.html" data-i18n="footer.link_contact">Contact</a>
       </div>
       <div class="flex flex-col gap-sm">
-        <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.legal_title">Légal</h4>
+        <h4 style="font-weight:700;font-size:13px;color:#C9A76F;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;" data-i18n="footer.legal_title">Légal</h4>
         <a class="footer-link" href="#" data-i18n="footer.link_privacy">Mentions Légales</a>
         <a class="footer-link" href="#" data-i18n="footer.link_terms">Confidentialité</a>
       </div>
     </div>
   </div>
-  <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center" style="border-top:1px solid rgba(194,199,206,0.2);padding-top:20px;">
-    <p class="font-body-md text-on-surface-variant" data-i18n="footer.copyright">© 2025 Medijobs Pro. Partenaire de confiance pour le recrutement médical en Allemagne.</p>
+  <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center" style="border-top:1px solid rgba(201,167,111,0.15);padding-top:20px;">
+    <p style="color:rgba(255,255,255,0.4);font-size:13px;" data-i18n="footer.copyright">© 2025 Medijobs Pro. Partenaire de confiance pour le recrutement médical en Allemagne.</p>
   </div>
 </footer>
 
 <!-- ============ SCRIPTS ============ -->
 <script>
+  // Navbar scroll state
+  const siteHeader = document.getElementById('site-header');
+  const onScroll = () => {
+    if (window.scrollY > 20) siteHeader.classList.add('scrolled');
+    else siteHeader.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Theme toggle — persisted, icon-aware
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon   = document.getElementById('theme-icon');
+
+  function applyThemeUI(isDark) {
+    if (themeIcon) themeIcon.textContent = isDark ? 'light_mode' : 'dark_mode';
+  }
+
+  // Sync icon with current state on load
+  applyThemeUI(document.documentElement.classList.contains('theme-dark'));
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('theme-dark');
+      document.documentElement.classList.toggle('dark', isDark);
+      if (isDark) {
+        document.documentElement.classList.remove('light');
+        localStorage.setItem('mjp-theme', 'dark');
+      } else {
+        document.documentElement.classList.add('light');
+        localStorage.setItem('mjp-theme', 'light');
+      }
+      applyThemeUI(isDark);
+    });
+  }
+
   // Carousel
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('carousel-track');
@@ -1100,42 +1641,40 @@ h1, h2, h3, h4, h5, h6,
     updateActiveDot();
   });
 
-  // Video
-  const videoContainer = document.getElementById('video-container');
-  const videoOverlay = document.getElementById('video-overlay');
-  const founderVideo = document.getElementById('founder-video');
-  if (videoContainer && videoOverlay && founderVideo) {
-    videoContainer.addEventListener('click', () => {
-      videoOverlay.style.opacity = '0';
-      videoOverlay.style.pointerEvents = 'none';
-      setTimeout(() => videoOverlay.classList.add('hidden'), 500);
-      founderVideo.classList.remove('hidden');
-      founderVideo.play();
+  // FAQ Accordion
+  document.querySelectorAll('.faq-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const content = item.querySelector('.faq-content');
+      const icon = item.querySelector('.faq-icon');
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(other => {
+        if (other !== item && other.classList.contains('active')) {
+          other.classList.remove('active');
+          other.querySelector('.faq-content').style.maxHeight = '0';
+          other.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+          other.style.borderColor = 'rgba(194,199,206,0.3)';
+          other.style.boxShadow = 'none';
+        }
+      });
+      if (isOpen) {
+        item.classList.remove('active');
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+        item.style.borderColor = 'rgba(194,199,206,0.3)';
+        item.style.boxShadow = 'none';
+      } else {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+        item.style.borderColor = 'rgba(201,167,111,0.5)';
+        item.style.boxShadow = '0 10px 25px -5px rgba(201,167,111,0.1)';
+      }
     });
-  }
-
-  // Mobile menu
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  if (mobileBtn && mobileMenu) {
-    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-  }
-
-  // Lang toggles
-  const langBtn = document.getElementById('lang-toggle-btn');
-  const langMenu = document.getElementById('lang-menu');
-  if (langBtn && langMenu) {
-    langBtn.addEventListener('click', (e) => { e.stopPropagation(); langMenu.classList.toggle('hidden'); });
-    document.addEventListener('click', () => langMenu.classList.add('hidden'));
-  }
-  const mobileLangBtn = document.getElementById('mobile-lang-toggle-btn');
-  const mobileLangMenu = document.getElementById('mobile-lang-menu');
-  if (mobileLangBtn && mobileLangMenu) {
-    mobileLangBtn.addEventListener('click', () => mobileLangMenu.classList.toggle('hidden'));
-  }
+  });
 </script>
 
-<script src="js/i18n.js?v=2"></script>
-<script src="js/lang.js?v=2"></script>
+<script src="js/i18n.js?v=3"></script>
+<script src="js/lang.js?v=3"></script>
 </body>
 </html>

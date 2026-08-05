@@ -26,7 +26,14 @@
       const key = el.getAttribute('data-i18n');
       const val = getNestedValue(t, key);
       if (val && typeof val === 'string') {
-        el.textContent = val;
+        // Rich headings may embed a serif-italic accent via <i class="accent">…</i>.
+        // Only elements explicitly flagged with data-i18n-rich are allowed to
+        // render markup — everything else stays plain text for safety.
+        if (el.hasAttribute('data-i18n-rich')) {
+          el.innerHTML = val;
+        } else {
+          el.textContent = val;
+        }
       }
     });
 

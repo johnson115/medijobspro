@@ -1,863 +1,613 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html class="light" lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  
-
-  
+<meta charset="utf-8"/>
+<script>
+  (function(){
+    var t=localStorage.getItem('mjp-theme')||'light',h=document.documentElement;
+    if(t==='dark'){h.classList.add('theme-dark','dark');h.classList.remove('light');}
+    else{h.classList.add('light');h.classList.remove('theme-dark','dark');}
+  })();
+</script>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>Contactez-nous – Medijobs Pro | Recrutement Médical en Allemagne</title>
+<meta name="description" content="Contactez l'équipe Medijobs Pro pour toute question sur le recrutement médical en Allemagne. Réponse garantie sous 24h ouvrées."/>
+<meta property="og:title" content="Contactez-nous – Medijobs Pro"/>
+<meta property="og:type" content="website"/>
+<meta name="theme-color" content="#00263F"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/styles.css?v=2">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
-
-  <style>
-    .soft-shadow { box-shadow: 0 20px 40px -10px rgba(11, 60, 93, 0.06); }
-    .glass-card { background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
-
-    /* Contact hero */
-    .contact-hero-bg {
-      background: linear-gradient(135deg, #00263f 0%, #0b3c5d 60%, #001a2c 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .contact-hero-bg::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 380px; height: 380px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,167,111,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .contact-hero-bg::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; left: -40px;
-      width: 280px; height: 280px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(163,203,242,0.10) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* Badge pill */
-    .badge-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(201,167,111,0.18);
-      border: 1px solid rgba(201,167,111,0.4);
-      color: #c9a76f;
-      padding: 6px 16px;
-      border-radius: 9999px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* Form field styles */
-    .form-field {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #c2c7ce;
-      border-radius: 10px;
-      background: #fff;
-      color: #1a1c1e;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      outline: none;
-    }
-    .form-field:focus {
-      border-color: #00263f;
-      box-shadow: 0 0 0 3px rgba(0, 38, 63, 0.08);
-    }
-    .form-field::placeholder { color: #9ba0a8; }
-
-    select.form-field { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2342474e'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
-
-    /* Submit button animation */
-    .submit-btn { position: relative; overflow: hidden; }
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-    .submit-btn:hover::before { transform: translateX(100%); }
-
-    /* Info card item */
-    .info-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px;
-      border-radius: 12px;
-      transition: background 0.2s ease;
-    }
-    .info-item:hover { background: rgba(0,38,63,0.04); }
-    .info-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: rgba(0,38,63,0.08);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* Active nav link */
-    a[data-nav-page="contact.html"] {
-      color: #00263f !important;
-      font-weight: 700;
-      border-bottom: 2px solid #c9a76f;
-      padding-bottom: 2px;
-    }
-
-    /* Success toast */
-    #success-toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #00263f;
-      color: white;
-      padding: 14px 20px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 20px 40px -10px rgba(0,38,63,0.3);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
-      z-index: 9999;
-    }
-    #success-toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Animations */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.6s ease both; }
-    .fade-up-d1 { animation-delay: 0.1s; }
-    .fade-up-d2 { animation-delay: 0.2s; }
-    .fade-up-d3 { animation-delay: 0.3s; }
-
-    /* Mobile menu */
-    #mobile-menu { transition: max-height 0.35s ease, opacity 0.35s ease; max-height: 0; opacity: 0; overflow: hidden; }
-    #mobile-menu.open { max-height: 400px; opacity: 1; }
-
-    /* Map placeholder */
-    .map-placeholder {
-      background: linear-gradient(135deg, #e8e8eb 0%, #f3f3f6 100%);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-      color: #72777e;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
+<link rel="stylesheet" href="css/styles.css?v=3">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;background:#fff;color:#1A1C1E;}
+h1,h2,h3,h4,h5,h6,[class*="font-h"],[class*="font-display"]{font-family:'Plus Jakarta Sans',sans-serif!important;letter-spacing:-.03em;}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+.accent{font-family:'Instrument Serif','Plus Jakarta Sans',serif!important;font-style:italic;font-weight:400;color:#C9A76F;letter-spacing:0;}
+.soft-shadow{box-shadow:0 20px 40px -10px rgba(11,60,93,0.18);}
+/* LOADER */
+#global-loader{position:fixed;inset:0;z-index:99999;background:#00263F;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .6s cubic-bezier(.4,0,.2,1),visibility .6s cubic-bezier(.4,0,.2,1);}
+#global-loader.hide{opacity:0;visibility:hidden;}
+.loader-pulse{position:relative;width:80px;height:80px;display:flex;align-items:center;justify-content:center;}
+.loader-pulse::before,.loader-pulse::after{content:'';position:absolute;border:3px solid #c9a76f;border-radius:50%;animation:pulseRipple 2s linear infinite;}
+.loader-pulse::after{animation-delay:1s;}
+.loader-cross{width:30px;height:30px;background:#c9a76f;clip-path:polygon(33% 0,66% 0,66% 33%,100% 33%,100% 66%,66% 66%,66% 100%,33% 100%,33% 66%,0 66%,0 33%,33% 33%);animation:heartbeat 1.5s ease-in-out infinite;}
+@keyframes pulseRipple{0%{width:40px;height:40px;opacity:1;}100%{width:120px;height:120px;opacity:0;}}
+@keyframes heartbeat{0%,100%{transform:scale(1);}15%{transform:scale(1.15);}30%{transform:scale(1);}45%{transform:scale(1.15);}60%{transform:scale(1);}}
+/* NAVBAR */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 24px;transition:padding .35s ease;}
+.site-header.scrolled{padding:10px 24px;}
+.nav-pill{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;background:rgba(0,38,63,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:10px 10px 10px 24px;transition:background .35s ease,box-shadow .35s ease;}
+.site-header.scrolled .nav-pill{background:rgba(0,38,63,.95);box-shadow:0 8px 32px rgba(0,0,0,.25);}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:-.02em;white-space:nowrap;}
+.logo-mark{color:#C9A76F;}
+.nav-links{display:none;align-items:center;gap:4px;}
+.nav-link{font-size:14px;font-weight:500;color:rgba(255,255,255,.7);text-decoration:none;padding:8px 14px;border-radius:100px;transition:color .2s,background .2s;white-space:nowrap;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08);}
+.nav-link.active{color:#fff;font-weight:600;}
+.nav-right{display:flex;align-items:center;gap:6px;}
+.nav-ghost-btn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:7px 12px;border-radius:100px;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap;}
+.nav-ghost-btn:hover{background:rgba(255,255,255,.14);color:#fff;}
+.nav-icon-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
+.nav-icon-btn:hover{background:rgba(255,255,255,.16);color:#fff;}
+.nav-cta{display:flex;align-items:center;gap:6px;background:#C9A76F;color:#00263F;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:14px;text-decoration:none;padding:10px 20px;border-radius:100px;transition:transform .2s,box-shadow .2s;white-space:nowrap;}
+.nav-cta:hover{transform:scale(1.04);box-shadow:0 6px 20px rgba(201,167,111,.35);}
+.nav-cta .arrow{font-size:16px;}
+.nav-lang-wrap{position:relative;}
+.nav-lang-menu{position:absolute;top:calc(100% + 10px);right:0;background:#00263F;border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;min-width:150px;z-index:200;box-shadow:0 16px 40px rgba(0,0,0,.25);}
+.nav-lang-menu.hidden{display:none;}
+.lang-option-btn{width:100%;padding:10px 16px;text-align:left;background:none;border:none;color:rgba(255,255,255,.75);font-size:13px;cursor:pointer;transition:background .15s,color .15s;}
+.lang-option-btn:hover{background:rgba(255,255,255,.08);color:#fff;}
+.mobile-panel{max-width:1180px;margin:12px auto 0;border-radius:24px;background:rgba(0,38,63,.96);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:20px 24px;display:flex;flex-direction:column;gap:6px;}
+.mobile-panel.hidden{display:none;}
+.mobile-panel a{color:rgba(255,255,255,.75);text-decoration:none;font-size:16px;font-weight:500;padding:10px 14px;border-radius:12px;transition:background .2s,color .2s;}
+.mobile-panel a:hover{background:rgba(255,255,255,.08);color:#fff;}
+@media(min-width:1024px){.nav-links{display:flex;}#mobile-menu-btn{display:none!important;}}
+@media(max-width:1023px){.nav-lang-wrap,#theme-toggle{display:none!important;}.nav-cta{padding:0 18px;height:42px;}}
+/* HERO */
+.hero-section{background:#00263F;position:relative;overflow:hidden;min-height:60vh;display:flex;align-items:center;}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.hero-blob-1{width:600px;height:600px;background:radial-gradient(circle,rgba(201,167,111,.22) 0%,transparent 70%);top:-200px;right:-150px;}
+.hero-blob-2{width:500px;height:500px;background:radial-gradient(circle,rgba(0,80,140,.35) 0%,transparent 70%);bottom:-150px;left:-100px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,167,111,.12);border:1px solid rgba(201,167,111,.3);color:#C9A76F;font-size:13px;font-weight:600;letter-spacing:.04em;padding:8px 18px;border-radius:100px;margin-bottom:28px;}
+.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#C9A76F;box-shadow:0 0 0 3px rgba(201,167,111,.25);animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 3px rgba(201,167,111,.25);}50%{box-shadow:0 0 0 6px rgba(201,167,111,.10);}}
+/* SECTION ELEMENTS */
+.section-label{display:inline-flex;align-items:center;gap:8px;background:rgba(201,167,111,.12);border:1px solid rgba(201,167,111,.25);color:#C9A76F;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px;}
+.section-heading{font-family:'Plus Jakarta Sans',sans-serif!important;font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#00263F;}
+/* CONTACT SECTION */
+.contact-section{background:#ffffff;padding:80px 0;transition:background .35s ease;position:relative;overflow:hidden;}
+.form-card{background:#fff;border-radius:28px;padding:48px;box-shadow:0 20px 50px -10px rgba(0,38,63,.12);}
+.form-field{width:100%;padding:13px 16px;border:1.5px solid #c2c7ce;border-radius:12px;background:#fff;color:#1a1c1e;font-size:15px;font-family:'Inter',sans-serif;transition:border-color .2s ease,box-shadow .2s ease;outline:none;}
+.form-field:focus{border-color:#00263f;box-shadow:0 0 0 3px rgba(0,38,63,.08);}
+.form-field::placeholder{color:#9ba0a8;}
+select.form-field{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2342474e'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.form-label{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:14px;color:#00263F;margin-bottom:6px;display:block;}
+.input-wrap{position:relative;}
+.input-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#72777E;font-size:18px;pointer-events:none;}
+.input-wrap .form-field{padding-left:40px;}
+textarea.form-field{resize:none;}
+.submit-btn{width:100%;background:#00263F;color:#fff;padding:16px;border-radius:14px;border:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:transform .5s ease;}
+.submit-btn:hover::before{transform:translateX(100%);}
+.submit-btn:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(0,38,63,.2);}
+/* INFO CARD */
+.info-card{background:#F3F4F7;border-radius:20px;padding:32px;}
+.info-item{display:flex;align-items:flex-start;gap:14px;padding:14px;border-radius:12px;transition:background .2s;}
+.info-item:hover{background:rgba(0,38,63,.04);}
+.info-icon{width:40px;height:40px;border-radius:10px;background:rgba(0,38,63,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* FAQ */
+.faq-section{background:#00263F;padding:80px 0;position:relative;overflow:hidden;}
+.faq-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;transition:all .3s;}
+.faq-item.active{border-color:rgba(201,167,111,.45);}
+.faq-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 24px;background:none;border:none;cursor:pointer;text-align:left;gap:16px;}
+.faq-content{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+/* DARK MODE */
+.theme-dark .contact-section{background:#001b2d!important;}
+.theme-dark .form-card{background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.08);box-shadow:none!important;}
+.theme-dark .form-card h2{color:#fff!important;}
+.theme-dark .form-card p{color:rgba(255,255,255,.62)!important;}
+.theme-dark .form-label{color:#C9A76F!important;}
+.theme-dark .form-field{background:rgba(255,255,255,.05)!important;border-color:rgba(255,255,255,.12)!important;color:#fff!important;}
+.theme-dark .form-field:focus{border-color:#C9A76F!important;box-shadow:0 0 0 3px rgba(201,167,111,.12)!important;}
+.theme-dark .form-field::placeholder{color:rgba(255,255,255,.35)!important;}
+.theme-dark .submit-btn{background:#C9A76F!important;color:#00263F!important;}
+.theme-dark .info-card{background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.08);}
+.theme-dark .info-card h3{color:#fff!important;}
+.theme-dark .info-item:hover{background:rgba(255,255,255,.05)!important;}
+.theme-dark .info-icon{background:rgba(201,167,111,.12)!important;}
+.theme-dark .info-item a{color:#C9A76F!important;}
+.theme-dark .info-item p,.theme-dark .info-item div[style*="color"]{color:rgba(255,255,255,.62)!important;}
+.theme-dark .contact-section .section-heading{color:#fff!important;}
+/* TOAST */
+#success-toast{position:fixed;bottom:24px;right:24px;background:#00263f;color:white;padding:14px 20px;border-radius:14px;display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;box-shadow:0 20px 40px -10px rgba(0,38,63,.3);transform:translateY(100px);opacity:0;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;z-index:9999;}
+#success-toast.show{transform:translateY(0);opacity:1;}
+.footer-link{color:rgba(255,255,255,.55);font-size:14px;text-decoration:none;transition:color .2s;}
+.footer-link:hover{color:#C9A76F;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{animation:fadeUp .7s ease both;}.fade-up-d1{animation-delay:.1s;}.fade-up-d2{animation-delay:.22s;}
+@media (max-width: 1023px) {
+  .hero-section {
+    min-height: auto !important;
+  }
+  .hero-content-wrap {
+    padding-top: 100px !important;
+    padding-bottom: 50px !important;
+  }
+  .contact-section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  .form-card {
+    padding: 24px !important;
+    border-radius: 20px !important;
+  }
+  .info-card {
+    padding: 24px !important;
+    border-radius: 20px !important;
+  }
+  .site-header {
+    padding: 12px 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+  .site-header.scrolled {
+    padding: 8px 16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .nav-cta {
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+  }
+  .nav-logo {
+    font-size: 15px !important;
+  }
+  .nav-pill {
+    padding: 8px 8px 8px 16px !important;
+  }
+}
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+.hero-content-wrap {
+  padding-top: 160px;
+  padding-bottom: 96px;
+  position: relative;
+  z-index: 10;
+}
+</style>
 </head>
-<body class="bg-background text-on-surface font-body-md antialiased">
+<body class="overflow-x-hidden">
 
-  <!-- SPLASH SCREEN LOADER -->
-  <style>
-    #global-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background-color: #00263f;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #global-loader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-    .loader-pulse {
-      position: relative;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .loader-pulse::before, .loader-pulse::after {
-      content: '';
-      position: absolute;
-      border: 3px solid #c9a76f;
-      border-radius: 50%;
-      animation: pulseRipple 2s linear infinite;
-    }
-    .loader-pulse::after {
-      animation-delay: 1s;
-    }
-    .loader-cross {
-      width: 30px;
-      height: 30px;
-      position: relative;
-      background: #c9a76f;
-      clip-path: polygon(33% 0, 66% 0, 66% 33%, 100% 33%, 100% 66%, 66% 66%, 66% 100%, 33% 100%, 33% 66%, 0 66%, 0 33%, 33% 33%);
-      animation: heartbeat 1.5s ease-in-out infinite;
-    }
-    @keyframes pulseRipple {
-      0% { width: 40px; height: 40px; opacity: 1; }
-      100% { width: 120px; height: 120px; opacity: 0; }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      15% { transform: scale(1.15); }
-      30% { transform: scale(1); }
-      45% { transform: scale(1.15); }
-      60% { transform: scale(1); }
-    }
-  </style>
-  <div id="global-loader">
-    <div class="loader-pulse">
-      <div class="loader-cross"></div>
+<!-- LOADER -->
+<div id="global-loader">
+  <div class="loader-pulse"><div class="loader-cross"></div></div>
+  <div style="margin-top:30px;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.25rem;letter-spacing:2px;">Medijobs Pro</div>
+</div>
+<script>window.addEventListener('load',function(){var l=document.getElementById('global-loader');if(l)setTimeout(()=>l.classList.add('hide'),400);});</script>
+
+<!-- NAVBAR -->
+<header class="site-header" id="site-header">
+  <nav class="nav-pill" aria-label="Primary">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-mark material-symbols-outlined" style="font-size:16px;">medical_services</span>Medijobs Pro
+    </a>
+    <div class="nav-links">
+      <a href="index.html"      class="nav-link"        data-i18n="nav.home">Accueil</a>
+      <a href="about.html"      class="nav-link"        data-i18n="nav.about">À propos</a>
+      <a href="candidates.html" class="nav-link"        data-i18n="nav.candidates">Candidats</a>
+      <a href="entreprise.html" class="nav-link"        data-i18n="nav.business">Entreprise</a>
+      <a href="contact.html"    class="nav-link active" data-i18n="nav.contact">Contactez-nous</a>
     </div>
-    <div style="margin-top: 30px; color: #fff; font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1.25rem; letter-spacing: 2px;">
-      Medijobs Pro
+    <div class="nav-right">
+      <div class="nav-lang-wrap">
+        <button id="lang-toggle-btn" class="nav-ghost-btn" aria-haspopup="true" aria-expanded="false">
+          <span class="material-symbols-outlined" style="font-size:16px;">language</span>
+          <span id="current-lang-label">FR</span>
+          <span class="material-symbols-outlined" style="font-size:14px;">expand_more</span>
+        </button>
+        <div id="lang-menu" class="nav-lang-menu hidden">
+          <button class="lang-option-btn" onclick="setLang('fr')">🇫🇷 Français</button>
+          <button class="lang-option-btn" onclick="setLang('en')">🇬🇧 English</button>
+          <button class="lang-option-btn" onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button class="lang-option-btn" onclick="setLang('ar')" style="opacity:.6;">🇹🇳 العربية</button>
+        </div>
+      </div>
+      <button id="theme-toggle" class="nav-icon-btn" aria-label="Toggle theme">
+        <span class="material-symbols-outlined" style="font-size:18px;" id="theme-icon">light_mode</span>
+      </button>
+      <a href="https://medijobspro.simplybook.it/v2/#book" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav.apply">
+        Postuler <span class="arrow material-symbols-outlined">arrow_outward</span>
+      </a>
+      <button id="mobile-menu-btn" class="nav-icon-btn" aria-label="Menu">
+        <span class="material-symbols-outlined" style="font-size:20px;">menu</span>
+      </button>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-panel hidden">
+    <a href="index.html" data-i18n="nav.home">Accueil</a>
+    <a href="about.html" data-i18n="nav.about">À propos</a>
+    <a href="candidates.html" data-i18n="nav.candidates">Candidats</a>
+    <a href="entreprise.html" data-i18n="nav.business">Entreprise</a>
+    <a href="contact.html" data-i18n="nav.contact">Contactez-nous</a>
+    <div style="display:flex;gap:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);margin-top:6px;">
+      <button class="nav-ghost-btn" onclick="setLang('fr')">FR</button>
+      <button class="nav-ghost-btn" onclick="setLang('en')">EN</button>
+      <button class="nav-ghost-btn" onclick="setLang('de')">DE</button>
     </div>
   </div>
-  <script>
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('global-loader');
-      if (loader) {
-        setTimeout(() => { loader.classList.add('hide'); }, 400);
-      }
+</header>
+
+<!-- HERO (compact dark navy) -->
+<section class="hero-section">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-content-wrap max-w-4xl mx-auto px-4 md:px-lg w-full text-center">
+    <div class="hero-badge fade-up" style="display:inline-flex;">
+      <span class="hero-badge-dot"></span>
+      <span data-i18n="contact_page.badge">Contactez-nous</span>
+    </div>
+    <h1 class="fade-up fade-up-d1" style="font-family:'Plus Jakarta Sans',sans-serif!important;font-weight:700;line-height:1.02;letter-spacing:-.04em;color:#fff;margin-bottom:20px;font-size:clamp(2.2rem,4.5vw,4rem);" data-i18n="contact_page.title">
+      Parlons de votre projet <span class="accent">ensemble</span>
+    </h1>
+    <p class="fade-up fade-up-d2" style="color:rgba(255,255,255,.65);font-size:18px;line-height:1.65;max-width:520px;margin:0 auto;" data-i18n="contact_page.subtitle">
+      Notre équipe est disponible pour répondre à toutes vos questions sur le recrutement médical international.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION (white) -->
+<section class="contact-section">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(201,167,111,.05);filter:blur(80px);top:-150px;right:-100px;pointer-events:none;"></div>
+  <div class="max-w-7xl mx-auto px-4 md:px-lg">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+      <!-- LEFT — Contact Form (2/3) -->
+      <div class="lg:col-span-2">
+        <div class="form-card">
+          <div class="section-label" style="margin-bottom:16px;" data-i18n="contact_page.form_badge">Formulaire de contact</div>
+          <h2 class="section-heading" style="font-size:clamp(22px,3vw,32px);margin-bottom:10px;" data-i18n="contact_page.form_title">
+            Envoyez-nous un <span class="accent">message</span>
+          </h2>
+          <p style="color:#42474E;font-size:15px;line-height:1.65;margin-bottom:36px;" data-i18n="contact_page.form_intro">
+            Remplissez le formulaire ci-dessous et nous vous répondrons sous 24 heures ouvrées.
+          </p>
+
+          <form id="contact-form" novalidate class="flex flex-col gap-lg" onsubmit="handleFormSubmit(event)">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+              <div class="flex flex-col gap-xs">
+                <label class="form-label" for="contact-name" data-i18n="contact_page.form_name">Nom complet</label>
+                <div class="input-wrap">
+                  <span class="material-symbols-outlined input-icon">person</span>
+                  <input id="contact-name" type="text" name="name" autocomplete="name" required class="form-field" placeholder="Jean Dupont"/>
+                </div>
+                <span class="hidden" id="name-error" style="color:#ba1a1a;font-size:12px;" data-i18n="contact_page.error_required">Ce champ est requis.</span>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label class="form-label" for="contact-email" data-i18n="contact_page.form_email">Adresse e-mail</label>
+                <div class="input-wrap">
+                  <span class="material-symbols-outlined input-icon">mail</span>
+                  <input id="contact-email" type="email" name="email" autocomplete="email" required class="form-field" placeholder="jean@exemple.com"/>
+                </div>
+                <span class="hidden" id="email-error" style="color:#ba1a1a;font-size:12px;" data-i18n="contact_page.error_email">Veuillez entrer un email valide.</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+              <div class="flex flex-col gap-xs">
+                <label class="form-label" for="contact-phone" data-i18n="contact_page.form_phone">Téléphone</label>
+                <div class="input-wrap">
+                  <span class="material-symbols-outlined input-icon">phone</span>
+                  <input id="contact-phone" type="tel" name="phone" autocomplete="tel" class="form-field" placeholder="+33 6 00 00 00 00"/>
+                </div>
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label class="form-label" for="contact-subject" data-i18n="contact_page.form_subject">Sujet</label>
+                <div class="input-wrap">
+                  <span class="material-symbols-outlined input-icon">topic</span>
+                  <select id="contact-subject" name="subject" required class="form-field">
+                    <option value="" disabled selected data-i18n="contact_page.subject_placeholder">Sélectionnez un sujet</option>
+                    <option value="candidate" data-i18n="contact_page.subject_candidate">Je suis candidat</option>
+                    <option value="employer"  data-i18n="contact_page.subject_employer">Je suis employeur</option>
+                    <option value="info"      data-i18n="contact_page.subject_info">Demande d'information</option>
+                    <option value="other"     data-i18n="contact_page.subject_other">Autre</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-xs">
+              <label class="form-label" for="contact-institution" data-i18n="contact_page.form_institution">Type d'établissement</label>
+              <div class="input-wrap">
+                <span class="material-symbols-outlined input-icon">domain</span>
+                <select id="contact-institution" name="institution" class="form-field">
+                  <option value="" disabled selected data-i18n="contact_page.inst_placeholder">Sélectionnez le type d'établissement</option>
+                  <option value="hospital" data-i18n="contact_page.inst_hospital">Hôpital</option>
+                  <option value="carehome" data-i18n="contact_page.inst_carehome">Maison de retraite / EHPAD</option>
+                  <option value="clinic"   data-i18n="contact_page.inst_clinic">Clinique</option>
+                  <option value="other"    data-i18n="contact_page.inst_other">Autre</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-xs">
+              <label class="form-label" for="contact-message" data-i18n="contact_page.form_message">Message</label>
+              <div class="input-wrap" style="position:relative;">
+                <span class="material-symbols-outlined" style="position:absolute;left:12px;top:16px;color:#72777E;font-size:18px;pointer-events:none;">chat</span>
+                <textarea id="contact-message" name="message" rows="5" required class="form-field" style="padding-left:40px;" placeholder="Décrivez votre demande en quelques mots…"></textarea>
+              </div>
+              <span class="hidden" id="message-error" style="color:#ba1a1a;font-size:12px;" data-i18n="contact_page.error_required">Ce champ est requis.</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <input id="contact-privacy" type="checkbox" required style="margin-top:3px;accent-color:#c9a76f;width:16px;height:16px;cursor:pointer;"/>
+              <label for="contact-privacy" style="font-size:13px;color:#72777E;cursor:pointer;line-height:1.5;" data-i18n="contact_page.form_privacy">
+                J'accepte que mes données soient traitées conformément à la politique de confidentialité de Medijobs Pro.
+              </label>
+            </div>
+
+            <div style="display:flex;flex-direction:column;sm:flex-row gap:12px;align-items:flex-start;">
+              <button id="submit-btn" type="submit" class="submit-btn">
+                <span class="material-symbols-outlined" style="font-size:18px;" id="submit-icon">send</span>
+                <span id="submit-text" data-i18n="contact_page.form_submit">Envoyer le message</span>
+              </button>
+              <p style="font-size:13px;color:#72777E;margin-top:10px;" data-i18n="contact_page.form_reply_note">Réponse garantie sous 24h ouvrées.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT — Info sidebar (1/3) -->
+      <div class="flex flex-col gap-6 lg:col-span-1">
+        <!-- Info card -->
+        <div class="info-card">
+          <h3 style="font-size:18px;font-weight:700;color:#00263F;margin-bottom:20px;" data-i18n="contact_page.info_title">Informations de contact</h3>
+          <div class="flex flex-col">
+            <div class="info-item">
+              <div class="info-icon"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;font-variation-settings:'FILL' 1;">mail</span></div>
+              <div>
+                <div style="font-weight:600;color:#00263F;font-size:13px;margin-bottom:4px;" data-i18n="contact_page.info_email_label">E-mail</div>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@medi-jobspro.com" target="_blank" style="color:#C9A76F;font-size:14px;text-decoration:none;" data-i18n="contact_page.info_email">contact@medi-jobspro.com</a>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(194,199,206,.3);margin:0 14px;"></div>
+            <div class="info-item">
+              <div class="info-icon"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;font-variation-settings:'FILL' 1;">phone</span></div>
+              <div>
+                <div style="font-weight:600;color:#00263F;font-size:13px;margin-bottom:4px;" data-i18n="contact_page.info_phone_label">Téléphone</div>
+                <a href="tel:+4917672196809" style="color:#C9A76F;font-size:14px;text-decoration:none;" data-i18n="contact_page.info_phone">+49 176 72196809</a>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(194,199,206,.3);margin:0 14px;"></div>
+            <div class="info-item">
+              <div class="info-icon"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;font-variation-settings:'FILL' 1;">location_on</span></div>
+              <div>
+                <div style="font-weight:600;color:#00263F;font-size:13px;margin-bottom:4px;" data-i18n="contact_page.info_location_label">Adresse</div>
+                <p style="color:#42474E;font-size:14px;" data-i18n="contact_page.info_location">12 Rue de la Santé, 75014 Paris, France</p>
+              </div>
+            </div>
+            <div style="height:1px;background:rgba(194,199,206,.3);margin:0 14px;"></div>
+            <div class="info-item">
+              <div class="info-icon"><span class="material-symbols-outlined" style="color:#C9A76F;font-size:20px;font-variation-settings:'FILL' 1;">schedule</span></div>
+              <div>
+                <div style="font-weight:600;color:#00263F;font-size:13px;margin-bottom:4px;" data-i18n="contact_page.info_hours_label">Horaires</div>
+                <p style="color:#42474E;font-size:14px;" data-i18n="contact_page.info_hours">Lun–Ven : 9h–18h (CET)<br/>Weekend : Fermé</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp card -->
+        <div style="background:linear-gradient(135deg,rgba(37,211,102,.12) 0%,rgba(37,211,102,.06) 100%);border:1px solid rgba(37,211,102,.2);border-radius:20px;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:rgba(37,211,102,.15);display:flex;align-items:center;justify-content:center;">
+              <span class="material-symbols-outlined" style="color:#25D366;font-size:20px;font-variation-settings:'FILL' 1;">chat</span>
+            </div>
+            <div style="font-weight:700;color:#00263F;font-size:15px;">WhatsApp Direct</div>
+          </div>
+          <p style="color:#42474E;font-size:14px;line-height:1.6;margin-bottom:16px;">Réponse rapide et personnalisée via WhatsApp.</p>
+          <a href="https://wa.me/21627881681" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:13px;padding:10px 18px;border-radius:100px;text-decoration:none;transition:transform .2s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="material-symbols-outlined" style="font-size:16px;">send</span>
+            Discuter sur WhatsApp
+          </a>
+        </div>
+
+        <!-- Social -->
+        <div class="info-card" style="padding:24px;">
+          <h4 style="font-weight:700;color:#00263F;font-size:14px;margin-bottom:12px;" data-i18n="contact_page.social_title">Suivez-nous</h4>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="#" style="display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;background:rgba(0,38,63,.06);color:#00263F;font-weight:600;font-size:13px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#00263F';this.style.color='#fff'" onmouseout="this.style.background='rgba(0,38,63,.06)';this.style.color='#00263F'">
+              <span class="material-symbols-outlined" style="font-size:16px;">business</span>LinkedIn
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:100px;background:rgba(0,38,63,.06);color:#00263F;font-weight:600;font-size:13px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#00263F';this.style.color='#fff'" onmouseout="this.style.background='rgba(0,38,63,.06)';this.style.color='#00263F'">
+              <span class="material-symbols-outlined" style="font-size:16px;">newspaper</span>
+              <span data-i18n="contact_page.social_newsletter">Newsletter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (dark navy) -->
+<section class="faq-section">
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(201,167,111,.07);top:-200px;left:-150px;filter:blur(80px);pointer-events:none;"></div>
+  <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(201,167,111,.05);bottom:-150px;right:-100px;filter:blur(80px);pointer-events:none;"></div>
+  <div class="max-w-4xl mx-auto px-4 md:px-lg relative z-10">
+    <div class="text-center" style="margin-bottom:56px;">
+      <div class="section-label" data-i18n="contact_page.faq_badge">Questions fréquentes</div>
+      <h2 style="font-family:'Plus Jakarta Sans',sans-serif!important;font-weight:700;font-size:clamp(24px,3.5vw,38px);color:#fff;letter-spacing:-.03em;" data-i18n="contact_page.faq_title">
+        Questions <span class="accent">fréquentes</span>
+      </h2>
+    </div>
+    <div class="flex flex-col gap-4">
+      <!-- FAQ 1 -->
+      <div class="faq-item" id="faq-1">
+        <button class="faq-toggle" onclick="toggleFaqItem('faq-1')">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:#fff;font-size:15px;" data-i18n="contact_page.faq1_q">Combien de temps faut-il pour recevoir une réponse ?</span>
+          <span class="material-symbols-outlined" style="color:#C9A76F;font-size:22px;flex-shrink:0;transition:transform .3s;" id="faq-icon-1">expand_more</span>
+        </button>
+        <div class="faq-content" id="faq-body-1">
+          <p style="color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;padding:0 24px 24px;" data-i18n="contact_page.faq1_a">
+            Nous répondons à toutes les demandes dans un délai de 24 heures ouvrées. Pour les urgences, appelez-nous directement ou contactez-nous via WhatsApp.
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 2 -->
+      <div class="faq-item" id="faq-2">
+        <button class="faq-toggle" onclick="toggleFaqItem('faq-2')">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:#fff;font-size:15px;" data-i18n="contact_page.faq2_q">Vos services sont-ils gratuits pour les candidats ?</span>
+          <span class="material-symbols-outlined" style="color:#C9A76F;font-size:22px;flex-shrink:0;transition:transform .3s;" id="faq-icon-2">expand_more</span>
+        </button>
+        <div class="faq-content" id="faq-body-2">
+          <p style="color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;padding:0 24px 24px;" data-i18n="contact_page.faq2_a">
+            Oui, l'accompagnement candidat est entièrement gratuit. Nos honoraires sont uniquement facturés aux établissements employeurs.
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 3 -->
+      <div class="faq-item" id="faq-3">
+        <button class="faq-toggle" onclick="toggleFaqItem('faq-3')">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:#fff;font-size:15px;" data-i18n="contact_page.faq3_q">Quels pays proposez-vous pour le recrutement ?</span>
+          <span class="material-symbols-outlined" style="color:#C9A76F;font-size:22px;flex-shrink:0;transition:transform .3s;" id="faq-icon-3">expand_more</span>
+        </button>
+        <div class="faq-content" id="faq-body-3">
+          <p style="color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;padding:0 24px 24px;" data-i18n="contact_page.faq3_a">
+            Nous opérons principalement en France, Allemagne, Belgique, Suisse et Luxembourg, avec une expansion prévue vers d'autres pays européens.
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 4 -->
+      <div class="faq-item" id="faq-4">
+        <button class="faq-toggle" onclick="toggleFaqItem('faq-4')">
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:#fff;font-size:15px;" data-i18n="contact_page.faq4_q">Comment soumettre mon CV ou mes offres d'emploi ?</span>
+          <span class="material-symbols-outlined" style="color:#C9A76F;font-size:22px;flex-shrink:0;transition:transform .3s;" id="faq-icon-4">expand_more</span>
+        </button>
+        <div class="faq-content" id="faq-body-4">
+          <p style="color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;padding:0 24px 24px;" data-i18n="contact_page.faq4_a">
+            Utilisez le formulaire ci-dessus ou rendez-vous sur les pages dédiées aux candidats et aux entreprises pour soumettre votre dossier.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#00263F;border-top:1px solid rgba(201,167,111,.2);">
+  <div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
+    <div class="max-w-sm">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:20px;color:#C9A76F;margin-bottom:12px;">Medijobs Pro</div>
+      <p style="color:rgba(255,255,255,.6);font-size:14px;line-height:1.65;margin-bottom:24px;" data-i18n="footer.tagline">Votre passerelle vers une carrière médicale d'excellence en Allemagne.</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-xl md:gap-xxl">
+      <div class="flex flex-col gap-sm">
+        <h4 style="font-weight:700;font-size:13px;color:#C9A76F;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;" data-i18n="footer.links_title">Liens Rapides</h4>
+        <a class="footer-link" href="candidates.html" data-i18n="footer.link_process">Processus</a>
+        <a class="footer-link" href="about.html" data-i18n="nav.about">À propos</a>
+        <a class="footer-link" href="contact.html" data-i18n="footer.link_contact">Contact</a>
+      </div>
+      <div class="flex flex-col gap-sm">
+        <h4 style="font-weight:700;font-size:13px;color:#C9A76F;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;" data-i18n="footer.legal_title">Légal</h4>
+        <a class="footer-link" href="#" data-i18n="footer.link_privacy">Mentions Légales</a>
+        <a class="footer-link" href="#" data-i18n="footer.link_terms">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center" style="border-top:1px solid rgba(201,167,111,.15);padding-top:20px;">
+    <p style="color:rgba(255,255,255,.4);font-size:13px;" data-i18n="footer.copyright">© 2025 Medijobs Pro. Partenaire de confiance pour le recrutement médical en Allemagne.</p>
+  </div>
+</footer>
+
+<!-- SUCCESS TOAST -->
+<div id="success-toast" role="alert" aria-live="polite">
+  <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' 1;color:#c9a76f;">check_circle</span>
+  <span data-i18n="contact_page.toast_success">Message envoyé avec succès !</span>
+</div>
+
+<script>
+  // Navbar scroll
+  const siteHeader=document.getElementById('site-header');
+  if(siteHeader) {
+    const onScroll=()=>{if(window.scrollY>20)siteHeader.classList.add('scrolled');else siteHeader.classList.remove('scrolled');};
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+
+  // Theme toggle
+  const themeToggle=document.getElementById('theme-toggle');const themeIcon=document.getElementById('theme-icon');
+  function applyThemeUI(d){if(themeIcon)themeIcon.textContent=d?'light_mode':'dark_mode';}
+  applyThemeUI(document.documentElement.classList.contains('theme-dark'));
+  if(themeToggle){themeToggle.addEventListener('click',()=>{const d=document.documentElement.classList.toggle('theme-dark');document.documentElement.classList.toggle('dark',d);if(d){document.documentElement.classList.remove('light');localStorage.setItem('mjp-theme','dark');}else{document.documentElement.classList.add('light');localStorage.setItem('mjp-theme','light');}applyThemeUI(d);});}
+
+  // lang.js handles the language dropdown and mobile menu toggle
+
+  // FAQ accordion
+  function toggleFaqItem(id){
+    const item=document.getElementById(id);
+    const body=document.getElementById(id.replace('faq-','faq-body-'));
+    const icon=document.getElementById(id.replace('faq-','faq-icon-'));
+    const isOpen=item.classList.contains('active');
+    // Close all
+    ['faq-1','faq-2','faq-3','faq-4'].forEach(fid=>{
+      const fi=document.getElementById(fid);
+      const fb=document.getElementById(fid.replace('faq-','faq-body-'));
+      const fc=document.getElementById(fid.replace('faq-','faq-icon-'));
+      if(fi){fi.classList.remove('active');}
+      if(fb){fb.style.maxHeight='0';}
+      if(fc){fc.style.transform='rotate(0deg)';}
     });
-  </script>
-  <!-- END SPLASH SCREEN -->
-
-
-  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
-  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
-    <nav class="flex justify-between items-center max-w-7xl mx-auto px-4 md:px-lg py-md w-full">
-
-      <!-- Logo -->
-      <div class="flex items-center gap-sm">
-        <a href="index.html" class="font-h2 text-h2 font-bold tracking-tight text-primary" style="font-family:'Manrope',sans-serif;">Medijobs Pro</a>
-      </div>
-
-      <!-- Desktop links -->
-      <div class="hidden md:flex items-center gap-xl">
-        <a data-nav-page="index.html"      href="index.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.home">Accueil</a>
-        <a data-nav-page="about.html"      href="about.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.about">À propos</a>
-        <a data-nav-page="candidates.html" href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.candidates">Candidats</a>
-        <a data-nav-page="entreprise.html" href="entreprise.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.business">Entreprise</a>
-        <a data-nav-page="contact.html"    href="contact.html"    class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary transition-colors" data-i18n="nav.contact">Contactez-nous</a>
-      </div>
-
-      <!-- Right actions -->
-      <div class="flex items-center gap-md">
-        <!-- Language dropdown (Desktop only) -->
-        <div class="relative hidden md:block">
-          <button id="lang-toggle-btn" class="flex items-center gap-1 font-label-bold text-label-bold text-on-surface-variant border border-outline-variant/50 px-sm py-1 rounded-lg hover:border-secondary transition-all text-sm">
-            <span class="material-symbols-outlined text-[16px]">language</span>
-            <span id="current-lang-label">🇫🇷 FR</span>
-            <span class="material-symbols-outlined text-[14px]">expand_more</span>
-          </button>
-          <div id="lang-menu" class="absolute right-0 mt-2 w-40 bg-white border border-outline-variant/30 rounded-xl shadow-lg overflow-hidden hidden z-50">
-            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="fr" onclick="setLang('fr')">🇫🇷 Français</button>
-            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
-            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2" data-lang="de" onclick="setLang('de')">🇩🇪 Deutsch</button>
-            <button class="lang-option-btn w-full px-lg py-sm text-left font-label-bold text-sm hover:bg-surface-container transition-colors flex items-center gap-2 opacity-60" data-lang="ar" onclick="setLang('ar')">🇹🇳 عربي <span class="text-xs text-secondary ml-1">bientôt</span></button>
-          </div>
-        </div>
-        <a href="candidates.html#form" class="bg-secondary text-white px-lg py-sm rounded-xl font-label-bold text-label-bold hover:scale-105 active:scale-95 transition-all" data-i18n="nav.apply">Postuler</a>
-
-        <!-- Mobile hamburger -->
-        <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" aria-label="Menu">
-          <span class="material-symbols-outlined">menu</span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="md:hidden hidden bg-surface/95 backdrop-blur-md border-t border-outline-variant/20 px-4 py-lg flex flex-col gap-md">
-      <a href="index.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.home">Accueil</a>
-      <a href="about.html"      class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.about">À propos</a>
-      <a href="candidates.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.candidates">Candidats</a>
-      <a href="entreprise.html" class="font-label-bold text-label-bold text-on-surface-variant hover:text-primary py-xs" data-i18n="nav.business">Entreprise</a>
-      <a href="contact.html"    class="font-label-bold text-label-bold text-primary font-bold py-xs"                      data-i18n="nav.contact">Contactez-nous</a>
-
-      <!-- Collapsible Mobile Language Selector -->
-      <div class="py-sm border-t border-outline-variant/20">
-        <button id="mobile-lang-toggle-btn" class="w-full flex items-center justify-between font-label-bold text-on-surface-variant py-sm px-md rounded-lg hover:bg-surface-container transition-all">
-          <span class="flex items-center gap-sm">
-            <span class="material-symbols-outlined text-[18px]">language</span>
-            <span id="mobile-current-lang-label">🇫🇷 FR</span>
-          </span>
-          <span class="material-symbols-outlined text-[18px]">expand_more</span>
-        </button>
-        <div id="mobile-lang-menu" class="hidden flex-col gap-sm pl-8 mt-sm">
-          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('fr')">🇫🇷 Français</button>
-          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('en')">🇬🇧 English</button>
-          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary" onclick="setLang('de')">🇩🇪 Deutsch</button>
-          <button class="w-full text-left font-label-bold text-sm text-on-surface-variant py-xs hover:text-primary opacity-60" onclick="setLang('ar')">🇹🇳 عربي <span class="text-xs text-secondary ml-1">bientôt</span></button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <script>
-    
-    
-  </script>
-
-  <main>
-
-    <!-- ═══════════════════════ HERO ═══════════════════════ -->
-    <section class="contact-hero-bg pt-32 pb-16 px-4">
-      <div class="max-w-3xl mx-auto text-center relative z-10">
-
-        <!-- Badge -->
-        <div class="fade-up mb-lg flex justify-center">
-          <span class="badge-pill">
-            <span class="material-symbols-outlined text-[15px]">contact_mail</span>
-            <span data-i18n="contact_page.badge">Contactez-nous</span>
-          </span>
-        </div>
-
-        <!-- H1 -->
-        <h1 class="fade-up fade-up-d1 text-white mb-md" style="font-family:'Manrope',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:800; line-height:1.15;" data-i18n="contact_page.title">
-          Parlons de votre projet<br/>
-          <span style="background:linear-gradient(90deg,#c9a76f,#f0d4a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ensemble</span>
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="fade-up fade-up-d2 text-white/70 text-body-lg max-w-xl mx-auto" data-i18n="contact_page.subtitle">
-          Notre équipe est disponible pour répondre à toutes vos questions sur le recrutement médical international.
-        </p>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════ CONTACT SECTION ═══════════════════════ -->
-    <section class="py-section px-4 bg-background -mt-6">
-      <div class="max-w-7xl mx-auto">
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl items-start">
-
-          <!-- ── LEFT: Contact Form (2/3) ── -->
-          <div class="lg:col-span-2">
-            <div class="bg-white rounded-3xl p-lg md:p-xxl soft-shadow">
-
-              <h2 class="font-h1 text-h1 text-primary mb-lg" style="font-family:'Manrope',sans-serif;" data-i18n="contact_page.form_title">
-                Envoyez-nous un message
-              </h2>
-              <p class="text-on-surface-variant mb-xl" data-i18n="contact_page.form_intro">
-                Remplissez le formulaire ci-dessous et nous vous répondrons sous 24 heures ouvrées.
-              </p>
-
-              <form id="contact-form" novalidate class="flex flex-col gap-lg" onsubmit="handleFormSubmit(event)">
-
-                <!-- Row 1: Name + Email -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
-
-                  <!-- Name -->
-                  <div class="flex flex-col gap-xs">
-                    <label for="contact-name" class="font-label-bold text-label-bold text-on-surface" data-i18n="contact_page.form_name">Nom complet</label>
-                    <div class="relative">
-                      <input
-                        id="contact-name"
-                        type="text"
-                        name="name"
-                        autocomplete="name"
-                        required
-                        class="form-field pl-10"
-                        data-i18n-placeholder="contact_page.form_placeholder_name"
-                        placeholder="Jean Dupont"
-                      />
-                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]" style="pointer-events:none;">person</span>
-                    </div>
-                    <span class="error-msg text-error text-caption hidden" id="name-error" data-i18n="contact_page.error_required">Ce champ est requis.</span>
-                  </div>
-
-                  <!-- Email -->
-                  <div class="flex flex-col gap-xs">
-                    <label for="contact-email" class="font-label-bold text-label-bold text-on-surface" data-i18n="contact_page.form_email">Adresse e-mail</label>
-                    <div class="relative">
-                      <input
-                        id="contact-email"
-                        type="email"
-                        name="email"
-                        autocomplete="email"
-                        required
-                        class="form-field pl-10"
-                        data-i18n-placeholder="contact_page.form_placeholder_email"
-                        placeholder="jean@exemple.com"
-                      />
-                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]" style="pointer-events:none;">mail</span>
-                    </div>
-                    <span class="error-msg text-error text-caption hidden" id="email-error" data-i18n="contact_page.error_email">Veuillez entrer un email valide.</span>
-                  </div>
-                </div>
-
-                <!-- Row 2: Phone + Subject -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
-
-                  <!-- Phone -->
-                  <div class="flex flex-col gap-xs">
-                    <label for="contact-phone" class="font-label-bold text-label-bold text-on-surface" data-i18n="contact_page.form_phone">Téléphone</label>
-                    <div class="relative">
-                      <input
-                        id="contact-phone"
-                        type="tel"
-                        name="phone"
-                        autocomplete="tel"
-                        class="form-field pl-10"
-                        data-i18n-placeholder="contact_page.form_placeholder_phone"
-                        placeholder="+33 6 00 00 00 00"
-                      />
-                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]" style="pointer-events:none;">phone</span>
-                    </div>
-                  </div>
-
-                  <!-- Subject -->
-                  <div class="flex flex-col gap-xs">
-                    <label for="contact-subject" class="font-label-bold text-label-bold text-on-surface" data-i18n="contact_page.form_subject">Sujet</label>
-                    <div class="relative">
-                      <select
-                        id="contact-subject"
-                        name="subject"
-                        required
-                        class="form-field pl-10"
-                      >
-                        <option value="" disabled selected data-i18n="contact_page.subject_placeholder">Sélectionnez un sujet</option>
-                        <option value="candidate" data-i18n="contact_page.subject_candidate">Je suis candidat</option>
-                        <option value="employer"  data-i18n="contact_page.subject_employer">Je suis employeur</option>
-                        <option value="info"      data-i18n="contact_page.subject_info">Demande d'information</option>
-                        <option value="other"     data-i18n="contact_page.subject_other">Autre</option>
-                      </select>
-                      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]" style="pointer-events:none;">topic</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Message -->
-                <div class="flex flex-col gap-xs">
-                  <label for="contact-message" class="font-label-bold text-label-bold text-on-surface" data-i18n="contact_page.form_message">Message</label>
-                  <div class="relative">
-                    <textarea
-                      id="contact-message"
-                      name="message"
-                      rows="5"
-                      required
-                      class="form-field resize-none pt-3 pl-10"
-                      data-i18n-placeholder="contact_page.form_placeholder_message"
-                      placeholder="Décrivez votre demande en quelques mots…"
-                    ></textarea>
-                    <span class="material-symbols-outlined absolute left-3 top-4 text-outline text-[18px]" style="pointer-events:none;">chat</span>
-                  </div>
-                  <span class="error-msg text-error text-caption hidden" id="message-error" data-i18n="contact_page.error_required">Ce champ est requis.</span>
-                </div>
-
-                <!-- Privacy checkbox -->
-                <div class="flex items-start gap-sm">
-                  <input id="contact-privacy" type="checkbox" required class="mt-1 accent-secondary w-4 h-4 cursor-pointer" />
-                  <label for="contact-privacy" class="text-caption text-on-surface-variant cursor-pointer" data-i18n="contact_page.form_privacy">
-                    J'accepte que mes données soient traitées conformément à la politique de confidentialité de Medijobs Pro.
-                  </label>
-                </div>
-
-                <!-- Submit -->
-                <div class="flex flex-col sm:flex-row items-center gap-md pt-xs">
-                  <button
-                    id="submit-btn"
-                    type="submit"
-                    class="submit-btn w-full sm:w-auto bg-secondary text-white px-xxl py-md rounded-xl font-label-bold text-label-bold hover:scale-[1.02] active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
-                    style="font-size:15px; min-width:200px;"
-                  >
-                    <span class="material-symbols-outlined text-[18px]" id="submit-icon">send</span>
-                    <span id="submit-text" data-i18n="contact_page.form_submit">Envoyer le message</span>
-                  </button>
-                  <p class="text-caption text-on-surface-variant" data-i18n="contact_page.form_reply_note">Réponse garantie sous 24h ouvrées.</p>
-                </div>
-
-              </form>
-            </div>
-          </div>
-
-          <!-- ── RIGHT: Info Sidebar (1/3) ── -->
-          <div class="lg:col-span-1 flex flex-col gap-lg">
-
-            <!-- Contact info card -->
-            <div class="bg-white rounded-3xl p-lg soft-shadow">
-              <h3 class="font-h3 text-h3 text-primary mb-lg" style="font-family:'Manrope',sans-serif;" data-i18n="contact_page.info_title">
-                Informations de contact
-              </h3>
-
-              <div class="flex flex-col">
-
-                <!-- Email -->
-                <div class="info-item">
-                  <div class="info-icon">
-                    <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">mail</span>
-                  </div>
-                  <div>
-                    <div class="font-label-bold text-on-surface mb-xs" data-i18n="contact_page.info_email_label">E-mail</div>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@medi-jobspro.com" target="_blank" class="text-body-md text-secondary hover:underline" data-i18n="contact_page.info_email">contact@medi-jobspro.com</a>
-                  </div>
-                </div>
-
-                <div class="h-px bg-outline-variant/30 mx-md"></div>
-
-                <!-- Phone -->
-                <div class="info-item">
-                  <div class="info-icon">
-                    <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">phone</span>
-                  </div>
-                  <div>
-                    <div class="font-label-bold text-on-surface mb-xs" data-i18n="contact_page.info_phone_label">Téléphone</div>
-                    <a href="tel:+33100000000" class="text-body-md text-secondary hover:underline" data-i18n="contact_page.info_phone">+33 1 00 00 00 00</a>
-                  </div>
-                </div>
-
-                <div class="h-px bg-outline-variant/30 mx-md"></div>
-
-                <!-- Location -->
-                <div class="info-item">
-                  <div class="info-icon">
-                    <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">location_on</span>
-                  </div>
-                  <div>
-                    <div class="font-label-bold text-on-surface mb-xs" data-i18n="contact_page.info_location_label">Adresse</div>
-                    <p class="text-body-md text-on-surface-variant" data-i18n="contact_page.info_location">12 Rue de la Santé, 75014 Paris, France</p>
-                  </div>
-                </div>
-
-                <div class="h-px bg-outline-variant/30 mx-md"></div>
-
-                <!-- Hours -->
-                <div class="info-item">
-                  <div class="info-icon">
-                    <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">schedule</span>
-                  </div>
-                  <div>
-                    <div class="font-label-bold text-on-surface mb-xs" data-i18n="contact_page.info_hours_label">Horaires</div>
-                    <p class="text-body-md text-on-surface-variant" data-i18n="contact_page.info_hours">Lun–Ven : 9h–18h (CET)<br/>Weekend : Fermé</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Social links card -->
-            <div class="bg-white rounded-3xl p-lg soft-shadow">
-              <h4 class="font-label-bold text-on-surface mb-md" data-i18n="contact_page.social_title">Suivez-nous</h4>
-              <div class="flex gap-sm flex-wrap">
-                <a href="#" class="flex items-center gap-2 px-md py-sm rounded-xl bg-surface-container text-on-surface-variant hover:bg-primary hover:text-white transition-all font-label-bold text-caption" aria-label="LinkedIn">
-                  <span class="material-symbols-outlined text-[16px]">business</span>
-                  LinkedIn
-                </a>
-                <a href="#" class="flex items-center gap-2 px-md py-sm rounded-xl bg-surface-container text-on-surface-variant hover:bg-primary hover:text-white transition-all font-label-bold text-caption" aria-label="Email Newsletter">
-                  <span class="material-symbols-outlined text-[16px]">newspaper</span>
-                  <span data-i18n="contact_page.social_newsletter">Newsletter</span>
-                </a>
-              </div>
-            </div>
-
-            <!-- Map placeholder -->
-            <div class="map-placeholder h-48">
-              <span class="material-symbols-outlined text-[40px] text-outline">map</span>
-              <span data-i18n="contact_page.map_label">Paris, France</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ── FAQ strip ── -->
-        <div class="mt-xxl">
-          <div class="text-center mb-xl">
-            <h2 class="font-h1 text-h1 text-primary" style="font-family:'Manrope',sans-serif;" data-i18n="contact_page.faq_title">Questions fréquentes</h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-lg" id="faq-list">
-
-            <!-- FAQ 1 -->
-            <div class="bg-white rounded-2xl overflow-hidden soft-shadow">
-              <button class="faq-toggle w-full flex items-center justify-between p-lg text-left" onclick="toggleFaq(this)">
-                <span class="font-label-bold text-on-surface" data-i18n="contact_page.faq1_q">Combien de temps faut-il pour recevoir une réponse ?</span>
-                <span class="material-symbols-outlined text-primary transition-transform faq-icon">expand_more</span>
-              </button>
-              <div class="faq-answer px-lg pb-lg text-on-surface-variant text-body-md hidden" data-i18n="contact_page.faq1_a">
-                Nous répondons à toutes les demandes dans un délai de 24 heures ouvrées. Pour les urgences, appelez-nous directement.
-              </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="bg-white rounded-2xl overflow-hidden soft-shadow">
-              <button class="faq-toggle w-full flex items-center justify-between p-lg text-left" onclick="toggleFaq(this)">
-                <span class="font-label-bold text-on-surface" data-i18n="contact_page.faq2_q">Vos services sont-ils gratuits pour les candidats ?</span>
-                <span class="material-symbols-outlined text-primary transition-transform faq-icon">expand_more</span>
-              </button>
-              <div class="faq-answer px-lg pb-lg text-on-surface-variant text-body-md hidden" data-i18n="contact_page.faq2_a">
-                Oui, l'accompagnement candidat est entièrement gratuit. Nos honoraires sont uniquement facturés aux établissements employeurs.
-              </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="bg-white rounded-2xl overflow-hidden soft-shadow">
-              <button class="faq-toggle w-full flex items-center justify-between p-lg text-left" onclick="toggleFaq(this)">
-                <span class="font-label-bold text-on-surface" data-i18n="contact_page.faq3_q">Quels pays proposez-vous pour le recrutement ?</span>
-                <span class="material-symbols-outlined text-primary transition-transform faq-icon">expand_more</span>
-              </button>
-              <div class="faq-answer px-lg pb-lg text-on-surface-variant text-body-md hidden" data-i18n="contact_page.faq3_a">
-                Nous opérons principalement en France, Allemagne, Belgique, Suisse et Luxembourg, avec une expansion prévue vers d'autres pays européens.
-              </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="bg-white rounded-2xl overflow-hidden soft-shadow">
-              <button class="faq-toggle w-full flex items-center justify-between p-lg text-left" onclick="toggleFaq(this)">
-                <span class="font-label-bold text-on-surface" data-i18n="contact_page.faq4_q">Comment soumettre mon CV ou mes offres d'emploi ?</span>
-                <span class="material-symbols-outlined text-primary transition-transform faq-icon">expand_more</span>
-              </button>
-              <div class="faq-answer px-lg pb-lg text-on-surface-variant text-body-md hidden" data-i18n="contact_page.faq4_a">
-                Utilisez le formulaire ci-dessus ou rendez-vous sur les pages dédiées aux candidats et aux entreprises pour soumettre votre dossier.
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-  <footer class="w-full rounded-t-3xl bg-surface-container-low border-t border-outline-variant/30">
-    <div class="flex flex-col md:flex-row justify-between items-start gap-xl max-w-7xl mx-auto px-4 md:px-lg py-xl md:py-xxl w-full">
-      <div class="max-w-sm">
-        <div class="font-h3 text-h3 font-bold text-primary mb-md" style="font-family:'Manrope',sans-serif;">Medijobs Pro</div>
-        <p class="text-on-surface-variant font-body-md mb-lg" data-i18n="footer.tagline">Votre passerelle vers une carrière médicale d'excellence.</p>
-        <div class="flex gap-sm">
-          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-[18px]">link</span>
-          </a>
-          <a href="#" aria-label="Email" class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-[18px]">mail</span>
-          </a>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-xl">
-        <div class="flex flex-col gap-sm">
-          <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.links_title">Liens Rapides</h4>
-          <a href="index.html"      class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.home">Accueil</a>
-          <a href="about.html"      class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.about">À propos</a>
-          <a href="candidates.html" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.candidates">Candidats</a>
-          <a href="contact.html"    class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="nav.contact">Contact</a>
-        </div>
-        <div class="flex flex-col gap-sm">
-          <h4 class="font-label-bold text-primary mb-xs" data-i18n="footer.legal_title">Légal</h4>
-          <a href="#" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="footer.link_privacy">Mentions Légales</a>
-          <a href="#" class="text-on-surface-variant hover:text-secondary transition-colors text-body-md" data-i18n="footer.link_terms">Confidentialité</a>
-        </div>
-      </div>
-    </div>
-    <div class="max-w-7xl mx-auto px-4 md:px-lg pb-xl text-center border-t border-outline-variant/20 pt-lg">
-      <p class="font-body-md text-on-surface-variant" data-i18n="footer.copyright">© 2025 Medijobs Pro. Tous droits réservés.</p>
-    </div>
-  </footer>
-
-  <!-- ═══════════════════════ SUCCESS TOAST ═══════════════════════ -->
-  <div id="success-toast" role="alert" aria-live="polite">
-    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1; color:#c9a76f;">check_circle</span>
-    <span data-i18n="contact_page.toast_success">Message envoyé avec succès !</span>
-  </div>
-
-  <!-- ═══════════════════════ INLINE SCRIPTS ═══════════════════════ -->
-  <script>
-    // ── Mobile menu ──
-    const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileBtn && mobileMenu) {
-      mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    if(!isOpen){
+      item.classList.add('active');
+      body.style.maxHeight=body.scrollHeight+'px';
+      icon.style.transform='rotate(180deg)';
     }
+  }
 
-    // ── Language dropdown ──
-    const langBtn = document.getElementById('lang-toggle-btn');
-    const langMenu = document.getElementById('lang-menu');
-    if (langBtn && langMenu) {
-      langBtn.addEventListener('click', e => { e.stopPropagation(); langMenu.classList.toggle('hidden'); });
-      document.addEventListener('click', () => langMenu.classList.add('hidden'));
-    }
-
-    // ── FAQ toggle ──
-    function toggleFaq(btn) {
-      const answer = btn.nextElementSibling;
-      const icon = btn.querySelector('.faq-icon');
-      const isOpen = !answer.classList.contains('hidden');
-
-      // Close all
-      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => { i.style.transform = 'rotate(0deg)'; });
-
-      if (!isOpen) {
-        answer.classList.remove('hidden');
-        icon.style.transform = 'rotate(180deg)';
-      }
-    }
-
-    // ── Toast Notification Helper ──
-    function showToast(message, isSuccess = true) {
-      const toast = document.getElementById('success-toast');
-      if (!toast) return;
-
-      const toastIcon = toast.querySelector('.material-symbols-outlined');
-      const toastText = toast.querySelector('[data-i18n="contact_page.toast_success"]') || toast.lastElementChild;
-
-      if (toastIcon) {
-        toastIcon.textContent = isSuccess ? 'check_circle' : 'error';
-        toastIcon.style.color = isSuccess ? '#c9a76f' : '#ffb4ab';
-      }
-      if (toastText) {
-        toastText.textContent = message;
-      }
-      // Success background: primary blue (#00263f), Error background: error red (#ba1a1a)
-      toast.style.background = isSuccess ? '#00263f' : '#ba1a1a';
-
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 5000);
-    }
-
-    
-   // ── Form submission ──
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      let valid = true;
-
-      // Name validation
-      const name = document.getElementById('contact-name');
-      const nameErr = document.getElementById('name-error');
-      if (!name.value.trim()) {
-        nameErr.classList.remove('hidden');
-        name.style.borderColor = '#ba1a1a';
-        valid = false;
-      } else {
-        nameErr.classList.add('hidden');
-        name.style.borderColor = '#c2c7ce';
-      }
-
-      // Email validation
-      const email = document.getElementById('contact-email');
-      const emailErr = document.getElementById('email-error');
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email.value.trim())) {
-        emailErr.classList.remove('hidden');
-        email.style.borderColor = '#ba1a1a';
-        valid = false;
-      } else {
-        emailErr.classList.add('hidden');
-        email.style.borderColor = '#c2c7ce';
-      }
-
-      // Message validation
-      const message = document.getElementById('contact-message');
-      const messageErr = document.getElementById('message-error');
-      if (!message.value.trim()) {
-        messageErr.classList.remove('hidden');
-        message.style.borderColor = '#ba1a1a';
-        valid = false;
-      } else {
-        messageErr.classList.add('hidden');
-        message.style.borderColor = '#c2c7ce';
-      }
-
-      // Privacy validation
-      const privacy = document.getElementById('contact-privacy');
-      if (privacy && !privacy.checked) {
-        showToast("Veuillez accepter le traitement de vos données pour envoyer le message.", false);
-        return;
-      }
-
-      if (!valid) return;
-
-      // Get button elements for loading states
-      const btn = document.getElementById('submit-btn');
-      const btnText = document.getElementById('submit-text');
-      const btnIcon = document.getElementById('submit-icon');
-      
-      const originalText = btnText.textContent;
-      const originalIcon = btnIcon ? btnIcon.textContent : 'send';
-
-      // Set Loading state
-      btn.disabled = true;
-      btn.style.opacity = '0.7';
-      if (btnIcon) btnIcon.textContent = 'hourglass_top';
-      btnText.textContent = 'Envoi en cours...';
-
-      // Capture Form Data directly to send to Google Web App
-      const formData = new FormData(form);
-
-      // Your Google Apps Script Web App URL
-      const SUBMISSION_URL = "https://script.google.com/macros/s/AKfycbwXPUjwrIJigvGWnSh0hDTHjaatYV2TqvlnyDnMHQ2zt19ThMJdvhx8yq_VsL2Zbg_BWA/exec";
-
-      // Submit via POST using URLSearchParams to cleanly match Apps Script parameter reading
-      fetch(SUBMISSION_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Essential for handling cross-origin redirect behavior inherent to Google Apps Script
-        body: new URLSearchParams(formData)
-      })
-      .then(() => {
-        // Because 'no-cors' returns an opaque response type (status 0), 
-        // we handle standard successful network delivery here.
-        showToast("Votre demande a été envoyée avec succès. Notre équipe vous contactera dans un délai de 2 jours ouvrables.", true);
+  // Contact form
+  const CONTACT_SHEET_URL = "https://script.google.com/macros/s/AKfycbxyeVlTgmJzCuE5uf5tCqD7WubcBhKbfFX5YcUCi-tjx-t84664DtLuqOHa9Wt3HIfr/exec";
+  function handleFormSubmit(e){
+    e.preventDefault();
+    const form=e.target;
+    let valid=true;
+    const name=document.getElementById('contact-name');
+    const email=document.getElementById('contact-email');
+    const message=document.getElementById('contact-message');
+    const nameErr=document.getElementById('name-error');
+    const emailErr=document.getElementById('email-error');
+    const msgErr=document.getElementById('message-error');
+    // Validate
+    if(!name.value.trim()){nameErr.classList.remove('hidden');name.style.borderColor='#ba1a1a';valid=false;}else{nameErr.classList.add('hidden');name.style.borderColor='#c2c7ce';}
+    if(!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){emailErr.classList.remove('hidden');email.style.borderColor='#ba1a1a';valid=false;}else{emailErr.classList.add('hidden');email.style.borderColor='#c2c7ce';}
+    if(!message.value.trim()){if(msgErr)msgErr.classList.remove('hidden');message.style.borderColor='#ba1a1a';valid=false;}else{if(msgErr)msgErr.classList.add('hidden');message.style.borderColor='#c2c7ce';}
+    const privacy=document.getElementById('contact-privacy');
+    if(!privacy.checked){alert('Veuillez accepter la politique de confidentialité.');return;}
+    if(!valid)return;
+    const btn=document.getElementById('submit-btn');const btnText=document.getElementById('submit-text');const btnIcon=document.getElementById('submit-icon');
+    const orig=btnText.textContent;
+    btn.disabled=true;btn.style.opacity='.7';if(btnIcon)btnIcon.textContent='hourglass_top';btnText.textContent='Envoi en cours…';
+    fetch(CONTACT_SHEET_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(form))})
+      .then(()=>{
+        const toast=document.getElementById('success-toast');
+        if(toast){toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),5000);}
         form.reset();
       })
-      .catch((error) => {
-        console.error("Submission Error:", error);
-        showToast("Une erreur s'est produite lors de l'envoi du formulaire. Veuillez réessayer ultérieurement.", false);
-      })
-      .finally(() => {
-        // Restore original button state
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        if (btnIcon) btnIcon.textContent = originalIcon;
-        btnText.textContent = originalText;
-      });
-    }
-    // ── Intersection observer ──
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.bg-white.rounded-2xl, .bg-white.rounded-3xl').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      observer.observe(el);
-    });
-  </script>
-
-  <script src="js/i18n.js?v=2"></script>
-  <script src="js/lang.js?v=2"></script>
-
+      .catch(()=>alert('Une erreur s\'est produite. Veuillez réessayer.'))
+      .finally(()=>{btn.disabled=false;btn.style.opacity='1';if(btnIcon)btnIcon.textContent='send';btnText.textContent=orig;});
+  }
+</script>
+<script src="js/i18n.js?v=3"></script>
+<script src="js/lang.js?v=3"></script>
 </body>
 </html>
